@@ -1,0 +1,1303 @@
+<title>二奢直播全链路</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&display=swap">
+<style>
+/* Layout: 左侧"吊牌目录" + 右侧手册正文；每个阶段以一枚寄卖吊牌开头，合规部分做成鉴定卡 */
+:root{
+  --paper:#f4f1f0;
+  --card:#fbf9f8;
+  --ink:#201a1c;
+  --muted:#6c6164;
+  --line:#ddd3d1;
+  --oxblood:#7b2433;
+  --oxblood-soft:#f1e3e4;
+  --brass:#94733e;
+  --brass-soft:#efe6d8;
+  --on-accent:#fdf8f7;
+  --ok:#2d6a4c;
+  --ok-soft:#e2efe7;
+  --warn:#9a5418;
+  --warn-soft:#f6e8da;
+  --bad:#a12a2a;
+  --bad-soft:#f6e1e0;
+  --shadow:0 1px 2px rgba(60,30,35,.06),0 8px 24px -12px rgba(60,30,35,.18);
+  --f-display:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --f-body:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --f-latin:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#151113;--card:#1e181a;--ink:#eee6e3;--muted:#a99c9e;--line:#3a3033;
+  --oxblood:#e3909d;--oxblood-soft:#3b2027;--brass:#d2b075;--brass-soft:#2f2719;--on-accent:#1e181a;
+  --ok:#82c9a4;--ok-soft:#1f3329;--warn:#e7a76d;--warn-soft:#3a2a1b;--bad:#f19090;--bad-soft:#3d2022;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#151113;--card:#1e181a;--ink:#eee6e3;--muted:#a99c9e;--line:#3a3033;
+  --oxblood:#e3909d;--oxblood-soft:#3b2027;--brass:#d2b075;--brass-soft:#2f2719;--on-accent:#1e181a;
+  --ok:#82c9a4;--ok-soft:#1f3329;--warn:#e7a76d;--warn-soft:#3a2a1b;--bad:#f19090;--bad-soft:#3d2022;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.3}
+p{margin:0}
+:focus-visible{outline:2px solid var(--oxblood);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+
+.shell{max-width:1240px;margin:0 auto;padding-block:28px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:28px;align-items:end;padding-block:12px 28px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--brass);font-weight:500}
+.hero h1{font-size:clamp(34px,6vw,60px);font-weight:900;letter-spacing:.02em;margin-top:10px}
+.hero h1 em{font-style:normal;color:var(--oxblood)}
+.hero .lede{margin-top:14px;max-width:34em;color:var(--muted);font-size:16px}
+.progress-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);display:grid;gap:12px}
+.pc-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.pc-label{font-size:13px;color:var(--muted)}
+.pc-num{font-family:var(--f-latin);font-size:46px;line-height:1;font-weight:600;font-variant-numeric:tabular-nums;color:var(--oxblood)}
+.pc-num small{font-size:20px;margin-left:2px}
+.bar{display:block;height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--oxblood);border-radius:inherit;transition:width .35s ease}
+.pc-meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted)}
+.sync{display:inline-flex;align-items:center;gap:6px}
+.sync::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.sync[data-s="cloud"]::before{background:var(--ok)}
+.sync[data-s="err"]::before{background:var(--warn)}
+.toggle{display:inline-flex;align-items:center;gap:8px;cursor:pointer;user-select:none;font-size:13px;color:var(--ink)}
+.toggle input{appearance:none;width:34px;height:20px;border-radius:99px;background:var(--line);position:relative;cursor:pointer;margin:0;transition:background .2s}
+.toggle input::after{content:"";position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--card);transition:transform .2s}
+.toggle input:checked{background:var(--oxblood)}
+.toggle input:checked::after{transform:translateX(14px)}
+
+/* ---------- route map (hang tags) ---------- */
+.route{padding-block:30px 8px}
+.route h2{font-size:20px}
+.route .sub{color:var(--muted);font-size:14px;margin-top:4px}
+.tags{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
+.htag{position:relative;display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:6px 6px 14px 14px;padding:26px 14px 14px;min-height:150px;transition:transform .2s,border-color .2s}
+.htag:hover{transform:translateY(-2px);border-color:var(--brass)}
+.htag::before{content:"";position:absolute;top:10px;left:50%;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;border:1.5px solid var(--brass);background:var(--paper)}
+.htag .lot{font-family:var(--f-latin);font-size:12px;letter-spacing:.18em;color:var(--brass)}
+.htag .nm{display:block;font-family:var(--f-display);font-weight:900;font-size:19px;margin-top:2px}
+.htag .ds{display:block;font-size:12.5px;color:var(--muted);line-height:1.55;margin-top:4px;min-height:3.1em}
+.htag .bar{margin-top:10px;height:4px}
+.htag .ct{display:block;font-size:11.5px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
+.htag.is-full{border-color:var(--oxblood)}
+.htag.is-full .ct{color:var(--oxblood)}
+.through{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;border:1px dashed var(--brass);border-radius:10px;padding:10px 14px;font-size:13.5px}
+.through b{font-family:var(--f-display);color:var(--brass);margin-right:4px}
+.through a{text-decoration:none;border-bottom:1px solid var(--line)}
+.through a:hover{border-color:var(--oxblood);color:var(--oxblood)}
+
+/* ---------- layout ---------- */
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;margin-top:34px;align-items:start}
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 18px);font-size:14px}
+.toc p{font-size:11.5px;letter-spacing:.14em;color:var(--muted);margin-bottom:8px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.toc a{display:grid;grid-template-columns:30px 1fr auto;gap:6px;align-items:center;text-decoration:none;padding:6px 8px;border-radius:8px;color:var(--muted)}
+.toc a:hover{background:var(--card);color:var(--ink)}
+.toc a.on{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.toc .n{font-family:var(--f-latin);font-size:12px;color:var(--brass)}
+.toc .c{font-size:11.5px;font-variant-numeric:tabular-nums}
+.toc a.full .c{color:var(--oxblood)}
+.main{min-width:0;display:grid;grid-template-columns:minmax(0,1fr);gap:30px}
+.main > *{min-width:0}
+
+/* ---------- sections ---------- */
+.sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px clamp(18px,3.4vw,40px) 32px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 16px)}
+.sec-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.stamp{width:62px;height:76px;border:1.5px solid var(--brass);border-radius:5px 5px 12px 12px;display:grid;place-items:center;position:relative;padding-top:10px;background:var(--brass-soft)}
+.stamp::before{content:"";position:absolute;top:8px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;border:1.5px solid var(--brass);background:var(--card)}
+.stamp span{font-family:var(--f-latin);font-weight:600;font-size:26px;color:var(--brass);line-height:1}
+.stamp small{display:block;font-size:9px;letter-spacing:.2em;text-align:center;color:var(--brass);font-family:var(--f-latin)}
+.sec-head h2{font-size:clamp(22px,3vw,28px);font-weight:900}
+.sec-head .lede{color:var(--muted);font-size:14px;margin-top:2px}
+.meter{text-align:right;min-width:86px}
+.meter .ct{font-family:var(--f-latin);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.meter .ct small{font-size:13px;color:var(--muted);font-family:var(--f-body)}
+.meter .bar{height:4px;margin-top:6px}
+
+.blk{padding-top:22px}
+.blk h3{font-size:17px;font-weight:600;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.blk > p,.blk .para{margin-top:8px;max-width:46em}
+.src{font-family:var(--f-body);font-size:11.5px;font-weight:500;color:var(--brass);border:1px solid var(--brass);border-radius:99px;padding:0 8px;line-height:1.7;white-space:nowrap}
+.mine{font-size:11.5px;font-weight:500;color:var(--warn);background:var(--warn-soft);border-radius:99px;padding:1px 8px;white-space:nowrap}
+
+ul.tasks{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:2px}
+ul.tasks > li{border-radius:10px;transition:background .15s,opacity .2s}
+ul.tasks > li > label{display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;align-items:start;padding:8px 10px;cursor:pointer;border-radius:10px}
+ul.tasks > li > label:hover{background:var(--paper)}
+ul.tasks > li > ul.sub{margin:-4px 0 6px 44px}
+ul.tasks input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.box{width:20px;height:20px;margin-top:3px;border:1.5px solid var(--muted);border-radius:5px;display:grid;place-items:center;transition:background .15s,border-color .15s}
+.box::after{content:"";width:9px;height:5px;border-left:2px solid var(--on-accent);border-bottom:2px solid var(--on-accent);transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+ul.tasks input:checked + .box{background:var(--oxblood);border-color:var(--oxblood)}
+ul.tasks input:checked + .box::after{opacity:1}
+ul.tasks input:focus-visible + .box{outline:2px solid var(--oxblood);outline-offset:2px}
+ul.tasks li.is-done .txt{color:var(--muted);text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--muted) 55%,transparent)}
+body.hide-done ul.tasks li.is-done{display:none}
+.txt{min-width:0}
+.txt b,.para b,li b{font-weight:700}
+ul.sub,ul.plain{margin:6px 0 0;padding-left:1.2em;color:var(--ink)}
+ul.sub li,ul.plain li{margin:2px 0}
+ul.sub li::marker,ul.plain li::marker{color:var(--brass)}
+
+.eg{margin-top:12px;background:var(--paper);border-radius:12px;padding:14px 16px;font-size:14.5px;position:relative}
+.eg-tag{display:inline-block;font-size:11.5px;font-weight:500;color:var(--oxblood);background:var(--oxblood-soft);border-radius:99px;padding:1px 9px;margin-bottom:6px}
+.eg p + p{margin-top:6px}
+.eg q{quotes:"「" "」"}
+.why{margin-top:12px;border-left:2px solid var(--brass);padding:2px 0 2px 14px;color:var(--muted);font-size:14px;max-width:46em}
+.why b{color:var(--ink)}
+
+.table-wrap{overflow-x:auto;margin-top:14px;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:500;color:var(--muted);font-size:12.5px;background:var(--paper)}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;font-size:12px;font-weight:500;border-radius:99px;padding:1px 9px;white-space:nowrap}
+.pill.ok{color:var(--ok);background:var(--ok-soft)}
+.pill.mid{color:var(--warn);background:var(--warn-soft)}
+.pill.no{color:var(--bad);background:var(--bad-soft)}
+tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
+
+/* ---------- intro cards ---------- */
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.key{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--card)}
+.key .k-no{font-family:var(--f-latin);font-size:13px;color:var(--brass);letter-spacing:.12em}
+.key h3{font-size:16.5px;margin-top:2px}
+.key p{color:var(--muted);font-size:14px;margin-top:6px}
+.clues{display:grid;gap:8px;margin-top:12px}
+.clue{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;font-size:14.5px}
+.clue .src{align-self:start;margin-top:3px}
+
+/* ---------- calculator ---------- */
+.calc{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--paper)}
+.calc-in{display:grid;gap:12px}
+.field{display:grid;gap:4px}
+.field label{font-size:13px;color:var(--muted)}
+.field .inp{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 12px}
+.field input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:500 17px/1 var(--f-body);padding:11px 0;font-variant-numeric:tabular-nums}
+.field input:focus{outline:none}
+.field .inp:focus-within{border-color:var(--oxblood)}
+.field .u{font-size:13px;color:var(--muted)}
+.calc-out{display:grid;align-content:center;gap:8px;background:var(--card);border-radius:12px;padding:18px;border:1px solid var(--line)}
+.calc-out .lbl{font-size:13px;color:var(--muted)}
+.calc-out .big{font-family:var(--f-latin);font-size:40px;font-weight:600;line-height:1.05;font-variant-numeric:tabular-nums}
+.calc-out .big small{font-family:var(--f-body);font-size:15px;font-weight:500;color:var(--muted);margin-left:4px}
+.calc-out .verdict{font-size:14px}
+.calc-out .bar{height:8px;margin:4px 0}
+.calc-out .bar i{transition:width .3s,background .3s}
+
+/* ---------- authentication card (compliance) ---------- */
+.auth{position:relative;overflow:hidden}
+.auth .sec-head .stamp{border-color:var(--bad);background:var(--bad-soft)}
+.auth .sec-head .stamp::before{border-color:var(--bad)}
+.auth .sec-head .stamp span,.auth .sec-head .stamp small{color:var(--bad)}
+.seal{position:absolute;right:-18px;top:18px;transform:rotate(14deg);border:2px solid var(--bad);color:var(--bad);font-family:var(--f-display);font-weight:900;font-size:15px;letter-spacing:.3em;padding:6px 18px 6px 24px;border-radius:6px;opacity:.55;pointer-events:none}
+.redline{display:grid;gap:8px;margin-top:12px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.redline div{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;background:var(--card)}
+.redline div b{display:block;color:var(--bad);font-family:var(--f-display);font-size:14px;margin-bottom:2px}
+
+/* ---------- timeline ---------- */
+.weeks{display:grid;gap:0;margin-top:12px}
+.wk{display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;padding:16px 0;border-top:1px solid var(--line)}
+.wk:first-child{border-top:0}
+.wk .when{font-family:var(--f-latin);font-size:13px;letter-spacing:.06em;color:var(--brass)}
+.wk .when b{display:block;font-family:var(--f-display);font-size:16px;color:var(--ink);letter-spacing:0;margin-top:2px}
+.wk ul.tasks{margin-top:0}
+
+/* ---------- sayings ---------- */
+.sayings{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:14px;list-style:none;padding:0}
+.sayings li{font-family:var(--f-display);font-weight:600;font-size:16px;line-height:1.6;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.foot{margin-top:24px;color:var(--muted);font-size:13px;max-width:52em}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:18px}
+  .toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:8px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
+  .toc p{display:none}
+  .toc ol{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .toc ol::-webkit-scrollbar{display:none}
+  .toc a{display:flex;white-space:nowrap;gap:6px;padding:5px 10px;border:1px solid var(--line);background:var(--card)}
+  .toc a .c{display:none}
+}
+@media (max-width:760px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .grid2,.calc{grid-template-columns:minmax(0,1fr)}
+  .sec-head{grid-template-columns:auto minmax(0,1fr)}
+  .meter{grid-column:1 / -1;text-align:left;display:flex;align-items:center;gap:12px}
+  .meter .bar{flex:1;margin-top:0}
+  .wk{grid-template-columns:minmax(0,1fr);gap:6px}
+  .seal{display:none}
+  ul.tasks > li > ul.sub{margin-left:34px}
+}
+</style>
+
+<div class="shell">
+
+<header class="hero">
+  <div>
+    <p class="eyebrow">执行手册 · 依据陈晶老师「直播赚钱系统」四天三晚课程 23 份录音整理</p>
+    <h1>二奢直播<em>全链路</em></h1>
+    <p class="lede">从短视频获客、投流、直播卖 5 元开口品，到私域谈单升单、交付出案例，一步一步勾掉。每条都标了出自哪节课；标「我的补充」的是按课程原则推导出来的，课上没有直接讲。</p>
+  </div>
+  <div class="progress-card" aria-live="polite">
+    <div class="pc-top">
+      <span class="pc-label">总进度</span>
+      <span class="pc-label" id="pc-count">0 / 0 项</span>
+    </div>
+    <div class="pc-num" id="pc-pct">0<small>%</small></div>
+    <div class="bar"><i id="pc-bar"></i></div>
+    <div class="pc-meta">
+      <span class="sync" id="sync" data-s="local">进度保存在这台设备的浏览器里</span>
+      <label class="toggle" for="hide-done"><input type="checkbox" id="hide-done">只看未完成</label>
+    </div>
+  </div>
+</header>
+
+<section class="route" aria-labelledby="route-h">
+  <h2 id="route-h">一张图看懂整条链路</h2>
+  <p class="sub">九个阶段是先后顺序，前面的功课不做，后面都要补回来。点吊牌直接跳到那一节。</p>
+  <ul class="tags">
+    <li><a class="htag" href="#s1" data-sec="s1"><span class="lot">LOT 01</span><span class="nm">定位</span><span class="ds">人设 · A类人群 · 关键事件 · 一句话定位</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s2" data-sec="s2"><span class="lot">LOT 02</span><span class="nm">产品</span><span class="ds">5元开口 → 万元核心 → 高价/复购</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s3" data-sec="s3"><span class="lot">LOT 03</span><span class="nm">人设与场景</span><span class="ds">自我介绍 · 贴片 · 满墙奢侈品</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s4" data-sec="s4"><span class="lot">LOT 04</span><span class="nm">短视频</span><span class="ds">零存：配比 5:3:2 · 爆款二创</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s5" data-sec="s5"><span class="lot">LOT 05</span><span class="nm">投流</span><span class="ds">投关注 · 对标池 · 主力/测试计划</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s6" data-sec="s6"><span class="lot">LOT 06</span><span class="nm">直播</span><span class="ds">整取：131 模型 · 销售16字 · 连麦</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s7" data-sec="s7"><span class="lot">LOT 07</span><span class="nm">私域</span><span class="ds">主副IP · 11步谈单 · 三段式成交</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s8" data-sec="s8"><span class="lot">LOT 08</span><span class="nm">交付</span><span class="ds">确定性 · 案例生产 · 升单复购</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s9" data-sec="s9"><span class="lot">LOT 09</span><span class="nm">团队与工具</span><span class="ds">角色 · 工具 · 预算</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+  </ul>
+  <div class="through"><b>贯穿始终</b><a href="#s10">合规防封</a><a href="#s0">算账</a><a href="#s11">数据看板</a><a href="#s12">12 周节奏</a><a href="#s13">老师的 12 句话</a></div>
+</section>
+
+<div class="layout">
+<nav class="toc" aria-label="目录">
+  <p>目录</p>
+  <ol>
+    <li><a href="#s0" data-sec="s0"><span class="n">00</span><span>先确认</span><span class="c"></span></a></li>
+    <li><a href="#s1" data-sec="s1"><span class="n">01</span><span>定位</span><span class="c"></span></a></li>
+    <li><a href="#s2" data-sec="s2"><span class="n">02</span><span>产品</span><span class="c"></span></a></li>
+    <li><a href="#s3" data-sec="s3"><span class="n">03</span><span>人设与场景</span><span class="c"></span></a></li>
+    <li><a href="#s4" data-sec="s4"><span class="n">04</span><span>短视频</span><span class="c"></span></a></li>
+    <li><a href="#s5" data-sec="s5"><span class="n">05</span><span>投流</span><span class="c"></span></a></li>
+    <li><a href="#s6" data-sec="s6"><span class="n">06</span><span>直播</span><span class="c"></span></a></li>
+    <li><a href="#s7" data-sec="s7"><span class="n">07</span><span>私域</span><span class="c"></span></a></li>
+    <li><a href="#s8" data-sec="s8"><span class="n">08</span><span>交付</span><span class="c"></span></a></li>
+    <li><a href="#s9" data-sec="s9"><span class="n">09</span><span>团队与工具</span><span class="c"></span></a></li>
+    <li><a href="#s10" data-sec="s10"><span class="n">!</span><span>合规防封</span><span class="c"></span></a></li>
+    <li><a href="#s11" data-sec="s11"><span class="n">≡</span><span>数据看板</span><span class="c"></span></a></li>
+    <li><a href="#s12" data-sec="s12"><span class="n">12w</span><span>12 周节奏</span><span class="c"></span></a></li>
+    <li><a href="#s13" data-sec="s13"><span class="n">“</span><span>12 句话</span><span class="c"></span></a></li>
+  </ol>
+</nav>
+
+<main class="main">
+
+<!-- ======================= 00 ======================= -->
+<section class="sec" id="s0" data-sec="s0">
+  <div class="sec-head">
+    <div class="stamp"><div><small>LOT</small><span>00</span></div></div>
+    <div><h2>动手之前，先确认</h2><p class="lede">我从录音里读到的你的情况、要先回答的 5 个问题、最要紧的 4 件事和算账</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>我从录音里读到的你的情况</h3>
+    <div class="clues">
+      <div class="clue"><span class="src">D2 自我介绍作业</span><span>你在写自我介绍：做<b>二手奢侈品</b>约二十年；早年做 <b>B2B</b>（提到欧元结算，推测是海外货源批发）；<b>2023 年行情大跌</b>后转型；手里有私域里的长期高端客户；说"带过三千名（学员）"，学员从没有店到开两三家分店。</span></div>
+      <div class="clue"><span class="src">D3 痛点小组练习</span><span>你们组的思路：病因是"没找到好项目"，药是"二手奢侈品项目"；目标人群是"在家的宝妈"和"开店的老板娘"。</span></div>
+      <div class="clue"><span class="src">D3 痛点课</span><span>老师正好拿二奢举例：<q>做二奢的，后面满墙奢侈品，坐在堆成山的 LV 箱子前直播，比什么都强。</q></span></div>
+    </div>
+    <p class="why">所以这里按<b>"教别人做二奢生意，你手里有货源"</b>来写。转写比较乱，如果理解错了，第 01 和 02 阶段要重新调。</p>
+  </div>
+
+  <div class="blk">
+    <h3>先回答这 5 个问题 <span class="src">D1 人群课</span></h3>
+    <p class="para">老师说你 70%～80% 的营收来自一两类客户。去翻成交记录、问销售，答完一条勾一条。</p>
+    <ul class="tasks">
+      <li data-k="q1">现在卖什么产品、什么价格？（课程 / 陪跑 / 供货 / 加盟）</li>
+      <li data-k="q2">过去付钱最痛快的 2～3 类学员是谁？他们是<b>发生了什么事之后</b>来找你的？</li>
+      <li data-k="q3">货源、鉴定、回收、寄卖能力能不能开放给学员用？（决定有没有"复购型"后端）</li>
+      <li data-k="q4">视频号账号现状：粉丝数、有没有挂过车、违规记录</li>
+      <li data-k="q5">团队现在几个人，各是什么角色</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>结合课程，最要紧的 4 件事</h3>
+    <div class="grid2">
+      <div class="key"><span class="k-no">I</span><h3>主力人群别选宝妈</h3><p>平台正在严打"以创业、副业名义吸引普通用户"；老师讲"培优不补差"；宝妈客单极限约 5000。主攻<b>已经在做二奢的小店主</b>，其次是<b>手里有高端熟客的实体老板娘</b>。</p></div>
+      <div class="key"><span class="k-no">II</span><h3>用"关键事件"做内容</h3><p>"想成交快，要找事件"：收到假货被索赔、库存压款、客流断崖、账号被封。反复打这几个点，比泛泛讲"二奢怎么做"成交快得多。</p></div>
+      <div class="key"><span class="k-no">III</span><h3>货源是别人没有的优势</h3><p>课程本身没有复购，但货源、鉴定、回收、寄卖分成可以反复发生。老师讲的兽药、美发供应链案例都是这个思路。</p></div>
+      <div class="key"><span class="k-no">IV</span><h3>后端准备好再投钱</h3><p>获客成本 80 元、万元产品转化 2%，每成交一单光获客就要 4000 元。私域承接和交付没跑通之前，不要放大投放。</p></div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3>算账：每卖出一单核心产品，要花多少获客成本 <span class="src">D1 · D2 视频号方法论</span></h3>
+    <p class="para">老师的获客成本约 50 元，纯投放不做内容大约 100～150 元。万元产品转化低于 1% 亏钱，约 2% 算上人工刚打平，3% 才有利润。改下面的数字试试。</p>
+    <div class="calc">
+      <div class="calc-in">
+        <div class="field"><label for="calc-cac">获客成本（每个 5 元单）</label><div class="inp"><input id="calc-cac" type="number" inputmode="decimal" min="1" step="1" value="80"><span class="u">元</span></div></div>
+        <div class="field"><label for="calc-cvr">私域转化率（5 元单 → 核心产品）</label><div class="inp"><input id="calc-cvr" type="number" inputmode="decimal" min="0.1" step="0.1" value="2"><span class="u">%</span></div></div>
+        <div class="field"><label for="calc-price">核心产品价格</label><div class="inp"><input id="calc-price" type="number" inputmode="decimal" min="1" step="100" value="12800"><span class="u">元</span></div></div>
+      </div>
+      <div class="calc-out" aria-live="polite">
+        <span class="lbl">每成交一单，光获客就要</span>
+        <span class="big" id="calc-cost">4,000<small>元</small></span>
+        <div class="bar"><i id="calc-bar"></i></div>
+        <span class="lbl" id="calc-ratio">占产品价格 31%</span>
+        <span class="verdict" id="calc-verdict"></span>
+      </div>
+    </div>
+    <p class="why">判断线是我按老师的例子换算的：获客成本 100、转化 2%，获客占价格一半，算上人工刚打平；转化 3%，获客约占三分之一，才有利润。交付和人工成本还要另外扣。</p>
+  </div>
+</section>
+
+<!-- ======================= 01 ======================= -->
+<section class="sec" id="s1" data-sec="s1">
+  <div class="sec-head">
+    <div class="stamp"><div><small>LOT</small><span>01</span></div></div>
+    <div><h2>定位</h2><p class="lede">决定后面所有环节。一百万以下不纠结定位，先靠销售；要做大，必须有好人群、好产品</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>人设：写清"我凭什么" <span class="src">D1 定位课作业</span></h3>
+    <ul class="tasks">
+      <li data-k="a1">写下三件事：我的<b>专业</b>是什么（为什么我是解决这个问题的最佳人选）、我最懂的<b>人群</b>是谁、我<b>是谁</b></li>
+      <li data-k="a2">列出你身上<b>外行认可</b>的点，不是同行认可的点（"很多学员很谦虚：'我只是有十家美容院而已'"）
+        <ul class="sub"><li>入行年头、海外货源批发、鉴定定价眼力、带学员开店、2023 年行情大跌后转型成功</li></ul>
+      </li>
+      <li data-k="a3"><b>能力迁移</b>（旧酒装新瓶）：B2B 停了，货源、鉴定、定价、渠道能力照样值钱，换一群人来卖</li>
+      <li data-k="a4">顺序别反：先大概想清楚<b>卖什么、卖给谁</b>，最后再做人设</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>选人群：A 类 = 重要 + 紧迫 + 有购买力 <span class="src">D1 人群课</span></h3>
+    <p class="para">描述人群要具体到：处在什么阶段、遇到了什么问题、什么收入水平。</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>候选人群</th><th>重要</th><th>紧迫（关键事件）</th><th>购买力</th><th>教育成本</th><th>违规风险</th><th>判断</th></tr></thead>
+      <tbody>
+        <tr class="pick"><td><b>A. 已经在做二奢的小店主 / 私域卖家</b></td><td>生意命脉</td><td>收到假货被索赔、库存压款、客流下滑、账号限流、行情下跌收错价</td><td>中高，B 端算得过账</td><td>低</td><td><span class="pill ok">低</span></td><td><span class="pill ok">首选</span></td></tr>
+        <tr><td><b>B. 手里有高端熟客的实体老板娘</b><br>美容院、高端女装、珠宝、茶馆等</td><td>第二曲线</td><td>主业下滑、富婆熟客消费降级或流失</td><td>高</td><td>中</td><td><span class="pill mid">中</span></td><td><span class="pill mid">次选 / 高客单</span></td></tr>
+        <tr><td><b>C. 在家宝妈、想做副业的普通人</b></td><td>有需求</td><td>弱，多半只是想想</td><td>低</td><td>高</td><td><span class="pill no">高</span></td><td><span class="pill no">不做主力</span></td></tr>
+        <tr><td><b>D. 奢侈品消费者</b><br>买二奢怕假、卖闲置想高价</td><td>一般</td><td>弱</td><td>中</td><td>低</td><td><span class="pill ok">低</span></td><td><span class="pill mid">只做出圈流量</span></td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-k="a5">确定主攻人群（建议 A），写出他所处的阶段、问题、收入</li>
+      <li data-k="a6">想清楚不把宝妈当主力的理由，团队内部统一口径
+        <ul class="sub">
+          <li>D3 违规课：严打"以创业、投资、理财、副业的名义吸引普通用户"，普通用户就是宝爸宝妈这类弱势群体</li>
+          <li>D1 人群课："帮助本该成功的人加速成功"，补差付出最多、结果最小、客诉最高</li>
+          <li>D1 定价：宝妈客单最好不超过她一个月的收入，一般 2000 多，极限 5000</li>
+          <li>D1 点评：还没找到项目的人是存钱思维，不是花钱思维</li>
+        </ul>
+      </li>
+    </ul>
+    <p class="why">B 类人群可以借老师讲的"老美业"逻辑：高端熟客才是资产，三公里内富婆的老带新比到处拓客重要。手里有富婆熟客的老板娘，加一块二奢寄卖 / 回收，客户是现成的。</p>
+  </div>
+
+  <div class="blk">
+    <h3>找"关键事件"：想成交快，就要找事件 <span class="src">D1 人群课</span></h3>
+    <p class="para">客户买大单之前，一定刚经历了一件痛的事。用这件事拍短视频、做直播，来的人 7 天内就可能成交。</p>
+    <ul class="tasks">
+      <li data-k="a7">翻成交记录：学员是在<b>发生了什么事之后</b>付钱的？</li>
+      <li data-k="a8">用真实数据验证 A 类人群的关键事件
+        <ul class="sub">
+          <li>收到一只假货 / 鉴定翻车，被客户索赔</li>
+          <li>压了一批库存卖不动，资金周转紧张</li>
+          <li>门店客流断崖，房租快扛不住</li>
+          <li>原来的平台账号被限流或封号，想转视频号直播又不会</li>
+          <li>行情下跌，收货价判断失误亏了钱</li>
+          <li>开了第二家店或招了店员管不过来，店员带客户单干</li>
+        </ul>
+      </li>
+      <li data-k="a9">短视频和直播<b>反复打这几个事件</b>，不泛泛讲"二奢怎么做"</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>一句话定位 <span class="src">D1 人群课</span></h3>
+    <ul class="tasks">
+      <li data-k="a10">套公式写出来：帮【什么阶段的什么人】解决【什么具体问题】</li>
+      <li data-k="a11"><b>卖结果（那个孔），不卖手段（那个电钻）</b>：不叫"二奢直播课""二奢 IP 陪跑"，客户要的是货卖出去、熟客留下来、店活下去</li>
+      <li data-k="a12">讲大白话，拿回去问你妈，她听得懂才算合格。好定位顶一百个好销售</li>
+      <li data-k="a13">定一句内部<b>量化口号</b>，只在公司内部用，不在短视频和直播里喊（违反广告法）。老师的例子："帮夫妻店每天多赚一千块""一年抵十年"</li>
+      <li data-k="a14">账号名 = 背书 + 领域（老师把"陈晶今天聊商业"改成"清华陈晶聊商业"），不带敏感词</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>定位上要避开的坑</h3>
+    <ul class="tasks">
+      <li data-k="a15"><b>不大而全</b>：开店、直播、鉴定、卖货、招代理什么都教，等于什么都不精 <span class="src">D1 人群课</span></li>
+      <li data-k="a16"><b>不"陪太子读书"</b>：只教人选项目入行，赚到钱跟你没关系，赚不到又怪你；你手里要有真赚钱的东西（货源、渠道、鉴定）<span class="src">D1 点评</span></li>
+      <li data-k="a17"><b>不靠堆交付</b>：今年 5 次课、明年加一对一、后年加游学，越堆越累 <span class="src">D1 点评</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 02 ======================= -->
+<section class="sec" id="s2" data-sec="s2">
+  <div class="sec-head">
+    <div class="stamp"><div><small>LOT</small><span>02</span></div></div>
+    <div><h2>产品设计：四阶梯</h2><p class="lede">一家公司只需要一个核心产品，一个核心产品只需要一个核心权益</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>开口型：5 元 / 9.9 元，目的是开口、留联系方式 <span class="src">D1 产品课</span></h3>
+    <ul class="tasks">
+      <li data-k="b1">定价 5 元或 9.9 元。价格筛不出高端客户，<b>内容才筛客户</b>：讲老板关心的话题，来的就是老板</li>
+      <li data-k="b2">不卖"108 个 SOP 资料包""365 节音频"（领了不看，没法跟进），<b>为跟进而卖</b></li>
+      <li data-k="b3">设计一个<b>检测 / 诊断</b>钩子，让客户自己发现问题（体检报告解读、美容院面诊、洗牙、健身房体重秤）</li>
+      <li data-k="b4">做诊断的人用<b>专家身份</b>：顾问、操盘手、鉴定师，不是"助理"或"销售"</li>
+      <li data-k="b5">交付流程：20 分钟电话 → 录音转文字交给 AI → 生成"定制诊断报告"发给客户</li>
+      <li data-k="b6">不合适的人（没钱、只想白嫖）就说"顾问排满了"，退款。"这世界上没有退费解决不了的问题"</li>
+    </ul>
+    <div class="eg"><span class="eg-tag">二奢示例</span>
+      <p>「二奢店铺体检：顾问 20 分钟一对一诊断 ＋《二奢收货避坑清单》」</p>
+      <p>「三天真人直播课（第一天讲什么、第二天讲什么、第三天讲什么）＋ 一次店铺诊断」</p>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3>提价 / 筛客型（可选） <span class="src">D1 产品课</span></h3>
+    <ul class="tasks">
+      <li data-k="b7">先判断要不要做。老师自己是 <b>5 元直接卖 12800</b>，没有中间产品：多一个环节就多一层漏斗，还要多一套交付和销售。你私域谈单能力强，建议先跳过，卖不动再加</li>
+      <li data-k="b8">如果要做，形式可以是 980 元左右的沙龙或见面会、付费一对一咨询、小型游学；目的是从一百个人里筛出愿意付十万的人</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>利润型：核心产品，理想状态占营收 60%～70% <span class="src">D1 产品课</span></h3>
+    <ul class="tasks">
+      <li data-k="b9">定形式，例如两天一晚或三天两晚的<b>线下实战营</b>，在你的仓库或门店上课：收货鉴定、定价、陈列、直播间搭建、拍短视频、私域成交；课后第三天一对一出方案；之后社群复盘</li>
+      <li data-k="b10"><b>交付物要明确</b>，客户能做"左边结果、右边价格"的决策（两千元大而全的社群卖不动，二十万的硅谷游学好卖）</li>
+      <li data-k="b11"><b>要么保结果，要么完全不保</b>，别做"轻陪跑""方案班"这种保一半的，一定扯皮</li>
+      <li data-k="b12">提高到课率：一家店两个名额（老板 + 店长），先上课再咨询；课前讲清楚现场有什么、能带走什么 <span class="src">D1 点评·跨境财税</span></li>
+      <li data-k="b13">小班制，二三十人一班</li>
+      <li data-k="b14">按下表定价：不超过目标客户月收入；参考卖得动的同行最低价到最高价，每次只试着往上调一千；卖不动就换名字、换包装、给老学员多送服务，悄悄降回来</li>
+    </ul>
+    <div class="table-wrap"><table>
+      <thead><tr><th>价格带</th><th>上限</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>百元产品</td><td class="num">≤ 365 元</td><td>相当于一个红包</td></tr>
+        <tr><td>千元产品</td><td class="num">≤ 3000 元</td><td>陌生人情绪消费的上限</td></tr>
+        <tr><td>中高客单</td><td class="num">5000～7000 元</td><td>有一定规模、但消费力有限的人群，比如实体老板</td></tr>
+        <tr><td>万元产品</td><td class="num">≤ 3 万元</td><td>1 万多是最舒服的区间</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="blk">
+    <h3>品牌型与复购：压舱石</h3>
+    <ul class="tasks">
+      <li data-k="b15">设计高价产品：年度陪跑、全案操盘、合伙开店、<b>供应链合作</b>（货盘 + 鉴定 + 回收寄卖通道），10 万～30 万。作用是价格锚和出标杆案例，案例越硬，价格才能比同行高 <span class="src">D1 产品课</span></li>
+      <li data-k="b16">设计<b>复购</b>：课程没有复购，货源、鉴定、回收、寄卖分成可以反复发生 <span class="mine">我的补充</span>
+        <ul class="sub">
+          <li>兽药案例：9.9 元资料 → 药品（提价）→ 代乳粉、饲料（复购）→ 年度顾问（品牌）<span class="src">D1 下午</span></li>
+          <li>美发供应链案例：供应链 + 教发型师带货 <span class="src">D3 上午</span></li>
+        </ul>
+      </li>
+      <li data-k="b17"><b>赋能同行</b>：没有货源和鉴定交付能力的同行，可以变成你的代理或渠道 <span class="src">D1 点评·跨境财税</span></li>
+      <li data-k="b18"><b>把课程当招商加盟卖</b>：用招商的标准要求自己，讲行业趋势和成功路径 <span class="src">D1 定位课</span></li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>先卖再做：精益验证 <span class="src">D1 上午</span></h3>
+    <ul class="tasks">
+      <li data-k="b19">在现有私域和朋友圈先卖"楼花"验证（老师凌晨发朋友圈"有没有大哥愿意付 10 万，我远程帮你搞直播"，真有人转了 10 万，后来又转介绍 5 个客户）</li>
+      <li data-k="b20">先卖第一节课、先卖海报，边卖边涨价边更新；客户问"有没有"，就说"有"，先收钱，做不出来就退</li>
+      <li data-k="b21">初期可以几个方向同时试，让客户用钱投票</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 03 ======================= -->
+<section class="sec" id="s3" data-sec="s3">
+  <div class="sec-head">
+    <div class="stamp"><div><small>LOT</small><span>03</span></div></div>
+    <div><h2>人设包装与直播场景</h2><p class="lede">像什么比是什么更重要</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>自我介绍：2～3 分钟，脱稿 <span class="src">D2 自我介绍课</span></h3>
+    <p class="para">作用是埋"心锚"：为什么选你不选同行。想象旁边站着一排同行在抢同一个客户，罗列<b>比他们强的 3 条证据</b>，不要按时间从小讲到大。</p>
+    <ul class="tasks">
+      <li data-k="c1"><b>第一段 秀肌肉</b>：只罗列最有效、外行认可的证据
+        <ul class="sub"><li>入行很久（直播里说"很多年"）· 早年做海外货源批发 · 鉴定定价眼力 · 学员"从一家店都没有到开了好几家" · 有的话加名人或大客户</li></ul>
+      </li>
+      <li data-k="c2"><b>第二段 拉共情</b>：讲你比他还难的时候。2023 年 B2B 交易停住的日子，用画面讲（仓库压着货、客户不回消息……），怎么走出来的，落到"我想把踩过的坑分享给你"</li>
+      <li data-k="c3">两段都要有：男主播常常只秀肌肉，女主播常常只讲苦情</li>
+      <li data-k="c4">理性证据放进感性框架："你很厉害打动不了我，你很关心我才打动我"，要说成"我用我的专业来对你好" <span class="src">D3 上午</span></li>
+      <li data-k="c5">做成思维导图关键词，不背逐字稿、不用提词器，"让感情带着话术走"</li>
+      <li data-k="c6">在镜头旁贴一张对你最重要的人或学员的照片，对着他说话</li>
+      <li data-k="c7">看回放检查：说"你"不说"大家"；看镜头；不给自己加"括号"；说话慢，句尾落地；别拿"然后""就是"当逗号</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>贴片：直播间的门头 <span class="src">D3 最后</span></h3>
+    <ul class="tasks">
+      <li data-k="c8">像实体店门头一样清晰、简单、直接、显眼：大红或大黄的大字，不用艺术字和小字</li>
+      <li data-k="c9">两行：第一行<b>人设卖点</b>（"一百九十间房老板告诉你""美业销冠教你"），第二行<b>人群 + 痛点</b>（"35 岁打工人的终点是创业"）</li>
+      <li data-k="c10">不露骨但让人猜得到，<b>不放收益数字</b></li>
+      <li data-k="c11">让豆包或 DeepSeek 出 10 个候选（写清"我是谁 + 客户特征 + 不要违规"），结合爆款短视频标题，自己挑</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>形象与场景 <span class="src">D3 痛点课 · D2 陪跑说明会</span></h3>
+    <ul class="tasks">
+      <li data-k="c12">形象像二奢行家，有审美、有质感（老师给一个教培客户配了副平光眼镜，气质马上不一样）</li>
+      <li data-k="c13">场景有身份标识：<b>满墙奢侈品</b>、包堆成山、鉴定台、仓库、门店。不要大白墙 + 世界地图 + 人工学椅</li>
+      <li data-k="c14">灯光用<b>暖黄色</b>，这是成交色；冷白、蓝、紫都不成交</li>
+      <li data-k="c15"><b>卖点可视化</b>：卖什么就把什么放在画面中间、最大的位置；讲鉴定就把细节投进画面</li>
+      <li data-k="c16">配一个降噪收音麦</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>账号基础设置 <span class="src">D1 下午 · D3 违规课</span></h3>
+    <ul class="tasks">
+      <li data-k="c17">昵称、简介、头像不带敏感词；<b>简介不放微信</b>（官方放开的是邮箱）</li>
+      <li data-k="c18">准备主号和小号，小号测试敏感内容和投放</li>
+      <li data-k="c19">注意关联：同一根网线、同一个 IP、同一个法人的账号会互相影响</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 04 ======================= -->
+<section class="sec" id="s4" data-sec="s4">
+  <div class="sec-head">
+    <div class="stamp"><div><small>LOT</small><span>04</span></div></div>
+    <div><h2>短视频：零存</h2><p class="lede">视频号涨粉和变现成正比，平台优先把直播推给看过你短视频的人</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>为什么必须拍 <span class="src">D1 晚 · D2 上午</span></h3>
+    <p class="para">直播的三个自然流入口（直播推荐、直播预约、短视频引流）都由短视频决定：两千粉的账号自然流约每分钟 5 人，几十万活跃粉能到每分钟 50～100 人。短视频是品牌阵地、投放素材，也是筛子；好账号让客户看 5～10 条就想买。只直播不拍短视频，链路长、人不精准、获客贵，基本是亏的。</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>症状</th><th>病根</th></tr></thead>
+      <tbody>
+        <tr><td>平均播放低于 500（约 2000 算合格）</td><td>内容关没过：选题、开头、场景</td></tr>
+        <tr><td>有流量没咨询</td><td>痛点不准、定位不清</td></tr>
+        <tr><td>有客资但不精准</td><td>以为在对话老板，其实对话的是打工的</td></tr>
+        <tr><td>精准但转化慢</td><td>人设和案例不够，信任没建立</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="blk">
+    <h3>配比与每条的标准</h3>
+    <ul class="tasks">
+      <li data-k="d1">新手按 <b>5 : 3 : 2</b>：50% 出圈（痛点、热点、取悦共鸣）、30% 人设、20% 出单（广告、客户证言、过程性视频）；成熟后 1:1:1，多转化少破圈</li>
+      <li data-k="d2">每一条都同时有<b>人群 + 人设 + 案例植入</b>，结尾有指令（"预约我的直播"或"评论区留言"；领资料现在有违规风险）</li>
+      <li data-k="d3">第一句话决定 90% 的流量，开头直接讲结论</li>
+      <li data-k="d4">拍一些数据差、但建立信任的视频：家庭、团队、仓库、门店、日常。"信任总量是固定的，前端做 80 分，后端只用补 20 分" <span class="src">D1 点评</span></li>
+      <li data-k="d5">多拍<b>过程性视频</b>：探店、巡店、现场解决问题，倒叙拍，冲突和结果放前面。播放不高，但最变现</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>二奢选题库示例</h3>
+    <p class="para">套用方法的样子，请换成你的真实素材。痛点类预设看视频的是老板。</p>
+    <div class="grid2">
+      <div class="key"><span class="k-no">出圈 · 痛点</span><ul class="plain"><li>二奢店老板最怕收到的三种货</li><li>你的二奢店为什么客人只看不买</li><li>压了几十万库存的二奢店老板，先别急着降价</li><li>开二奢店第一年最容易踩的坑</li><li>店员带着熟客单干，老板该怎么办</li></ul></div>
+      <div class="key"><span class="k-no">出圈 · 热点 / 共鸣</span><ul class="plain"><li>某品牌调价之后，二手行情会怎么走</li><li>某款包突然火了，二奢店该不该跟</li><li>做二奢这么多年，见过最离谱的客人</li><li>二奢这行最难熬的那一年</li></ul></div>
+      <div class="key"><span class="k-no">人设（小人设）</span><ul class="plain"><li>2023 年行情大跌那年，我是怎么熬过来的</li><li>为什么我从做批发转来教人开店</li><li>我仓库里的一天</li><li>我带的学员从零开到第二家店</li></ul></div>
+      <div class="key"><span class="k-no">出单</span><ul class="plain"><li>去学员店里巡店，诊断陈列和定价</li><li>现场给学员收来的货鉴定、定价</li><li>学员直播间搭建前后对比</li><li>和学员合拍案例视频（"最能招生的短视频"）</li><li>"我把仓库改成了教室"</li></ul></div>
+    </div>
+    <ul class="tasks">
+      <li data-k="d6">按上面四类各列出 10 个你自己的选题，建成选题库</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>生产流程：老师一条半小时出稿 <span class="src">D1 晚</span></h3>
+    <ul class="tasks">
+      <li data-k="d7">从销售和私聊记录里收集"重要 + 紧迫"的痛点</li>
+      <li data-k="d8">用关键词在抖音、小红书、视频号搜爆款（"二奢 店主""二手奢侈品 库存""奢侈品 鉴定"），不限时间，在精准的视频里挑点赞最高的</li>
+      <li data-k="d9"><b>保留爆款的选题和第一句话</b>（第一句可以原样照抄），结构用"为什么 → 是什么 → 怎么做"</li>
+      <li data-k="d10">用 Get 笔记口述自己的观点 5～10 分钟（口语比写作好）</li>
+      <li data-k="d11">提取爆款逐字稿：视频号用"元宝"，其他平台在 Get 笔记里粘贴链接</li>
+      <li data-k="d12">口述 + 爆款逐字稿 + 这门课的逐字稿一起交给 AI 二创：<b>爆款的骨架，你自己的血肉</b></li>
+      <li data-k="d13">改成口语、检查违禁词，分段拍（三句一段也行）</li>
+      <li data-k="d14">跑出来的好素材，换衣服换场景翻拍 3～5 遍</li>
+      <li data-k="d15">直播间讲得热烈的干货拍成短视频；带客资多的短视频文案搬进直播间</li>
+    </ul>
+    <p class="why">别指望外包："遇到好操盘手的概率比遇到好对象还低"。老板自己下死功夫干一个月就通了。另外，反复发硬广讲线下课时间地点，会把账号变成营销号被限流。</p>
+  </div>
+</section>
+
+<!-- ======================= 05 ======================= -->
+<section class="sec" id="s5" data-sec="s5">
+  <div class="sec-head">
+    <div class="stamp"><div><small>LOT</small><span>05</span></div></div>
+    <div><h2>投流：算账 + 把人拉进来</h2><p class="lede">不是投了流才有人买，是有人买了投流才变多</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>老板必须懂的逻辑 <span class="src">D2 投流课</span></h3>
+    <ul class="plain">
+      <li>一条"计划" = <b>从哪儿圈人</b> + <b>用哪条视频筛人</b></li>
+      <li>最精准的流量池是<b>同行的粉丝</b>；但你得至少有一点比同行强：产品、短视频或直播</li>
+      <li>出价不是成本，是竞拍价。平台考两道题：出价和内容。出价太低（几十豆）根本花不出去</li>
+      <li>平台先给 10 个人试探，你能成交才继续给；成交不了，越加钱越差</li>
+      <li>老板最懂客户和产品，要参与定策略；只批预算不过问，投手可能多花十万还把人群带偏</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>短视频加热计划：涨粉、攒预约 <span class="src">D2 投流实操</span></h3>
+    <ul class="tasks">
+      <li data-k="e1">找到入口：手机在作品里点"转发 → 加热工具 / 上热门 → 使用专业工具"；电脑搜"视频号助手 → 加热平台"</li>
+      <li data-k="e2">优化目标选<b>关注</b>，不投点赞、推荐、直播预约（投关注来的预约成交 10%～15%，直接投预约只有 2%～3%）</li>
+      <li data-k="e3">一组 5 条最满意的视频；智能出价；首次 50 元（500 微信豆）；时长 24 小时</li>
+      <li data-k="e4">性别、年龄、地域按真实客群设（九成是女性就选女性；不做本地就不限地域）</li>
+      <li data-k="e5">"兴趣"和"作者粉丝"<b>二选一</b>（一起选是取交集），都想要就建两个计划</li>
+      <li data-k="e6">看哪条涨粉最多，放进最好的计划继续投</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>直播间加热计划</h3>
+    <ul class="tasks">
+      <li data-k="e7">选<b>控成本加热</b>（匀速或快速），<b>不选放量加热</b>（不管定向，只管花钱）</li>
+      <li data-k="e8">单场 50 单以内，目标选"直播间成交"；冷启动可先投 200～300 元"观众"或"互动"，让直播间有对话感</li>
+      <li data-k="e9">作者粉丝选满 20 个；出价参考系统区间，至少 100 元（1000 豆），老师团队一般出 150 元</li>
+      <li data-k="e10">扣费选"预先扣费"；加热时长 = 直播时长 + 0.5 小时；计划按"日期-直播间-达人-成交"命名</li>
+      <li data-k="e11">计划数跟着单量走：10 单左右 1 个，30 单以上 3～5 个，100 单以上 7～8 个</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>二奢的对标池：去重后超过 200 万粉丝</h3>
+    <ul class="tasks">
+      <li data-k="e12"><b>直接竞品</b>：二奢回收、鉴定、二奢店主类博主，教人开二奢店的博主</li>
+      <li data-k="e13"><b>往前倒一步找重合人群</b>（老师：做 TikTok 教学去投阿里国际站官方号，做早教去投奶粉和学步车）：奢侈品测评、开箱、穿搭博主，高端女装或珠宝博主；打店主就找实体店经营类博主</li>
+      <li data-k="e14"><b>兴趣标签</b>：珠宝首饰、时尚等（老师说买黄金、翡翠、文玩的人群有钱）</li>
+      <li data-k="e15">在达人后台看对标粉丝的兴趣标签是否匹配；太小的账号后台搜不到</li>
+      <li data-k="e16">研究对标主页：视频号投放素材默认挂在主页，某几条点赞明显异常高的，多半是反复投放的广告素材，可以借鉴</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>预算与健康线</h3>
+    <ul class="tasks">
+      <li data-k="e17">预算分配：短视频 50%～70%，直播间 20%～30%；<b>主力计划 70% + 测试计划 30%</b>（素材会衰退）</li>
+      <li data-k="e18">盯两个指标：预约到播率 ≥ 40%（30% 正常）；短视频直接引流进直播间 ≥ 1%</li>
+      <li data-k="e19">获客成本先做到打平、留在场上，再一点点往下压</li>
+      <li data-k="e20">月投 10 万以上请投手（非一线约一万一个月）；每天问 5 个问题：钱花在哪几条视频、每条涨粉成本、获客成本和 ROI、对标池是哪些号、明天怎么调</li>
+      <li data-k="e21">遇到"当前内容不适合加热"或订单熔断，说明内容有敏感点；敏感赛道用小号试投</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 06 ======================= -->
+<section class="sec" id="s6" data-sec="s6">
+  <div class="sec-head">
+    <div class="stamp"><div><small>LOT</small><span>06</span></div></div>
+    <div><h2>直播：整取</h2><p class="lede">直播间里就二十分钟话术；三个人在线也要卖出一单，流量才会越来越多</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>开播前准备 <span class="src">D2 视频号方法论</span></h3>
+    <ul class="tasks">
+      <li data-k="f1">提前 3～7 天发预告短视频，投"关注"攒预约</li>
+      <li data-k="f2">直播主题和封面：封面少放字；主题不写"普通人如何赚到第一个一百万"这类</li>
+      <li data-k="f3">贴片两行、背景墙、暖黄灯光、收音麦</li>
+      <li data-k="f4">上 5 元链接，或者挂企业微信二维码，<b>二选一</b>："挂车不挂码，挂码不挂车"</li>
+      <li data-k="f5">话术思维导图就位，镜头旁贴好照片</li>
+      <li data-k="f6">安排<b>助播 / 场控</b>：盯订单、用"微信小店助手"改库存、喊"最后三单"、备一个传菜铃</li>
+      <li data-k="f7">投流计划提前建好</li>
+      <li data-k="f8">违禁词自查：昵称、简介、主题、封面、贴片、字幕</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>131 模型：每 20 分钟一轮 <span class="src">D2 高端成交课</span></h3>
+    <p class="para">自我介绍 → 干货 → 销售，循环往复。成交的永远是<b>最近 20 分钟进来的人</b>，别攒两小时卖一波，别挂着车闲聊。最狠的成交藏在上链接之前，上链接之后反而要温和。</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>客户心里的问题</th><th>由哪段回答</th><th>时长</th></tr></thead>
+      <tbody>
+        <tr><td>为什么跟你买？</td><td>自我介绍</td><td class="num">2～3 分钟</td></tr>
+        <tr><td>为什么需要买？</td><td>干货</td><td class="num">约 12 分钟</td></tr>
+        <tr><td>为什么买这个？为什么现在买？</td><td>销售（产品塑造 + 逼单）</td><td class="num">约 5 分钟</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="blk">
+    <h3>干货：你有病 → 找病因 → 我有药 → 即时有效 <span class="src">D3 痛点课</span></h3>
+    <ul class="tasks">
+      <li data-k="f9"><b>你有病（约 3 分钟）</b>：盯死一个人讲具体日常画面，像放监控；不讲"生意难不难做"这种群体痛点（"鞭子打在一群人身上等于没打"）</li>
+      <li data-k="f10">一半讲客户现在的样子，一半讲"我当年也是这样"，把人设揉进痛点</li>
+      <li data-k="f11">写之前闭眼想象一个具体客户的一天：几点起床、房租多少、店里几个人、晚上睡不着在想什么、家里人怎么说他</li>
+      <li data-k="f12"><b>找病因（认知破碎法）</b>：先攻击他正在做的事背后的旧认知，再植入新认知</li>
+      <li data-k="f13"><b>我有药</b>：干货可以讲干净，"成年人买的是心安、确定性、陪伴和答疑，不是知识"；压住给专业建议的冲动</li>
+      <li data-k="f14"><b>即时有效</b>：讲干货不如演干货，让人当场有收获；before / after 对比最有说服力</li>
+    </ul>
+    <div class="eg"><span class="eg-tag">二奢示例 · 你有病</span>
+      <p>"你是不是这样：店开在商场边上，一个月房租两三万，门口人来人往就是不进来；进来的大多是问回收价的；仓库里还压着去年收的货，现在行情比你收的时候还低；挂在网上，私信全是砍价的；晚上盘账，你开始怀疑这店还要不要开下去……"</p>
+    </div>
+    <div class="eg"><span class="eg-tag">二奢示例 · 找病因</span>
+      <p>"你以为缺的是客流，所以拼命做团购、刷平台；可二奢本质是奢侈品生意，成交的不是人流，是有钱的熟客。渠道错了，越努力越亏。"（套用老师讲美业的逻辑）</p>
+    </div>
+    <div class="eg"><span class="eg-tag">二奢示例 · 即时有效</span>
+      <p>现场教一个"三秒判断这只包收不收"的方法；教一句让问价客人留下来的话；连麦看他的货给建议。</p>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3>销售 16 字：感召 → 价值塑造 → 限额 → 福利 <span class="src">D2 下午</span></h3>
+    <p class="para">顺序不能倒、不能混。卖不动的时候不要"恼羞成怒式说教"。</p>
+    <ul class="tasks">
+      <li data-k="f15"><b>感召过渡（1～1.5 分钟，3～5 句）</b>：句型"为什么你一定要无比重视……"，说"我们一起……"而不是"我要赚你钱"；赋予意义感，卖得越具体越廉价</li>
+      <li data-k="f16"><b>价值塑造</b>：把 5 元链接里的东西讲得像 5000 元（人们要的是占便宜）；三大卖点 → 外面多少钱 → 今天多少钱；你自己要真心相信它值</li>
+      <li data-k="f17"><b>限额</b>：名额约为在线人数的 10%；理由真实（顾问时间有限），也可以硬限；说的库存和后台一致</li>
+      <li data-k="f18"><b>保障</b>：不满意直接退款，打消顾虑（卖咖啡给试喝装，卖花保证开箱验货、养死补发）</li>
+      <li data-k="f19"><b>逼单</b>：助播活泼地喊"最后三单、两单、一单"，主播沉稳地讲；讲"什么人不适合拍"；<b>拿起手机演示拍单</b>；让已拍的打"已拍 + 城市"；不喊其他平台名字</li>
+      <li data-k="f20"><b>福利</b>：赠品和主品搭配；两三百元产品送实物赠品，粘在卡纸上展示</li>
+      <li data-k="f21">承诺只用在主观描述上（"你一定不会后悔"），<b>绝不量化</b>（"保证赚多少""价值上万"都违规）</li>
+    </ul>
+    <div class="eg"><span class="eg-tag">二奢示例 · 感召</span><p>"二奢做的从来不是包，是信任。一个跟了你十年的熟客，才是你这家店真正的资产。"</p></div>
+    <div class="eg"><span class="eg-tag">课堂原话 · 价值塑造</span><p>"这不是你给我 5 块钱，是我想跟你交个朋友。好就留下，不好原路退回。"</p></div>
+  </div>
+
+  <div class="blk">
+    <h3>连麦：二奢很适合，因为每家店情况都不一样 <span class="src">D3 连麦课</span></h3>
+    <ul class="tasks">
+      <li data-k="f22">别说"开放三个连麦名额，我线下咨询一小时两千今天免费"，新主播撑不起这个姿态</li>
+      <li data-k="f23">点名评论区打字最多的人；他说在忙，就多坚持一句</li>
+      <li data-k="f24">具体暗示你能解决什么："店里有压着卖不动的货，拍给我看，我告诉你怎么处理、定什么价"</li>
+      <li data-k="f25">做一张<b>连麦必问清单</b>，像体检一样问全，打断发散
+        <ul class="sub"><li>城市和商圈 · 门店还是私域、开了多久 · 月流水大概 · 货从哪来 · 库存多少、压了多久 · 客人主要是谁、熟客占多少 · 怎么获客 · 团队几个人 · 最想解决的一件事</li></ul>
+      </li>
+      <li data-k="f26">问完把连麦人<b>闭麦</b>，对全场讲共性干货（"有没有其他店主也这样？"），讲完开麦给他一句结论</li>
+      <li data-k="f27">把连麦人当"工具人"：判断标准就一个，<b>他一开口在线是不是在涨</b>；不精准的连麦人也能借来把话题扩大</li>
+      <li data-k="f28">每次不超过 15 分钟；连麦会降低效率（口播一小时卖 8 轮，连麦 2 轮），投流直播间要权衡</li>
+      <li data-k="f29">需要时找"连麦演员"，一次 50～100 元；记住连麦人说错话也算你的</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>下播后：1 小时直播、2 小时复盘、3 小时迭代 <span class="src">D2 上午</span></h3>
+    <ul class="tasks">
+      <li data-k="f30">第二天从头看一遍回放，找口头禅、小动作、眼神（"看自己回放像上刑"）</li>
+      <li data-k="f31">打开数据趋势大屏：订单是不是一波一波的；预约、关注、自然流、加热各占多少；预约观看转化（30% 正常，35%～40% 优秀）；转化率；获客成本</li>
+      <li data-k="f32">违规了：弹窗后<b>立刻下播</b>，存档违规片段反复看，从掉流量的时间点往前倒查 3 分钟，找有经验的人帮看</li>
+      <li data-k="f33"><b>第一场就挂 5 元开卖</b>，尽早闭环。不要练一百场还不敢挂车（老师成熟后一个月播 10 场）</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 07 ======================= -->
+<section class="sec" id="s7" data-sec="s7">
+  <div class="sec-head">
+    <div class="stamp"><div><small>LOT</small><span>07</span></div></div>
+    <div><h2>私域承接与谈单</h2><p class="lede">公域做获客，私域做利润。私域讲师一年卖一千万，公司只有四个销售</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>承接设置 <span class="src">D3 私域课</span></h3>
+    <ul class="tasks">
+      <li data-k="g1"><b>承接号用你本人的名字</b>（主 IP，负责开口）。老师团队所有承接号都叫"清华陈晶聊商业"，开口率 80%，别人只有 30%</li>
+      <li data-k="g2">设顾问号（副 IP）：二奢顾问、鉴定师或店铺操盘手人设；顾问要真专业，最好自己也做号开播（私域讲师自己开播后单场卖了 162 单）</li>
+      <li data-k="g3">头像、签名、朋友圈去掉销售味：不写"火热报名中"，不写"工作时间 11 点到 6 点"</li>
+      <li data-k="g4"><b>公域人设和私域人设强一致</b>，别公域高冷、私域"亲在吗"</li>
+      <li data-k="g5">给 IP 录一套表情包、语音素材；朋友圈要评论，不只点赞</li>
+      <li data-k="g6">朋友圈持续晒案例，<b>晒过程不只晒结果</b>；晒交付现场、生活；新销售先看完 IP 近半年朋友圈</li>
+      <li data-k="g7">建一个专门发客户案例的视频号或案例库，按客户类型分层</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>11 步谈单（二奢版） <span class="src">D3 私域课</span></h3>
+    <p class="para">千万别一加微信就拉群、群发广告。按"为什么跟你买 → 为什么需要买 → 为什么买这个 → 为什么现在买"推进。</p>
+    <ul class="tasks">
+      <li data-k="g8"><b>1 筛选</b>：不同客户花不同时间；看支付能力、需求强弱、决策链长短；侧面看朋友圈（有没有店、卖什么价位、在哪个城市），不发"查户口模板"</li>
+      <li data-k="g9"><b>2 破冰</b>：找同乡、同学、同爱好、同经历、同行业；成功标准是关系拉近、多个来回、聊得开心；不回就再问（问三遍才回的照样买单）、用福利钩子、去朋友圈评论、换话题</li>
+      <li data-k="g10"><b>3 给情绪价值</b>：夸到细节、结合业务；<b>绝不反问、质疑客户</b></li>
+      <li data-k="g11"><b>4 挖需求（连环三问）</b>：现状和感受 → 为什么现在想做 → 目标；再讲不解决会怎样、解决了会怎样。别问"有问题发给我"，只有两成人会发</li>
+      <li data-k="g12"><b>5 发诊断表</b>（有了信任才发）：表名决定填写率（"学员信息收集表"改"IP 体检诊断表"，30% → 70%）。可叫"二奢店铺体检诊断表"，用面积、商圈、客单区间、流水区间侧面了解支付能力，用"谁拍板"了解决策链</li>
+      <li data-k="g13"><b>6 晒案例</b>：给他思路和启发；晒<b>同城、同规模、能激发胜负欲</b>的案例，分层晒</li>
+      <li data-k="g14"><b>7 开药方不治病</b>：只给思路不给落地细节，5 元是挂号费；目的是秀专业，一针见血指出问题</li>
+      <li data-k="g15"><b>8 种草产品</b>：对产品极度自信；海报配得上万元客单；<b>展示交付细节</b>，打消"怕去了被关门刷卡"的顾虑</li>
+      <li data-k="g16"><b>9 破卡点</b>：先认知卡点（"还没准备好先不来"），再行动卡点（没时间、没钱、要商量、怕没效果）；用三明治沟通法</li>
+      <li data-k="g17"><b>10 跟进</b>：打标签；潜在客户一对一个性化跟进，不群发，"每个人都是我的置顶"</li>
+      <li data-k="g18"><b>11 收单</b>：最后一步才逼单（第一步就问"要一张还是两张票"一定失败）；没有收钱卡点，收钱才是对他负责</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>常见异议，按三明治框架写出来 <span class="mine">我按二奢场景列的</span></h3>
+    <ul class="tasks">
+      <li data-k="g19">把 9 个异议各写一版"共情 → 破卡点 → 给案例"的回答（老板自己写，你最懂客户和案例）
+        <ul class="sub"><li>"太贵了" · "最近没时间" · "回去跟老公 / 合伙人商量" · "怕被割，之前学过没效果" · "我还没开店 / 店太小能学吗" · "年纪大了不会直播" · "行情不好等等再说" · "我先自己试试" · "你们是不是要我拿你们的货"</li></ul>
+      </li>
+    </ul>
+    <div class="eg"><span class="eg-tag">示例 · "太贵了"</span>
+      <p><b>共情</b>："特能理解，这两年赚钱真不容易，咱们都想把每一分钱花在刀刃上。"</p>
+      <p><b>破卡点</b>："但你算算，这里买几千、那里买几百，加起来早就不止这个数了，还是落不了地。"</p>
+      <p><b>给案例</b>："你看我们那个和你同城、店差不多大的学员……"</p>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3>三段式成交与私域指标</h3>
+    <ul class="tasks">
+      <li data-k="g20"><b>公开课前</b>：IP 号破冰、筛选、打标签，走谈单流程，"神仙客户"这时就直接下单</li>
+      <li data-k="g21"><b>公开课中</b>：私域直播课里下单</li>
+      <li data-k="g22"><b>公开课后</b>：有疑虑的拉群或打电话；<b>电话最后打</b>，半小时内搞定</li>
+    </ul>
+    <div class="table-wrap"><table>
+      <thead><tr><th>私域指标</th><th>目标（老师团队）</th></tr></thead>
+      <tbody>
+        <tr><td>开口率</td><td class="num">80%</td></tr>
+        <tr><td>诊断表填写率</td><td class="num">70%</td></tr>
+        <tr><td>电话成交率</td><td class="num">80%</td></tr>
+        <tr><td>公开课到课率</td><td>每期跟踪</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ======================= 08 ======================= -->
+<section class="sec" id="s8" data-sec="s8">
+  <div class="sec-head">
+    <div class="stamp"><div><small>LOT</small><span>08</span></div></div>
+    <div><h2>交付</h2><p class="lede">交付好 → 学员拿结果 → 案例和转介绍 → 能卖高价 → 案例又变成短视频素材</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>交付原则 <span class="src">D1 人群课 · D3 上午</span></h3>
+    <ul class="tasks">
+      <li data-k="h1"><b>确定性</b>：交付物明确，以结果为导向，最少时间拿最大结果（"三天治好"胜过"三年治好"）</li>
+      <li data-k="h2"><b>全力交付</b>：刚起步案例少也要全力卖、全力交付；有问题就售后，该退就退</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>线下实战营流程 <span class="mine">参考老师的课和陪跑流程改的</span></h3>
+    <div class="weeks">
+      <div class="wk"><div class="when">BEFORE<b>课前</b></div>
+        <ul class="tasks">
+          <li data-k="h3">学员填体检诊断表、分组、建群</li>
+          <li data-k="h4">布置课前作业：店铺照片、库存表、账号截图</li>
+        </ul></div>
+      <div class="wk"><div class="when">DURING<b>课中</b></div>
+        <ul class="tasks">
+          <li data-k="h5">每节课后做作业，抽 1～2 人上台一对一调</li>
+          <li data-k="h6">现场实操：鉴定、定价、陈列、拍短视频、开播、私域话术</li>
+          <li data-k="h7">晚上安排开播体验（老师第一晚就让学员开播，目标每人至少 10 单）；拍形象照</li>
+          <li data-k="h8">同组同学互相刷单、互相当助播，把气氛带起来</li>
+        </ul></div>
+      <div class="wk"><div class="when">AFTER<b>课后</b></div>
+        <ul class="tasks">
+          <li data-k="h9">一对一出方案</li>
+          <li data-k="h10">社群复盘；回去后 7～10 场直播帮复盘，安排巩固场，防止"一回去动作就变形"</li>
+        </ul></div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3>案例与信任机制</h3>
+    <ul class="tasks">
+      <li data-k="h11">把交付过程拍下来（视频、照片），用于私域种草</li>
+      <li data-k="h12">每期挑几位重点扶持，拍合拍视频、客户证言、过程视频，放进朋友圈和案例号</li>
+      <li data-k="h13">不合适的人退费送走，不硬留</li>
+      <li data-k="h14">升单路径：线下课 → 高阶陪跑或供应链合作，中间不加"保一半"的产品</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 09 ======================= -->
+<section class="sec" id="s9" data-sec="s9">
+  <div class="sec-head">
+    <div class="stamp"><div><small>LOT</small><span>09</span></div></div>
+    <div><h2>团队、工具与预算</h2><p class="lede">老师团队全职不超过 15 人，能少招一个就少招一个</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>角色</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>角色</th><th>职责</th><th>什么时候需要</th></tr></thead>
+      <tbody>
+        <tr><td>IP（你）</td><td>定位、短视频文案、直播主播、核心交付</td><td>一开始</td></tr>
+        <tr><td>能拍能剪的人</td><td>拍摄、剪辑、选题素材</td><td>一开始</td></tr>
+        <tr><td>助播 / 场控</td><td>喊单、改库存、盯订单、看评论区</td><td>开播就要</td></tr>
+        <tr><td>私域顾问 / 销售</td><td>承接、谈单；可以先是你或家人，顾问也要专业</td><td>一开始</td></tr>
+        <tr><td>投手</td><td>建计划、每日复盘</td><td>月投放 10 万以上</td></tr>
+        <tr><td>交付与教研</td><td>课程、陪跑、复盘</td><td>第一期线下课之前</td></tr>
+        <tr><td>设计</td><td>海报、贴片、直播间搭建</td><td>可以外包</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-k="i1">对照上表，写下每个角色现在由谁担任、缺谁</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>工具</h3>
+    <ul class="tasks">
+      <li data-k="i2"><b>内容</b>：Get 笔记（语音转文字、粘贴链接提逐字稿）、元宝（提视频号逐字稿）、GPT / 豆包 / DeepSeek（二创、贴片候选）</li>
+      <li data-k="i3"><b>直播</b>：视频号助手（数据大屏）、加热平台、微信小店助手（改库存）、降噪麦、暖黄灯、传菜铃</li>
+      <li data-k="i4"><b>私域</b>：企业微信（承接 + 群）、IP 本人个人微信、飞书（沉淀 SOP 和客户标签）</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>预算</h3>
+    <ul class="tasks">
+      <li data-k="i5">投流：先小额测试，跑通算账再加</li>
+      <li data-k="i6">场地设备：背景墙、灯光、麦克风</li>
+      <li data-k="i7">人员：剪辑、投手、助播</li>
+      <li data-k="i8">学习：先跑通再请人（老师 20 万陪跑的门槛是直播超过 10 场、后端能赚钱）</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 合规 ======================= -->
+<section class="sec auth" id="s10" data-sec="s10">
+  <span class="seal" aria-hidden="true">红线</span>
+  <div class="sec-head">
+    <div class="stamp"><div><small>CHECK</small><span>!</span></div></div>
+    <div><h2>合规与防封</h2><p class="lede">贯穿始终。违规背后是网信办、广告法和刑法民法，不是平台为难你</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+
+  <div class="blk">
+    <h3>先理解 <span class="src">D1 下午 · D3 最后两节</span></h3>
+    <ul class="plain">
+      <li>规则是动态的，跟社会案件和严打绑在一起；最近在严打"以创业、副业、理财名义吸引普通用户"</li>
+      <li>挂车就是商家，投放就是买广告，平台会从严审核</li>
+      <li>平台按违禁词机械抓取："我不是来赚钱的"里，"赚钱"一样被抓</li>
+      <li><b>文字类内容最危险，等于"人赃并获"</b>；口头说的话反而不那么容易被抓</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>红线卡片</h3>
+    <div class="redline">
+      <div><b>数字</b>月入、学员数、单量、在线人数、回本、"几折拿货"一律不讲</div>
+      <div><b>副业创业</b>"普通人 / 宝爸宝妈 / 副业 / 轻资产创业 + 赚钱"；"轻资产"可以说</div>
+      <div><b>引流</b>不说"加微信"，说"扫码领……"；挂车不挂码，挂码不挂车</div>
+      <div><b>其他平台</b>平台名 + 变现不能连着讲，用"某音""小某书"</div>
+      <div><b>经济</b>不讲"国内经济不好、国外更好"（有出海客户被封了身份证）</div>
+      <div><b>广告法</b>不说"最""永久""终身"，不保证效果</div>
+      <div><b>文字位</b>昵称、简介、直播主题、封面、贴片、字幕都要查</div>
+      <div><b>别人的嘴</b>连麦人和评论区说的话也算你的；政治人物一律不碰</div>
+    </div>
+    <ul class="tasks">
+      <li data-k="j1">按红线卡片把昵称、简介、直播主题、封面、贴片逐个检查一遍</li>
+      <li data-k="j2">把短视频字幕里的敏感词去掉，必要时消音或自创代词</li>
+      <li data-k="j3">自我介绍、销售话术里的收益数字全部改成主观描述（"很多年""从默默无闻到行业头部""遍地开花"）</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>二奢要额外注意的 <span class="mine">我的补充，请自己核实</span></h3>
+    <ul class="tasks">
+      <li data-k="j4">海外货源、代购涉及关税和外汇，直播里不聊"怎么带货过关""怎么避税"（课上讲过香港保险外汇和翻墙软件的法律风险，同理）</li>
+      <li data-k="j5">不展示、不教学"高仿 / A 货"；讲鉴定真假时别变成教人辨认或售卖仿品</li>
+      <li data-k="j6">不承诺"百分之百正品""绝对保真"这类绝对化用语</li>
+      <li data-k="j7">品牌名和 logo 大量出现可能被按品牌或侵权规则审核，先用小号测试</li>
+    </ul>
+  </div>
+
+  <div class="blk">
+    <h3>防封动作</h3>
+    <ul class="tasks">
+      <li data-k="j8">把行业里<b>活过半年</b>的同行直播间扒下来逐字研究，看他说什么、不说什么；不学昙花一现的</li>
+      <li data-k="j9">必须讲敏感内容的：准备 5 个以上账号；单条播放太大（5 万、10 万）会触发审核，可以主动隐藏再二创</li>
+      <li data-k="j10">敏感时二选一：<b>不挂车</b>（企微码 + 先攒预约 + 边播边投短视频涨粉）或<b>挂书课包</b>（正式出版物，塑封或卡片上放二维码）</li>
+      <li data-k="j11">不花钱买"白名单"（老师被骗过 10 万）；不举报同行，也别口无遮拦得罪人（举报灰产两块钱一次）</li>
+      <li data-k="j12">违规后<b>立刻下播</b>；只有一次申诉机会，别骂审核；视频号违规至少影响三天流量，<b>短视频违规会连带直播限流</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 数据 ======================= -->
+<section class="sec" id="s11" data-sec="s11">
+  <div class="sec-head">
+    <div class="stamp"><div><small>WEEKLY</small><span>≡</span></div></div>
+    <div><h2>数据看板</h2><p class="lede">每周看一次，健康线都来自课程</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+  <div class="blk">
+    <div class="table-wrap"><table>
+      <thead><tr><th>环节</th><th>指标</th><th>健康线</th></tr></thead>
+      <tbody>
+        <tr><td>短视频</td><td>平均播放</td><td>约 2000 合格，低于 500 是内容关没过</td></tr>
+        <tr><td>短视频</td><td>预约到播率</td><td class="num">30% 正常 · 40% 优秀</td></tr>
+        <tr><td>短视频</td><td>直接引流进直播间</td><td class="num">≥ 1%</td></tr>
+        <tr><td>投流</td><td>获客成本（5 元单）</td><td>老师约 50 元；纯投放 100～150 元</td></tr>
+        <tr><td>直播</td><td>进直播间买 5 元的比例</td><td class="num">1.5%～2%</td></tr>
+        <tr><td>直播</td><td>订单曲线</td><td>每 20 分钟一波</td></tr>
+        <tr><td>私域</td><td>开口率 / 填表率 / 电话成交率</td><td class="num">80% / 70% / 80%</td></tr>
+        <tr><td>私域</td><td>万元产品转化率</td><td>2% 打平，3% 赚钱</td></tr>
+        <tr><td>交付</td><td>案例产出</td><td>每期至少几条合拍或证言视频</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tasks">
+      <li data-k="k1">建一张每周数据表（飞书或表格），按上面的指标记录</li>
+      <li data-k="k2">定一个固定的每周复盘时间</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 12周 ======================= -->
+<section class="sec" id="s12" data-sec="s12">
+  <div class="sec-head">
+    <div class="stamp"><div><small>WEEKS</small><span>12</span></div></div>
+    <div><h2>12 周执行节奏</h2><p class="lede">老师创业头半年是亏的，第 5 个月才开始赚钱</p></div>
+    <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+  <div class="blk">
+    <div class="weeks">
+      <div class="wk"><div class="when">WEEK 0–1<b>定位与产品</b></div>
+        <ul class="tasks">
+          <li data-k="w1">回答"先确认"的 5 个问题，找出前三类客户和关键事件</li>
+          <li data-k="w2">完成能力圈作业，写出一句话定位和内部量化口号</li>
+          <li data-k="w3">定 5 元开口品和万元核心品，写清核心权益和交付物</li>
+          <li data-k="w4">在现有私域和朋友圈先卖一轮，验证有没有人付钱</li>
+        </ul></div>
+      <div class="wk"><div class="when">WEEK 1–2<b>场景与内容</b></div>
+        <ul class="tasks">
+          <li data-k="w5">改账号名、简介、头像；搭背景墙和灯光；做贴片</li>
+          <li data-k="w6">建选题库，按 5:3:2 先拍 20 条，开始投"关注"攒预约</li>
+          <li data-k="w7">写好自我介绍思维导图并练熟</li>
+        </ul></div>
+      <div class="wk"><div class="when">WEEK 2–3<b>第一场开播</b></div>
+        <ul class="tasks">
+          <li data-k="w8">第一场就挂 5 元开卖，按 131 结构走，安排助播</li>
+          <li data-k="w9">私域承接号、顾问号、诊断表、谈单流程、9 个异议回答同时到位</li>
+          <li data-k="w10">每场做"1 播 2 复盘 3 迭代"</li>
+        </ul></div>
+      <div class="wk"><div class="when">WEEK 3–6<b>跑数据、招第一期</b></div>
+        <ul class="tasks">
+          <li data-k="w11">每周 3～5 场直播，持续出短视频；从测试计划跑出主力计划</li>
+          <li data-k="w12">招第一期线下实战营（可以先卖、边卖边磨课）</li>
+          <li data-k="w13">每周看数据看板，优化获客成本和转化率</li>
+        </ul></div>
+      <div class="wk"><div class="when">WEEK 6–8<b>第一期交付</b></div>
+        <ul class="tasks">
+          <li data-k="w14">全力交付，记录过程，挑重点学员做案例</li>
+          <li data-k="w15">课后安排复盘和巩固场</li>
+        </ul></div>
+      <div class="wk"><div class="when">WEEK 8–12<b>复盘、放大</b></div>
+        <ul class="tasks">
+          <li data-k="w16">复盘每一环数据，算账跑通再加投放预算</li>
+          <li data-k="w17">培养顾问 / 销售，获客和销售分开，你专注卖 5 元和交付</li>
+          <li data-k="w18">推出高阶产品或供应链合作，开始做复购</li>
+        </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 心法 ======================= -->
+<section class="sec" id="s13" data-sec="s13">
+  <div class="sec-head">
+    <div class="stamp"><div><small>NOTES</small><span>“</span></div></div>
+    <div><h2>老师反复强调的 12 句话</h2><p class="lede">卡住的时候回来看一遍</p></div>
+    <div class="meter" hidden><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
+  </div>
+  <ul class="sayings">
+    <li>直播的本质是经营问题。你来是为了赚钱，不是为了学直播。</li>
+    <li>一百万以下不需要定位，需要的是销售。</li>
+    <li>客户质量跟客单价没关系，讲什么话就吸引什么人。</li>
+    <li>没有贵的东西，只有不够严重的问题。想成交快，就要找事件。</li>
+    <li>一个核心产品，一个核心权益；先做加法，再做减法。</li>
+    <li>好产品一句话讲明白，需要 PPT 解释的就不是好产品。</li>
+    <li>讲干货不如演干货；多讲为什么，少讲怎么做。</li>
+    <li>成交是感性的：我用我的专业来对你好。</li>
+    <li>不是投了流才有人买，是有人买了投流才变多。</li>
+    <li>三个人在线也要卖出一单，流量才会越来越多。</li>
+    <li>公域做获客，私域做利润。</li>
+    <li>帮助本该成功的人加速成功。</li>
+  </ul>
+  <p class="foot">依据：2026-10-10 至 10-12 课堂录音逐字稿（23 份）。示例话术和选题只是把方法套到二奢上的样子，请换成你自己的真实经历和数据。</p>
+</section>
+
+</main>
+</div>
+</div>
+
+<script>
+(function(){
+  var KEY = "erqi-progress-v1";
+  var done = new Set();
+  try { var s = localStorage.getItem(KEY); if (s) JSON.parse(s).forEach(function(k){ done.add(k); }); } catch (e) {}
+
+  /* ---- turn <li data-k> into checkboxes ---- */
+  var inputs = [];
+  document.querySelectorAll("li[data-k]").forEach(function(li){
+    var k = li.dataset.k, id = "k-" + k;
+    var label = document.createElement("label"); label.htmlFor = id;
+    var input = document.createElement("input"); input.type = "checkbox"; input.id = id; input.dataset.k = k;
+    var box = document.createElement("span"); box.className = "box"; box.setAttribute("aria-hidden", "true");
+    var txt = document.createElement("span"); txt.className = "txt";
+    var nodes = Array.prototype.slice.call(li.childNodes);
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (n.nodeType === 1 && n.tagName === "UL" && n.classList.contains("sub")) break;
+      txt.appendChild(n);
+    }
+    label.appendChild(input); label.appendChild(box); label.appendChild(txt);
+    li.insertBefore(label, li.firstChild);
+    input.addEventListener("change", function(){
+      if (input.checked) done.add(k); else done.delete(k);
+      touched = true;
+      paint(); queueSave();
+    });
+    inputs.push(input);
+  });
+
+  function setBar(el, pct){ if (el) el.style.width = pct + "%"; }
+
+  function paint(){
+    inputs.forEach(function(inp){
+      var on = done.has(inp.dataset.k);
+      inp.checked = on;
+      inp.closest("li").classList.toggle("is-done", on);
+    });
+    var total = inputs.length, got = inputs.filter(function(i){ return i.checked; }).length;
+    var pct = total ? Math.round(got / total * 100) : 0;
+    document.getElementById("pc-count").textContent = got + " / " + total + " 项";
+    document.getElementById("pc-pct").firstChild.nodeValue = pct;
+    setBar(document.getElementById("pc-bar"), pct);
+
+    document.querySelectorAll("section.sec[data-sec]").forEach(function(sec){
+      var id = sec.dataset.sec;
+      var list = sec.querySelectorAll("li[data-k] input");
+      var t = list.length, g = 0;
+      list.forEach(function(i){ if (i.checked) g++; });
+      var p = t ? Math.round(g / t * 100) : 0, full = t > 0 && g === t;
+      var m = sec.querySelector(".meter");
+      if (m) { m.querySelector(".ct").firstChild.nodeValue = g; m.querySelector(".ct small").textContent = " / " + t; setBar(m.querySelector(".bar i"), p); }
+      document.querySelectorAll('.htag[data-sec="' + id + '"]').forEach(function(tag){
+        tag.querySelector(".ct").textContent = g + " / " + t + (full ? " · 已完成" : "");
+        setBar(tag.querySelector(".bar i"), p);
+        tag.classList.toggle("is-full", full);
+      });
+      document.querySelectorAll('.toc a[data-sec="' + id + '"]').forEach(function(a){
+        var c = a.querySelector(".c"); if (c) c.textContent = t ? g + "/" + t : "";
+        a.classList.toggle("full", full);
+      });
+    });
+  }
+
+  /* ---- persistence: account (db) when available, else this browser ---- */
+  var remote = null, timer = null, saving = false, again = false, touched = false;
+  var syncEl = document.getElementById("sync");
+  function status(s){
+    syncEl.dataset.s = s;
+    syncEl.textContent = s === "cloud" ? "进度已保存到你的 Claude 账号" : s === "err" ? "暂时没连上，进度先存在本机" : "进度保存在这台设备的浏览器里";
+  }
+  function saveLocal(){ try { localStorage.setItem(KEY, JSON.stringify(Array.from(done))); } catch (e) {} }
+  function queueSave(){
+    saveLocal();
+    if (!remote) return;
+    clearTimeout(timer); timer = setTimeout(flush, 700);
+  }
+  function flush(){
+    timer = null;
+    if (!remote) return;
+    if (saving) { again = true; return; }
+    saving = true;
+    remote.set({ done: Array.from(done), v: 1 }).then(function(){ status("cloud"); }, function(e){
+      if (e && e.code === "invalid_argument") { remote = null; status("local"); } else { status("err"); }
+    }).then(function(){ saving = false; if (again) { again = false; flush(); } });
+  }
+
+  paint();
+
+  (function connect(){
+    var c = window.claude;
+    if (!c || typeof c.use !== "function") return;
+    Promise.all([c.use("db"), c.use("user")]).then(function(r){
+      var db = r[0], user = r[1];
+      if (!db || !user) return null;
+      return user.id().then(function(uid){
+        if (!uid) return;
+        var ref = db.doc("data/users/" + uid + "/progress");
+        remote = ref;
+        ref.onSnapshot(function(snap){
+          if (snap.metadata.hasPendingWrites || saving || timer) return;
+          if (snap.exists) {
+            var d = snap.data();
+            if (d && Array.isArray(d.done)) { done = new Set(d.done); saveLocal(); paint(); }
+            status("cloud");
+          } else {
+            status("cloud");
+            if (touched && done.size) queueSave();
+          }
+        }, function(){ remote = null; status("local"); });
+      });
+    }).catch(function(){});
+  })();
+
+  /* ---- filter ---- */
+  var hide = document.getElementById("hide-done");
+  try { if (localStorage.getItem(KEY + ":hide") === "1") { hide.checked = true; document.body.classList.add("hide-done"); } } catch (e) {}
+  hide.addEventListener("change", function(){
+    document.body.classList.toggle("hide-done", hide.checked);
+    try { localStorage.setItem(KEY + ":hide", hide.checked ? "1" : "0"); } catch (e) {}
+  });
+
+  /* ---- active section in toc ---- */
+  if ("IntersectionObserver" in window) {
+    var links = {};
+    document.querySelectorAll(".toc a[data-sec]").forEach(function(a){ links[a.dataset.sec] = a; });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) {
+          Object.keys(links).forEach(function(k){ links[k].classList.remove("on"); });
+          var a = links[en.target.dataset.sec];
+          if (a) { a.classList.add("on"); if (a.scrollIntoView && window.innerWidth <= 1080) { var ol = a.closest("ol"); if (ol) ol.scrollTo({ left: a.offsetLeft - 16, behavior: "smooth" }); } }
+        }
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    document.querySelectorAll("section.sec[data-sec]").forEach(function(s){ io.observe(s); });
+  }
+
+  /* ---- calculator ---- */
+  var cac = document.getElementById("calc-cac"), cvr = document.getElementById("calc-cvr"), price = document.getElementById("calc-price");
+  function calc(){
+    var a = parseFloat(cac.value), b = parseFloat(cvr.value), p = parseFloat(price.value);
+    var out = document.getElementById("calc-cost"), bar = document.getElementById("calc-bar"), ratioEl = document.getElementById("calc-ratio"), v = document.getElementById("calc-verdict");
+    if (!(a > 0) || !(b > 0) || !(p > 0)) { out.firstChild.nodeValue = "—"; ratioEl.textContent = "请填写大于 0 的数字"; v.textContent = ""; setBar(bar, 0); return; }
+    var cost = a / (b / 100), ratio = cost / p;
+    out.firstChild.nodeValue = Math.round(cost).toLocaleString("zh-CN");
+    ratioEl.textContent = "占产品价格 " + Math.round(ratio * 100) + "%";
+    setBar(bar, Math.min(100, ratio * 100));
+    var color, text;
+    if (ratio >= 1) { color = "var(--bad)"; text = "获客环节就在亏钱：先提高转化率或降获客成本，别加预算。"; }
+    else if (ratio >= 0.4) { color = "var(--warn)"; text = "大约打平：再扣交付和人工基本不赚，先优化私域转化。"; }
+    else { color = "var(--ok)"; text = "有利润空间：跑稳之后可以逐步加投放。"; }
+    bar.style.background = color; v.style.color = color; v.textContent = text;
+  }
+  [cac, cvr, price].forEach(function(el){ el.addEventListener("input", calc); });
+  calc();
+})();
+</script>
