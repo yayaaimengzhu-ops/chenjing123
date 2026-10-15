@@ -1,10 +1,10 @@
-<title>二奢直播全链路</title>
+<title>二手车直播全链路</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&display=swap">
 <style>
-/* Layout: 左侧"吊牌目录" + 右侧手册正文；每个阶段以一枚寄卖吊牌开头，合规部分做成鉴定卡 */
+/* Layout: 左侧"车况卡目录" + 右侧手册正文；每个阶段以一张挂在后视镜上的车况卡开头，合规部分做成检测报告 */
 :root{
   --paper:#f4f1f0;
   --card:#fbf9f8;
@@ -73,7 +73,7 @@ html{scroll-behavior:smooth}
 .toggle input:checked{background:var(--oxblood)}
 .toggle input:checked::after{transform:translateX(14px)}
 
-/* ---------- route map (hang tags) ---------- */
+/* ---------- route map (车况卡: mirror hang tags) ---------- */
 .route{padding-block:30px 8px}
 .route h2{font-size:20px}
 .route .sub{color:var(--muted);font-size:14px;margin-top:4px}
@@ -193,7 +193,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 .calc-out .bar{height:8px;margin:4px 0}
 .calc-out .bar i{transition:width .3s,background .3s}
 
-/* ---------- authentication card (compliance) ---------- */
+/* ---------- inspection report / 检测报告 (compliance) ---------- */
 .auth{position:relative;overflow:hidden}
 .auth .sec-head .stamp{border-color:var(--bad);background:var(--bad-soft)}
 .auth .sec-head .stamp::before{border-color:var(--bad)}
@@ -243,7 +243,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 <header class="hero">
   <div>
     <p class="eyebrow">执行手册 · 依据陈晶老师「直播赚钱系统」四天三晚课程 23 份录音整理</p>
-    <h1>二奢直播<em>全链路</em></h1>
+    <h1>二手车直播<em>全链路</em></h1>
     <p class="lede">从短视频获客、投流、直播卖 5 元开口品，到私域谈单升单、交付出案例，一步一步勾掉。每条都标了出自哪节课；标「我的补充」的是按课程原则推导出来的，课上没有直接讲。</p>
   </div>
   <div class="progress-card" aria-live="polite">
@@ -262,17 +262,17 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 
 <section class="route" aria-labelledby="route-h">
   <h2 id="route-h">一张图看懂整条链路</h2>
-  <p class="sub">九个阶段是先后顺序，前面的功课不做，后面都要补回来。点吊牌直接跳到那一节。</p>
+  <p class="sub">九个阶段是先后顺序，前面的功课不做，后面都要补回来。点车况卡直接跳到那一节。</p>
   <ul class="tags">
-    <li><a class="htag" href="#s1" data-sec="s1"><span class="lot">LOT 01</span><span class="nm">定位</span><span class="ds">人设 · A类人群 · 关键事件 · 一句话定位</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
-    <li><a class="htag" href="#s2" data-sec="s2"><span class="lot">LOT 02</span><span class="nm">产品</span><span class="ds">5元开口 → 万元核心 → 高价/复购</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
-    <li><a class="htag" href="#s3" data-sec="s3"><span class="lot">LOT 03</span><span class="nm">人设与场景</span><span class="ds">自我介绍 · 贴片 · 满墙奢侈品</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
-    <li><a class="htag" href="#s4" data-sec="s4"><span class="lot">LOT 04</span><span class="nm">短视频</span><span class="ds">零存：配比 5:3:2 · 爆款二创</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
-    <li><a class="htag" href="#s5" data-sec="s5"><span class="lot">LOT 05</span><span class="nm">投流</span><span class="ds">投关注 · 对标池 · 主力/测试计划</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
-    <li><a class="htag" href="#s6" data-sec="s6"><span class="lot">LOT 06</span><span class="nm">直播</span><span class="ds">整取：131 模型 · 销售16字 · 连麦</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
-    <li><a class="htag" href="#s7" data-sec="s7"><span class="lot">LOT 07</span><span class="nm">私域</span><span class="ds">主副IP · 11步谈单 · 三段式成交</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
-    <li><a class="htag" href="#s8" data-sec="s8"><span class="lot">LOT 08</span><span class="nm">交付</span><span class="ds">确定性 · 案例生产 · 升单复购</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
-    <li><a class="htag" href="#s9" data-sec="s9"><span class="lot">LOT 09</span><span class="nm">团队与工具</span><span class="ds">角色 · 工具 · 预算</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s1" data-sec="s1"><span class="lot">No.01</span><span class="nm">定位</span><span class="ds">人设 · A类人群 · 关键事件 · 一句话定位</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s2" data-sec="s2"><span class="lot">No.02</span><span class="nm">产品</span><span class="ds">5元开口 → 万元核心 → 高价/复购</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s3" data-sec="s3"><span class="lot">No.03</span><span class="nm">人设与场景</span><span class="ds">自我介绍 · 贴片 · 车场实景</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s4" data-sec="s4"><span class="lot">No.04</span><span class="nm">短视频</span><span class="ds">零存：配比 5:3:2 · 爆款二创</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s5" data-sec="s5"><span class="lot">No.05</span><span class="nm">投流</span><span class="ds">投关注 · 对标池 · 主力/测试计划</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s6" data-sec="s6"><span class="lot">No.06</span><span class="nm">直播</span><span class="ds">整取：131 模型 · 销售16字 · 连麦</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s7" data-sec="s7"><span class="lot">No.07</span><span class="nm">私域</span><span class="ds">主副IP · 11步谈单 · 三段式成交</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s8" data-sec="s8"><span class="lot">No.08</span><span class="nm">交付</span><span class="ds">确定性 · 案例生产 · 升单复购</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
+    <li><a class="htag" href="#s9" data-sec="s9"><span class="lot">No.09</span><span class="nm">团队与工具</span><span class="ds">角色 · 工具 · 预算</span><span class="bar"><i></i></span><span class="ct">0/0</span></a></li>
   </ul>
   <div class="through"><b>贯穿始终</b><a href="#s10">合规防封</a><a href="#s0">算账</a><a href="#s11">数据看板</a><a href="#s12">12 周节奏</a><a href="#s13">老师的 12 句话</a></div>
 </section>
@@ -303,29 +303,31 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 <!-- ======================= 00 ======================= -->
 <section class="sec" id="s0" data-sec="s0">
   <div class="sec-head">
-    <div class="stamp"><div><small>LOT</small><span>00</span></div></div>
-    <div><h2>动手之前，先确认</h2><p class="lede">我从录音里读到的你的情况、要先回答的 5 个问题、最要紧的 4 件事和算账</p></div>
+    <div class="stamp"><div><small>No.</small><span>00</span></div></div>
+    <div><h2>动手之前，先确认</h2><p class="lede">先对齐你的情况和我的假设、要先回答的 5 个问题、最要紧的 4 件事和算账</p></div>
     <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
   </div>
 
   <div class="blk">
-    <h3>我从录音里读到的你的情况</h3>
+    <h3>先对齐：你的情况和我的假设</h3>
     <div class="clues">
-      <div class="clue"><span class="src">D2 自我介绍作业</span><span>你在写自我介绍：做<b>二手奢侈品</b>约二十年；早年做 <b>B2B</b>（提到欧元结算，推测是海外货源批发）；<b>2023 年行情大跌</b>后转型；手里有私域里的长期高端客户；说"带过三千名（学员）"，学员从没有店到开两三家分店。</span></div>
-      <div class="clue"><span class="src">D3 痛点小组练习</span><span>你们组的思路：病因是"没找到好项目"，药是"二手奢侈品项目"；目标人群是"在家的宝妈"和"开店的老板娘"。</span></div>
-      <div class="clue"><span class="src">D3 痛点课</span><span>老师正好拿二奢举例：<q>做二奢的，后面满墙奢侈品，坐在堆成山的 LV 箱子前直播，比什么都强。</q></span></div>
+      <div class="clue"><span class="src">行业</span><span><b>二手车</b>：帮车商获客 + 教收车、卖车等技能。</span></div>
+      <div class="clue"><span class="src">D1 晚·短视频课</span><span>课上正好有一个二手车案例：卖二手蔚来的于姐。她原来那条"二手蔚来三大巨坑"是纯干货，数据不错，但看完没人想找她买车。老师让她植入一个"客户踩坑以后我怎么售后"的故事：珠海一位客户的车是于姐自己卖给她的，行驶证、登记证都过户了，但蔚来 APP 没过户，车被人拿去贷了两次款。她知道以后第一时间飞过去把车买回来，费用全部自己承担，又给客户重新配了一台。老师的点评：<b>买二手车最怕"买完没人管"，客户最担心的点，就是你最该植入的人设点。</b>放到你身上就是：车商报课最怕"交了钱没人管"。</span></div>
+      <div class="clue"><span class="src">我的假设</span><span>你的 A 类人群是<b>已经在开车行的老板</b>；你手里有真本事（收车评估定价、同城获客、车行经营），也可能有车源、检测、整备这些资源。等你答完问卷再校准。</span></div>
+      <div class="clue"><span class="src">待你确认</span><span>之前那版我是按"二奢"理解从录音里摘的"你的情况"。录音转写好几处把"二手车"识别成了"二手奢侈品"（于姐那段就是），所以有几段可能本来就是你在说自己：从业二十多年（转写里一处是"二十年"，一处是"二十八年"）、早年做 B2B、2023 年行情大跌后转型、带过很多学员、小组练习里提到宝妈和开店老板娘两类人。这版先不把它们当事实用，答问卷时你确认一下哪些是你的。</span></div>
     </div>
-    <p class="why">所以这里按<b>"教别人做二奢生意，你手里有货源"</b>来写。转写比较乱，如果理解错了，第 01 和 02 阶段要重新调。</p>
+    <p class="why">所以这版按<b>"教开车行的老板同城获客、收车卖车"</b>来写。答完问卷后，如果和你的实际情况不一样，第 01 和 02 阶段要重新调。</p>
   </div>
 
   <div class="blk">
-    <h3>先回答这 5 个问题 <span class="src">D1 人群课</span></h3>
-    <p class="para">老师说你 70%～80% 的营收来自一两类客户。去翻成交记录、问销售，答完一条勾一条。</p>
+    <h3>先答问卷，重点是这 5 个问题 <span class="src">D1 人群课</span></h3>
+    <p class="para">动手之前，先答《二手车直播逐字稿-信息收集问卷》第一轮 40 题，其中跟这份清单关系最大的是下面 5 个。老师说你 70%～80% 的营收来自一两类客户。去翻成交记录、问销售，答完一条勾一条。</p>
     <ul class="tasks">
-      <li data-k="q1">现在卖什么产品、什么价格？（课程 / 陪跑 / 供货 / 加盟）</li>
+      <li data-k="qn1">答完《二手车直播逐字稿-信息收集问卷》第一轮 40 题</li>
+      <li data-k="q1">现在卖什么产品、什么价格？（课程 / 陪跑 / 驻店带教 / 车源合作）</li>
       <li data-k="q2">过去付钱最痛快的 2～3 类学员是谁？他们是<b>发生了什么事之后</b>来找你的？</li>
-      <li data-k="q3">货源、鉴定、回收、寄卖能力能不能开放给学员用？（决定有没有"复购型"后端）</li>
-      <li data-k="q4">视频号账号现状：粉丝数、有没有挂过车、违规记录</li>
+      <li data-k="q3">车源、检测、整备、批发调车渠道能不能开放给学员用？（决定有没有"复购型"后端）</li>
+      <li data-k="q4">视频号账号现状：粉丝数、有没有挂过车、违规记录；这个号以前是不是卖车用的，粉丝是买车的个人多还是车商多</li>
       <li data-k="q5">团队现在几个人，各是什么角色</li>
     </ul>
   </div>
@@ -333,9 +335,9 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
   <div class="blk">
     <h3>结合课程，最要紧的 4 件事</h3>
     <div class="grid2">
-      <div class="key"><span class="k-no">I</span><h3>主力人群别选宝妈</h3><p>平台正在严打"以创业、副业名义吸引普通用户"；老师讲"培优不补差"；宝妈客单极限约 5000。主攻<b>已经在做二奢的小店主</b>，其次是<b>手里有高端熟客的实体老板娘</b>。</p></div>
-      <div class="key"><span class="k-no">II</span><h3>用"关键事件"做内容</h3><p>"想成交快，要找事件"：收到假货被索赔、库存压款、客流断崖、账号被封。反复打这几个点，比泛泛讲"二奢怎么做"成交快得多。</p></div>
-      <div class="key"><span class="k-no">III</span><h3>货源是别人没有的优势</h3><p>课程本身没有复购，但货源、鉴定、回收、寄卖分成可以反复发生。老师讲的兽药、美发供应链案例都是这个思路。</p></div>
+      <div class="key"><span class="k-no">I</span><h3>主力人群别选小白、宝妈</h3><p>平台正在严打"以创业、副业名义吸引普通用户"；老师讲"培优不补差"；宝妈客单极限约 5000；二手车还压资金，没本金的小白学完也开不起店。主攻<b>已经在开车行的老板</b>，其次是<b>手里有车主客户的汽车后市场老板</b>（汽修、洗车美容、贴膜改装）。</p></div>
+      <div class="key"><span class="k-no">II</span><h3>用"关键事件"做内容</h3><p>"想成交快，要找事件"：平台线索费涨了还不出单、院里的车压着天天掉价、收到事故 / 泡水 / 调表车、同城同行开直播抢客。反复打这几个点，比泛泛讲"二手车怎么做"成交快得多。</p></div>
+      <div class="key"><span class="k-no">III</span><h3>售后人设 + 可能的复购</h3><p>于姐的课堂案例说明：客户最怕"买完没人管"，主动兜底的真事就是最好的人设。课程本身没有复购，如果你有车源、检测、整备、批发调车，这些可以反复发生（兽药、美发供应链案例都是这个思路）；涉及金融返点的先确认合规。</p></div>
       <div class="key"><span class="k-no">IV</span><h3>后端准备好再投钱</h3><p>获客成本 80 元、万元产品转化 2%，每成交一单光获客就要 4000 元。私域承接和交付没跑通之前，不要放大投放。</p></div>
     </div>
   </div>
@@ -364,7 +366,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 <!-- ======================= 01 ======================= -->
 <section class="sec" id="s1" data-sec="s1">
   <div class="sec-head">
-    <div class="stamp"><div><small>LOT</small><span>01</span></div></div>
+    <div class="stamp"><div><small>No.</small><span>01</span></div></div>
     <div><h2>定位</h2><p class="lede">决定后面所有环节。一百万以下不纠结定位，先靠销售；要做大，必须有好人群、好产品</p></div>
     <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
   </div>
@@ -374,9 +376,9 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <ul class="tasks">
       <li data-k="a1">写下三件事：我的<b>专业</b>是什么（为什么我是解决这个问题的最佳人选）、我最懂的<b>人群</b>是谁、我<b>是谁</b></li>
       <li data-k="a2">列出你身上<b>外行认可</b>的点，不是同行认可的点（"很多学员很谦虚：'我只是有十家美容院而已'"）
-        <ul class="sub"><li>入行年头、海外货源批发、鉴定定价眼力、带学员开店、2023 年行情大跌后转型成功</li></ul>
+        <ul class="sub"><li>入行年头、自营车行和车场、经手过的车（直播里不报具体台数）、收车评估定价的眼力、带出来的学员</li></ul>
       </li>
-      <li data-k="a3"><b>能力迁移</b>（旧酒装新瓶）：B2B 停了，货源、鉴定、定价、渠道能力照样值钱，换一群人来卖</li>
+      <li data-k="a3"><b>能力迁移</b>（旧酒装新瓶）：你这些年收车、定价、卖车、带销售的本事，换一群人来卖，就是课</li>
       <li data-k="a4">顺序别反：先大概想清楚<b>卖什么、卖给谁</b>，最后再做人设</li>
     </ul>
   </div>
@@ -387,24 +389,26 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <div class="table-wrap"><table>
       <thead><tr><th>候选人群</th><th>重要</th><th>紧迫（关键事件）</th><th>购买力</th><th>教育成本</th><th>违规风险</th><th>判断</th></tr></thead>
       <tbody>
-        <tr class="pick"><td><b>A. 已经在做二奢的小店主 / 私域卖家</b></td><td>生意命脉</td><td>收到假货被索赔、库存压款、客流下滑、账号限流、行情下跌收错价</td><td>中高，B 端算得过账</td><td>低</td><td><span class="pill ok">低</span></td><td><span class="pill ok">首选</span></td></tr>
-        <tr><td><b>B. 手里有高端熟客的实体老板娘</b><br>美容院、高端女装、珠宝、茶馆等</td><td>第二曲线</td><td>主业下滑、富婆熟客消费降级或流失</td><td>高</td><td>中</td><td><span class="pill mid">中</span></td><td><span class="pill mid">次选 / 高客单</span></td></tr>
-        <tr><td><b>C. 在家宝妈、想做副业的普通人</b></td><td>有需求</td><td>弱，多半只是想想</td><td>低</td><td>高</td><td><span class="pill no">高</span></td><td><span class="pill no">不做主力</span></td></tr>
-        <tr><td><b>D. 奢侈品消费者</b><br>买二奢怕假、卖闲置想高价</td><td>一般</td><td>弱</td><td>中</td><td>低</td><td><span class="pill ok">低</span></td><td><span class="pill mid">只做出圈流量</span></td></tr>
+        <tr class="pick"><td><b>A. 已经在开车行的老板</b><br>夫妻店、综合车行、县城车行</td><td>生意命脉</td><td>平台线索越来越贵还不出单、压库掉价资金转不动、收到事故 / 泡水 / 调表车亏了钱、销售带着客户单干、同城同行开直播抢客</td><td>中高，B 端算得过账</td><td>低</td><td><span class="pill ok">低</span></td><td><span class="pill ok">首选</span></td></tr>
+        <tr><td><b>B. 手里有车主客户的汽车后市场老板</b><br>汽修厂、洗车美容、贴膜改装、轮胎店，想加一块二手车收车 / 置换</td><td>第二曲线</td><td>主业利润被连锁和平台压缩、老车主换车时流失</td><td>中高</td><td>中</td><td><span class="pill mid">中</span></td><td><span class="pill mid">次选 / 高客单</span></td></tr>
+        <tr><td><b>C. 想入行开车行的小白、上班族、宝妈</b><br>"副业倒车"</td><td>有需求</td><td>弱，多半只是想想</td><td>低</td><td>高</td><td><span class="pill no">高</span></td><td><span class="pill no">不做主力</span></td></tr>
+        <tr><td><b>D. 买车卖车的个人车主</b><br>怕买到事故车、想把车卖个好价</td><td>一般</td><td>弱</td><td>中</td><td>低</td><td><span class="pill ok">低</span></td><td><span class="pill mid">只做出圈流量</span></td></tr>
       </tbody>
     </table></div>
     <ul class="tasks">
       <li data-k="a5">确定主攻人群（建议 A），写出他所处的阶段、问题、收入</li>
-      <li data-k="a6">想清楚不把宝妈当主力的理由，团队内部统一口径
+      <li data-k="a6">想清楚不把小白、宝妈当主力的理由，团队内部统一口径
         <ul class="sub">
-          <li>D3 违规课：严打"以创业、投资、理财、副业的名义吸引普通用户"，普通用户就是宝爸宝妈这类弱势群体</li>
+          <li>D3 违规课：严打"以创业、投资、理财、副业的名义吸引普通用户"，普通用户就是宝爸宝妈这类弱势群体；教小白、宝妈"倒车赚钱"正好撞在枪口上</li>
           <li>D1 人群课："帮助本该成功的人加速成功"，补差付出最多、结果最小、客诉最高</li>
           <li>D1 定价：宝妈客单最好不超过她一个月的收入，一般 2000 多，极限 5000</li>
           <li>D1 点评：还没找到项目的人是存钱思维，不是花钱思维</li>
+          <li>我的补充：二手车压资金，没本金的小白学完也开不起店，最容易觉得"学了没用"来退费投诉</li>
         </ul>
       </li>
     </ul>
-    <p class="why">B 类人群可以借老师讲的"老美业"逻辑：高端熟客才是资产，三公里内富婆的老带新比到处拓客重要。手里有富婆熟客的老板娘，加一块二奢寄卖 / 回收，客户是现成的。</p>
+    <p class="why"><b>D 类要单独提防</b>：如果你的号以前是卖车用的，粉丝大多是想买车的个人，开播后评论区会全是"这车多少钱""能分期吗"。直播间要明确喊人群（"开车行的老板扣 1"），问车价的统一转给店里销售私聊（见合规"二手车要额外注意的"）。</p>
+    <p class="why">B 类人群可以借老师讲的"老美业"逻辑：熟客才是资产，老带新比到处拓客重要。修理厂、美容店手里的老车主就是现成客户，车主换车前最先问的往往是常去的那家店；加一块二手车收车置换，客户是现成的（我的补充）。</p>
   </div>
 
   <div class="blk">
@@ -414,15 +418,15 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
       <li data-k="a7">翻成交记录：学员是在<b>发生了什么事之后</b>付钱的？</li>
       <li data-k="a8">用真实数据验证 A 类人群的关键事件
         <ul class="sub">
-          <li>收到一只假货 / 鉴定翻车，被客户索赔</li>
-          <li>压了一批库存卖不动，资金周转紧张</li>
-          <li>门店客流断崖，房租快扛不住</li>
-          <li>原来的平台账号被限流或封号，想转视频号直播又不会</li>
-          <li>行情下跌，收货价判断失误亏了钱</li>
-          <li>开了第二家店或招了店员管不过来，店员带客户单干</li>
+          <li>平台线索费又涨了，花了钱还是不出单</li>
+          <li>院里压着车，停了两三个月还没卖掉，天天掉价，资金转不动</li>
+          <li>收到一台事故车、泡水车或调表车，亏了钱，还被客户找上门</li>
+          <li>新车又降价，手里的库存一夜之间贬值</li>
+          <li>同城同行开了直播，客户被抢走</li>
+          <li>开了第二家店、租了新场地，固定成本一下子上去了；或者老销售带着客户出去单干</li>
         </ul>
       </li>
-      <li data-k="a9">短视频和直播<b>反复打这几个事件</b>，不泛泛讲"二奢怎么做"</li>
+      <li data-k="a9">短视频和直播<b>反复打这几个事件</b>，不泛泛讲"二手车怎么做"</li>
     </ul>
   </div>
 
@@ -430,7 +434,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <h3>一句话定位 <span class="src">D1 人群课</span></h3>
     <ul class="tasks">
       <li data-k="a10">套公式写出来：帮【什么阶段的什么人】解决【什么具体问题】</li>
-      <li data-k="a11"><b>卖结果（那个孔），不卖手段（那个电钻）</b>：不叫"二奢直播课""二奢 IP 陪跑"，客户要的是货卖出去、熟客留下来、店活下去</li>
+      <li data-k="a11"><b>卖结果（那个孔），不卖手段（那个电钻）</b>：不叫"二手车直播课""车商 IP 陪跑"，客户要的是车卖得快、钱回得快、本地客户主动找上门</li>
       <li data-k="a12">讲大白话，拿回去问你妈，她听得懂才算合格。好定位顶一百个好销售</li>
       <li data-k="a13">定一句内部<b>量化口号</b>，只在公司内部用，不在短视频和直播里喊（违反广告法）。老师的例子："帮夫妻店每天多赚一千块""一年抵十年"</li>
       <li data-k="a14">账号名 = 背书 + 领域（老师把"陈晶今天聊商业"改成"清华陈晶聊商业"），不带敏感词</li>
@@ -440,8 +444,8 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
   <div class="blk">
     <h3>定位上要避开的坑</h3>
     <ul class="tasks">
-      <li data-k="a15"><b>不大而全</b>：开店、直播、鉴定、卖货、招代理什么都教，等于什么都不精 <span class="src">D1 人群课</span></li>
-      <li data-k="a16"><b>不"陪太子读书"</b>：只教人选项目入行，赚到钱跟你没关系，赚不到又怪你；你手里要有真赚钱的东西（货源、渠道、鉴定）<span class="src">D1 点评</span></li>
+      <li data-k="a15"><b>不大而全</b>：收车、整备、金融、直播、开店、招代理什么都教，等于什么都不精 <span class="src">D1 人群课</span></li>
+      <li data-k="a16"><b>不"陪太子读书"</b>：只教人入行开车行，赚到钱跟你没关系，赚不到又怪你；你手里要有真赚钱的东西（同城获客体系、收车评估定价能力、车源 / 检测 / 整备渠道）<span class="src">D1 点评</span></li>
       <li data-k="a17"><b>不靠堆交付</b>：今年 5 次课、明年加一对一、后年加游学，越堆越累 <span class="src">D1 点评</span></li>
     </ul>
   </div>
@@ -450,7 +454,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 <!-- ======================= 02 ======================= -->
 <section class="sec" id="s2" data-sec="s2">
   <div class="sec-head">
-    <div class="stamp"><div><small>LOT</small><span>02</span></div></div>
+    <div class="stamp"><div><small>No.</small><span>02</span></div></div>
     <div><h2>产品设计：四阶梯</h2><p class="lede">一家公司只需要一个核心产品，一个核心产品只需要一个核心权益</p></div>
     <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
   </div>
@@ -461,13 +465,13 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
       <li data-k="b1">定价 5 元或 9.9 元。价格筛不出高端客户，<b>内容才筛客户</b>：讲老板关心的话题，来的就是老板</li>
       <li data-k="b2">不卖"108 个 SOP 资料包""365 节音频"（领了不看，没法跟进），<b>为跟进而卖</b></li>
       <li data-k="b3">设计一个<b>检测 / 诊断</b>钩子，让客户自己发现问题（体检报告解读、美容院面诊、洗牙、健身房体重秤）</li>
-      <li data-k="b4">做诊断的人用<b>专家身份</b>：顾问、操盘手、鉴定师，不是"助理"或"销售"</li>
+      <li data-k="b4">做诊断的人用<b>专家身份</b>：顾问、操盘手、评估师，不是"助理"或"销售"</li>
       <li data-k="b5">交付流程：20 分钟电话 → 录音转文字交给 AI → 生成"定制诊断报告"发给客户</li>
       <li data-k="b6">不合适的人（没钱、只想白嫖）就说"顾问排满了"，退款。"这世界上没有退费解决不了的问题"</li>
     </ul>
-    <div class="eg"><span class="eg-tag">二奢示例</span>
-      <p>「二奢店铺体检：顾问 20 分钟一对一诊断 ＋《二奢收货避坑清单》」</p>
-      <p>「三天真人直播课（第一天讲什么、第二天讲什么、第三天讲什么）＋ 一次店铺诊断」</p>
+    <div class="eg"><span class="eg-tag">二手车示例</span>
+      <p>「车行获客体检：顾问 20 分钟一对一诊断 ＋《收车验车避坑清单》」</p>
+      <p>「三天真人直播课（第一天讲什么、第二天讲什么、第三天讲什么）＋ 一次车行诊断」</p>
     </div>
   </div>
 
@@ -482,7 +486,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
   <div class="blk">
     <h3>利润型：核心产品，理想状态占营收 60%～70% <span class="src">D1 产品课</span></h3>
     <ul class="tasks">
-      <li data-k="b9">定形式，例如两天一晚或三天两晚的<b>线下实战营</b>，在你的仓库或门店上课：收货鉴定、定价、陈列、直播间搭建、拍短视频、私域成交；课后第三天一对一出方案；之后社群复盘</li>
+      <li data-k="b9">定形式，例如两天一晚或三天两晚的<b>线下实战营</b>，在你的车场或展厅上课：收车评估、定价、整备拍摄、拍短视频、直播间搭建、私域成交；课后第三天一对一出方案；之后社群复盘</li>
       <li data-k="b10"><b>交付物要明确</b>，客户能做"左边结果、右边价格"的决策（两千元大而全的社群卖不动，二十万的硅谷游学好卖）</li>
       <li data-k="b11"><b>要么保结果，要么完全不保</b>，别做"轻陪跑""方案班"这种保一半的，一定扯皮</li>
       <li data-k="b12">提高到课率：一家店两个名额（老板 + 店长），先上课再咨询；课前讲清楚现场有什么、能带走什么 <span class="src">D1 点评·跨境财税</span></li>
@@ -503,14 +507,14 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
   <div class="blk">
     <h3>品牌型与复购：压舱石</h3>
     <ul class="tasks">
-      <li data-k="b15">设计高价产品：年度陪跑、全案操盘、合伙开店、<b>供应链合作</b>（货盘 + 鉴定 + 回收寄卖通道），10 万～30 万。作用是价格锚和出标杆案例，案例越硬，价格才能比同行高 <span class="src">D1 产品课</span></li>
-      <li data-k="b16">设计<b>复购</b>：课程没有复购，货源、鉴定、回收、寄卖分成可以反复发生 <span class="mine">我的补充</span>
+      <li data-k="b15">设计高价产品：年度陪跑、全案操盘、<b>驻店带教</b>（去学员车行驻场带团队），10 万～30 万。车源、检测、整备这类合作不要打包成一笔十几万的"合作费"来卖，按台结算，放进下面的复购；收高额"合作 / 品牌费"容易被认定为加盟，涉及特许经营备案（我的补充，请找律师确认）。作用是价格锚和出标杆案例，案例越硬，价格才能比同行高 <span class="src">D1 产品课</span></li>
+      <li data-k="b16">设计<b>复购</b>（可能是你的独特优势）：课程没有复购，车源、检测、整备、批发调车可以反复发生；涉及金融返点、车贷分成的，先确认合规再设计 <span class="mine">我的补充</span>
         <ul class="sub">
           <li>兽药案例：9.9 元资料 → 药品（提价）→ 代乳粉、饲料（复购）→ 年度顾问（品牌）<span class="src">D1 下午</span></li>
           <li>美发供应链案例：供应链 + 教发型师带货 <span class="src">D3 上午</span></li>
         </ul>
       </li>
-      <li data-k="b17"><b>赋能同行</b>：没有货源和鉴定交付能力的同行，可以变成你的代理或渠道 <span class="src">D1 点评·跨境财税</span></li>
+      <li data-k="b17"><b>赋能同行</b>：没有车源、检测和评估交付能力的同行，可以变成你的代理或渠道 <span class="src">D1 点评·跨境财税</span></li>
       <li data-k="b18"><b>把课程当招商加盟卖</b>：用招商的标准要求自己，讲行业趋势和成功路径 <span class="src">D1 定位课</span></li>
     </ul>
   </div>
@@ -528,7 +532,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 <!-- ======================= 03 ======================= -->
 <section class="sec" id="s3" data-sec="s3">
   <div class="sec-head">
-    <div class="stamp"><div><small>LOT</small><span>03</span></div></div>
+    <div class="stamp"><div><small>No.</small><span>03</span></div></div>
     <div><h2>人设包装与直播场景</h2><p class="lede">像什么比是什么更重要</p></div>
     <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
   </div>
@@ -538,11 +542,12 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <p class="para">作用是埋"心锚"：为什么选你不选同行。想象旁边站着一排同行在抢同一个客户，罗列<b>比他们强的 3 条证据</b>，不要按时间从小讲到大。</p>
     <ul class="tasks">
       <li data-k="c1"><b>第一段 秀肌肉</b>：只罗列最有效、外行认可的证据
-        <ul class="sub"><li>入行很久（直播里说"很多年"）· 早年做海外货源批发 · 鉴定定价眼力 · 学员"从一家店都没有到开了好几家" · 有的话加名人或大客户</li></ul>
+        <ul class="sub"><li>入行很久（直播里说"很多年"）· 自营车行、车场的实景（"你看我身后这些车"）· 收车评估定价的眼力（直播里不报具体台数和毛利）· 学员"从坐在店里等客，到本地车主主动找上门" · 有的话加大客户（比如车商集团、4S 店二手车部门来学过）</li></ul>
       </li>
-      <li data-k="c2"><b>第二段 拉共情</b>：讲你比他还难的时候。2023 年 B2B 交易停住的日子，用画面讲（仓库压着货、客户不回消息……），怎么走出来的，落到"我想把踩过的坑分享给你"</li>
+      <li data-k="c2"><b>第二段 拉共情</b>：讲你比他还难的时候。比如压库最多、资金最紧的那段日子（以你的真实经历为准），用画面讲（院里压着几十台车、利息一天天在走、晚上一个人坐在车场里……），怎么走出来的，落到"我想把踩过的坑分享给你""希望成为你生命里的贵人"</li>
       <li data-k="c3">两段都要有：男主播常常只秀肌肉，女主播常常只讲苦情</li>
       <li data-k="c4">理性证据放进感性框架："你很厉害打动不了我，你很关心我才打动我"，要说成"我用我的专业来对你好" <span class="src">D3 上午</span></li>
+      <li data-k="cn1"><b>植入售后人设</b>（于姐模板）：找一次学员或客户踩了坑、你主动兜底的真事，放进自我介绍或干货里 <span class="src">D1 晚·短视频课</span></li>
       <li data-k="c5">做成思维导图关键词，不背逐字稿、不用提词器，"让感情带着话术走"</li>
       <li data-k="c6">在镜头旁贴一张对你最重要的人或学员的照片，对着他说话</li>
       <li data-k="c7">看回放检查：说"你"不说"大家"；看镜头；不给自己加"括号"；说话慢，句尾落地；别拿"然后""就是"当逗号</li>
@@ -557,15 +562,19 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
       <li data-k="c10">不露骨但让人猜得到，<b>不放收益数字</b></li>
       <li data-k="c11">让豆包或 DeepSeek 出 10 个候选（写清"我是谁 + 客户特征 + 不要违规"），结合爆款短视频标题，自己挑</li>
     </ul>
+    <div class="eg"><span class="eg-tag">二手车示例 · 贴片方向</span>
+      <p>第一行"自己开车行的老车商告诉你"，第二行"车行老板：客户都去哪了"</p>
+    </div>
   </div>
 
   <div class="blk">
     <h3>形象与场景 <span class="src">D3 痛点课 · D2 陪跑说明会</span></h3>
     <ul class="tasks">
-      <li data-k="c12">形象像二奢行家，有审美、有质感（老师给一个教培客户配了副平光眼镜，气质马上不一样）</li>
-      <li data-k="c13">场景有身份标识：<b>满墙奢侈品</b>、包堆成山、鉴定台、仓库、门店。不要大白墙 + 世界地图 + 人工学椅</li>
+      <li data-k="c12">形象像靠谱的老车商、懂行的老师傅：干净的深色 polo 衫或工装，手边一台漆膜仪（老师给一个教培客户配了副平光眼镜，气质马上不一样）</li>
+      <li data-k="c13">场景有身份标识：<b>车场、展厅、整备检测工位</b>，身后停着车。不要大白墙 + 世界地图 + 人工学椅</li>
+      <li data-k="cn2">墙上的"0 首付""低息分期""高价收车"这类横幅，开播前撤掉或挡住（文字最容易被抓违规）<span class="mine">我的补充</span></li>
       <li data-k="c14">灯光用<b>暖黄色</b>，这是成交色；冷白、蓝、紫都不成交</li>
-      <li data-k="c15"><b>卖点可视化</b>：卖什么就把什么放在画面中间、最大的位置；讲鉴定就把细节投进画面</li>
+      <li data-k="c15"><b>卖点可视化</b>：卖什么就把什么放在画面中间、最大的位置；讲验车就把漆膜仪读数、检测细节投进画面</li>
       <li data-k="c16">配一个降噪收音麦</li>
     </ul>
   </div>
@@ -583,7 +592,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 <!-- ======================= 04 ======================= -->
 <section class="sec" id="s4" data-sec="s4">
   <div class="sec-head">
-    <div class="stamp"><div><small>LOT</small><span>04</span></div></div>
+    <div class="stamp"><div><small>No.</small><span>04</span></div></div>
     <div><h2>短视频：零存</h2><p class="lede">视频号涨粉和变现成正比，平台优先把直播推给看过你短视频的人</p></div>
     <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
   </div>
@@ -596,7 +605,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
       <tbody>
         <tr><td>平均播放低于 500（约 2000 算合格）</td><td>内容关没过：选题、开头、场景</td></tr>
         <tr><td>有流量没咨询</td><td>痛点不准、定位不清</td></tr>
-        <tr><td>有客资但不精准</td><td>以为在对话老板，其实对话的是打工的</td></tr>
+        <tr><td>有客资但不精准</td><td>以为在对话老板，其实对话的是打工的（或者是想买车的个人）</td></tr>
         <tr><td>精准但转化慢</td><td>人设和案例不够，信任没建立</td></tr>
       </tbody>
     </table></div>
@@ -608,46 +617,49 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
       <li data-k="d1">新手按 <b>5 : 3 : 2</b>：50% 出圈（痛点、热点、取悦共鸣）、30% 人设、20% 出单（广告、客户证言、过程性视频）；成熟后 1:1:1，多转化少破圈</li>
       <li data-k="d2">每一条都同时有<b>人群 + 人设 + 案例植入</b>，结尾有指令（"预约我的直播"或"评论区留言"；领资料现在有违规风险）</li>
       <li data-k="d3">第一句话决定 90% 的流量，开头直接讲结论</li>
-      <li data-k="d4">拍一些数据差、但建立信任的视频：家庭、团队、仓库、门店、日常。"信任总量是固定的，前端做 80 分，后端只用补 20 分" <span class="src">D1 点评</span></li>
+      <li data-k="d4">拍一些数据差、但建立信任的视频：家庭、团队、车场、门店、日常。"信任总量是固定的，前端做 80 分，后端只用补 20 分" <span class="src">D1 点评</span></li>
       <li data-k="d5">多拍<b>过程性视频</b>：探店、巡店、现场解决问题，倒叙拍，冲突和结果放前面。播放不高，但最变现</li>
+      <li data-k="dn1"><b>干货里植入人设</b>（于姐的改法）：讲避坑时顺带讲"我客户踩过这个坑，我是怎么帮他兜底的"，自然融进去，不要硬插一段广告 <span class="src">D1 晚·短视频课</span></li>
     </ul>
   </div>
 
   <div class="blk">
-    <h3>二奢选题库示例</h3>
-    <p class="para">套用方法的样子，请换成你的真实素材。痛点类预设看视频的是老板。</p>
+    <h3>二手车选题库示例</h3>
+    <p class="para">套用方法的样子，请换成你的真实素材。痛点类对话 A 类车行老板，预设看视频的是老板。</p>
     <div class="grid2">
-      <div class="key"><span class="k-no">出圈 · 痛点</span><ul class="plain"><li>二奢店老板最怕收到的三种货</li><li>你的二奢店为什么客人只看不买</li><li>压了几十万库存的二奢店老板，先别急着降价</li><li>开二奢店第一年最容易踩的坑</li><li>店员带着熟客单干，老板该怎么办</li></ul></div>
-      <div class="key"><span class="k-no">出圈 · 热点 / 共鸣</span><ul class="plain"><li>某品牌调价之后，二手行情会怎么走</li><li>某款包突然火了，二奢店该不该跟</li><li>做二奢这么多年，见过最离谱的客人</li><li>二奢这行最难熬的那一年</li></ul></div>
-      <div class="key"><span class="k-no">人设（小人设）</span><ul class="plain"><li>2023 年行情大跌那年，我是怎么熬过来的</li><li>为什么我从做批发转来教人开店</li><li>我仓库里的一天</li><li>我带的学员从零开到第二家店</li></ul></div>
-      <div class="key"><span class="k-no">出单</span><ul class="plain"><li>去学员店里巡店，诊断陈列和定价</li><li>现场给学员收来的货鉴定、定价</li><li>学员直播间搭建前后对比</li><li>和学员合拍案例视频（"最能招生的短视频"）</li><li>"我把仓库改成了教室"</li></ul></div>
+      <div class="key"><span class="k-no">出圈 · 痛点</span><ul class="plain"><li>车行老板最怕收到的三种车</li><li>你的车行为什么客户只看不买</li><li>院里的车压了两三个月，先别急着降价</li><li>开车行第一年最容易踩的坑</li><li>销售带着客户出去单干，老板该怎么办</li></ul></div>
+      <div class="key"><span class="k-no">出圈 · 热点 / 共鸣</span><ul class="plain"><li>新车又降价了，车行手里的库存怎么办</li><li>新能源二手车掉价快，车行还敢不敢收</li><li>干二手车这么多年，见过最离谱的车主</li><li>开车行最难熬的那一年</li></ul></div>
+      <div class="key"><span class="k-no">人设（小人设）</span><ul class="plain"><li>压库最狠的那一年，我是怎么熬过来的</li><li>为什么我一边开车行，一边教车商获客</li><li>我车场里的一天</li><li>我带的学员，从坐店等客到车主主动找上门</li><li>学员收到问题车，我是怎么帮他兜底的（于姐式售后人设）</li></ul></div>
+      <div class="key"><span class="k-no">出单</span><ul class="plain"><li>去学员车行做"获客体检"，现场指出三个问题</li><li>陪学员收一台车，现场讲怎么看、怎么谈（先征得车主同意再拍，车牌、VIN、行驶证打码；讲评估思路，不拍成压价套路）</li><li>学员账号改造前后对比</li><li>和学员合拍案例视频（"最能招生的短视频"）</li><li>"我把车场的一角改成了教室"</li></ul></div>
     </div>
     <ul class="tasks">
       <li data-k="d6">按上面四类各列出 10 个你自己的选题，建成选题库</li>
     </ul>
+    <p class="why"><b>注意</b>：选题要对着车行老板讲，别拍成给个人看的"买车避坑"。那种视频流量可能不错，但来的是想买车的人，适合卖车，招不来车商学员。（我的补充）</p>
   </div>
 
   <div class="blk">
     <h3>生产流程：老师一条半小时出稿 <span class="src">D1 晚</span></h3>
     <ul class="tasks">
       <li data-k="d7">从销售和私聊记录里收集"重要 + 紧迫"的痛点</li>
-      <li data-k="d8">用关键词在抖音、小红书、视频号搜爆款（"二奢 店主""二手奢侈品 库存""奢侈品 鉴定"），不限时间，在精准的视频里挑点赞最高的</li>
+      <li data-k="d8">用关键词在抖音、小红书、视频号搜爆款（"车行 老板""二手车 收车""二手车 库存""车商 获客"），不限时间，在精准的视频里挑点赞最高的</li>
       <li data-k="d9"><b>保留爆款的选题和第一句话</b>（第一句可以原样照抄），结构用"为什么 → 是什么 → 怎么做"</li>
       <li data-k="d10">用 Get 笔记口述自己的观点 5～10 分钟（口语比写作好）</li>
       <li data-k="d11">提取爆款逐字稿：视频号用"元宝"，其他平台在 Get 笔记里粘贴链接</li>
       <li data-k="d12">口述 + 爆款逐字稿 + 这门课的逐字稿一起交给 AI 二创：<b>爆款的骨架，你自己的血肉</b></li>
       <li data-k="d13">改成口语、检查违禁词，分段拍（三句一段也行）</li>
       <li data-k="d14">跑出来的好素材，换衣服换场景翻拍 3～5 遍</li>
-      <li data-k="d15">直播间讲得热烈的干货拍成短视频；带客资多的短视频文案搬进直播间</li>
+      <li data-k="d15">直播间讲得热烈的干货拍成短视频；带客资多的短视频文案搬进直播间。与其抄别人的爆款，不如抄自己的爆款（于姐那条就是改她自己的爆款）</li>
     </ul>
     <p class="why">别指望外包："遇到好操盘手的概率比遇到好对象还低"。老板自己下死功夫干一个月就通了。另外，反复发硬广讲线下课时间地点，会把账号变成营销号被限流。</p>
+    <p class="why">老师点评过实体老板的通病：音乐太炸、镜头摇来摇去、特效太多。车场里拍，节奏温和一点、人和车都看得清就好。（D1 晚·短视频课）</p>
   </div>
 </section>
 
 <!-- ======================= 05 ======================= -->
 <section class="sec" id="s5" data-sec="s5">
   <div class="sec-head">
-    <div class="stamp"><div><small>LOT</small><span>05</span></div></div>
+    <div class="stamp"><div><small>No.</small><span>05</span></div></div>
     <div><h2>投流：算账 + 把人拉进来</h2><p class="lede">不是投了流才有人买，是有人买了投流才变多</p></div>
     <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
   </div>
@@ -669,7 +681,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
       <li data-k="e1">找到入口：手机在作品里点"转发 → 加热工具 / 上热门 → 使用专业工具"；电脑搜"视频号助手 → 加热平台"</li>
       <li data-k="e2">优化目标选<b>关注</b>，不投点赞、推荐、直播预约（投关注来的预约成交 10%～15%，直接投预约只有 2%～3%）</li>
       <li data-k="e3">一组 5 条最满意的视频；智能出价；首次 50 元（500 微信豆）；时长 24 小时</li>
-      <li data-k="e4">性别、年龄、地域按真实客群设（九成是女性就选女性；不做本地就不限地域）</li>
+      <li data-k="e4">性别、年龄、地域按真实客群设（九成是男性就选男性；线上课不是本地生意，就不限地域）</li>
       <li data-k="e5">"兴趣"和"作者粉丝"<b>二选一</b>（一起选是取交集），都想要就建两个计划</li>
       <li data-k="e6">看哪条涨粉最多，放进最好的计划继续投</li>
     </ul>
@@ -687,11 +699,11 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
   </div>
 
   <div class="blk">
-    <h3>二奢的对标池：去重后超过 200 万粉丝</h3>
+    <h3>二手车的对标池：去重后超过 200 万粉丝</h3>
     <ul class="tasks">
-      <li data-k="e12"><b>直接竞品</b>：二奢回收、鉴定、二奢店主类博主，教人开二奢店的博主</li>
-      <li data-k="e13"><b>往前倒一步找重合人群</b>（老师：做 TikTok 教学去投阿里国际站官方号，做早教去投奶粉和学步车）：奢侈品测评、开箱、穿搭博主，高端女装或珠宝博主；打店主就找实体店经营类博主</li>
-      <li data-k="e14"><b>兴趣标签</b>：珠宝首饰、时尚等（老师说买黄金、翡翠、文玩的人群有钱）</li>
+      <li data-k="e12"><b>直接竞品</b>：二手车培训、车商获客、车行经营类博主</li>
+      <li data-k="e13"><b>往前倒一步找重合人群</b>（老师：做 TikTok 教学去投阿里国际站官方号，做早教去投奶粉和学步车）：二手车行情播报、拍卖或批发平台的官方号、车况检测、整备美容、汽车后市场经营类博主。汽车评测、提车开箱类大号的粉丝多是买车的个人，可以测，但单独建计划 <span class="mine">我的补充</span></li>
+      <li data-k="e14"><b>兴趣标签</b>：汽车，再加上老师给的创业人群兴趣（教育培训、创业理财、自媒体运营、金融财经）等，以后台实际能选的为准。注意是你学员的兴趣，不是你自己的兴趣</li>
       <li data-k="e15">在达人后台看对标粉丝的兴趣标签是否匹配；太小的账号后台搜不到</li>
       <li data-k="e16">研究对标主页：视频号投放素材默认挂在主页，某几条点赞明显异常高的，多半是反复投放的广告素材，可以借鉴</li>
     </ul>
@@ -712,7 +724,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 <!-- ======================= 06 ======================= -->
 <section class="sec" id="s6" data-sec="s6">
   <div class="sec-head">
-    <div class="stamp"><div><small>LOT</small><span>06</span></div></div>
+    <div class="stamp"><div><small>No.</small><span>06</span></div></div>
     <div><h2>直播：整取</h2><p class="lede">直播间里就二十分钟话术；三个人在线也要卖出一单，流量才会越来越多</p></div>
     <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
   </div>
@@ -722,12 +734,13 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <ul class="tasks">
       <li data-k="f1">提前 3～7 天发预告短视频，投"关注"攒预约</li>
       <li data-k="f2">直播主题和封面：封面少放字；主题不写"普通人如何赚到第一个一百万"这类</li>
-      <li data-k="f3">贴片两行、背景墙、暖黄灯光、收音麦</li>
+      <li data-k="f3">贴片两行、车场或展厅背景（撤掉金融横幅）、暖黄灯光、收音麦</li>
       <li data-k="f4">上 5 元链接，或者挂企业微信二维码，<b>二选一</b>："挂车不挂码，挂码不挂车"</li>
       <li data-k="f5">话术思维导图就位，镜头旁贴好照片</li>
       <li data-k="f6">安排<b>助播 / 场控</b>：盯订单、用"微信小店助手"改库存、喊"最后三单"、备一个传菜铃</li>
       <li data-k="f7">投流计划提前建好</li>
       <li data-k="f8">违禁词自查：昵称、简介、主题、封面、贴片、字幕</li>
+      <li data-k="fn1">准备好"问车价"的统一回复（见合规"二手车要额外注意的"），交代给场控 <span class="mine">我的补充</span></li>
     </ul>
   </div>
 
@@ -749,19 +762,19 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <ul class="tasks">
       <li data-k="f9"><b>你有病（约 3 分钟）</b>：盯死一个人讲具体日常画面，像放监控；不讲"生意难不难做"这种群体痛点（"鞭子打在一群人身上等于没打"）</li>
       <li data-k="f10">一半讲客户现在的样子，一半讲"我当年也是这样"，把人设揉进痛点</li>
-      <li data-k="f11">写之前闭眼想象一个具体客户的一天：几点起床、房租多少、店里几个人、晚上睡不着在想什么、家里人怎么说他</li>
+      <li data-k="f11">写之前闭眼想象一个具体客户的一天：几点到车场、场地租金和贷款多少、店里几个人、晚上睡不着在想什么、家里人怎么说他</li>
       <li data-k="f12"><b>找病因（认知破碎法）</b>：先攻击他正在做的事背后的旧认知，再植入新认知</li>
       <li data-k="f13"><b>我有药</b>：干货可以讲干净，"成年人买的是心安、确定性、陪伴和答疑，不是知识"；压住给专业建议的冲动</li>
       <li data-k="f14"><b>即时有效</b>：讲干货不如演干货，让人当场有收获；before / after 对比最有说服力</li>
     </ul>
-    <div class="eg"><span class="eg-tag">二奢示例 · 你有病</span>
-      <p>"你是不是这样：店开在商场边上，一个月房租两三万，门口人来人往就是不进来；进来的大多是问回收价的；仓库里还压着去年收的货，现在行情比你收的时候还低；挂在网上，私信全是砍价的；晚上盘账，你开始怀疑这店还要不要开下去……"</p>
+    <div class="eg"><span class="eg-tag">二手车示例 · 你有病</span>
+      <p>"你是不是这样：早上八点拉开车场的门，院里压着十几台车，有一台已经停了三个多月；平台的线索一条几十块，打过去一半是同行来套价的；下午好不容易来了个看车的，开口就砍五千，最后还是没成；晚上盘账，场地费、利息、工资一样不少，你开始怀疑这店还要不要开下去……"</p>
     </div>
-    <div class="eg"><span class="eg-tag">二奢示例 · 找病因</span>
-      <p>"你以为缺的是客流，所以拼命做团购、刷平台；可二奢本质是奢侈品生意，成交的不是人流，是有钱的熟客。渠道错了，越努力越亏。"（套用老师讲美业的逻辑）</p>
+    <div class="eg"><span class="eg-tag">二手车示例 · 找病因</span>
+      <p>"你以为缺的是线索，所以拼命在平台上买线索、降价挂车；可车行本质是本地人的信任生意，成交的不是线索，是信你的本地车主。客户都攥在平台手里，你越买越贵，越降越亏。"（套用老师讲美业的逻辑）</p>
     </div>
-    <div class="eg"><span class="eg-tag">二奢示例 · 即时有效</span>
-      <p>现场教一个"三秒判断这只包收不收"的方法；教一句让问价客人留下来的话；连麦看他的货给建议。</p>
+    <div class="eg"><span class="eg-tag">二手车示例 · 即时有效</span>
+      <p>现场教一个"三步判断这台车收不收"的方法（只讲判断方法，不对具体某台车下"无事故""值多少钱"的结论）；现场把一条卖车视频的开头改好；连麦看他的车场给建议。</p>
     </div>
   </div>
 
@@ -770,30 +783,30 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <p class="para">顺序不能倒、不能混。卖不动的时候不要"恼羞成怒式说教"。</p>
     <ul class="tasks">
       <li data-k="f15"><b>感召过渡（1～1.5 分钟，3～5 句）</b>：句型"为什么你一定要无比重视……"，说"我们一起……"而不是"我要赚你钱"；赋予意义感，卖得越具体越廉价</li>
-      <li data-k="f16"><b>价值塑造</b>：把 5 元链接里的东西讲得像 5000 元（人们要的是占便宜）；三大卖点 → 外面多少钱 → 今天多少钱；你自己要真心相信它值</li>
+      <li data-k="f16"><b>价值塑造</b>：把 5 元链接里的东西讲得像 5000 元（人们要的是占便宜）；三大卖点 → 外面多少钱（要真实可查，别编原价）→ 今天多少钱；你自己要真心相信它值</li>
       <li data-k="f17"><b>限额</b>：名额约为在线人数的 10%；理由真实（顾问时间有限），也可以硬限；说的库存和后台一致</li>
       <li data-k="f18"><b>保障</b>：不满意直接退款，打消顾虑（卖咖啡给试喝装，卖花保证开箱验货、养死补发）</li>
       <li data-k="f19"><b>逼单</b>：助播活泼地喊"最后三单、两单、一单"，主播沉稳地讲；讲"什么人不适合拍"；<b>拿起手机演示拍单</b>；让已拍的打"已拍 + 城市"；不喊其他平台名字</li>
-      <li data-k="f20"><b>福利</b>：赠品和主品搭配；两三百元产品送实物赠品，粘在卡纸上展示</li>
+      <li data-k="f20"><b>福利</b>：赠品和主品搭配；两三百元产品送实物赠品（二手车可以是验车手电、收车合同本这类车商天天用的小东西），粘在卡纸上展示</li>
       <li data-k="f21">承诺只用在主观描述上（"你一定不会后悔"），<b>绝不量化</b>（"保证赚多少""价值上万"都违规）</li>
     </ul>
-    <div class="eg"><span class="eg-tag">二奢示例 · 感召</span><p>"二奢做的从来不是包，是信任。一个跟了你十年的熟客，才是你这家店真正的资产。"</p></div>
+    <div class="eg"><span class="eg-tag">二手车示例 · 感召</span><p>"车行卖的从来不只是车，是本地人的信任。一个找你买过两台车、还介绍亲戚来的老客户，才是你这家店真正的资产。"</p></div>
     <div class="eg"><span class="eg-tag">课堂原话 · 价值塑造</span><p>"这不是你给我 5 块钱，是我想跟你交个朋友。好就留下，不好原路退回。"</p></div>
   </div>
 
   <div class="blk">
-    <h3>连麦：二奢很适合，因为每家店情况都不一样 <span class="src">D3 连麦课</span></h3>
+    <h3>连麦：二手车很适合，因为每家车行情况都不一样 <span class="src">D3 连麦课</span></h3>
     <ul class="tasks">
       <li data-k="f22">别说"开放三个连麦名额，我线下咨询一小时两千今天免费"，新主播撑不起这个姿态</li>
       <li data-k="f23">点名评论区打字最多的人；他说在忙，就多坚持一句</li>
-      <li data-k="f24">具体暗示你能解决什么："店里有压着卖不动的货，拍给我看，我告诉你怎么处理、定什么价"</li>
+      <li data-k="f24">具体暗示你能解决什么："院里有压着卖不动的车，拿手机拍一圈车场给我看，我告诉你客户为什么不来、该从哪下手"</li>
       <li data-k="f25">做一张<b>连麦必问清单</b>，像体检一样问全，打断发散
-        <ul class="sub"><li>城市和商圈 · 门店还是私域、开了多久 · 月流水大概 · 货从哪来 · 库存多少、压了多久 · 客人主要是谁、熟客占多少 · 怎么获客 · 团队几个人 · 最想解决的一件事</li></ul>
+        <ul class="sub"><li>哪个城市，县城还是市区 · 门店还是个人车商、开了多久 · 一个月大概卖几台 · 车源从哪来 · 院里压着几台、最久的压了多久 · 客户主要从哪来、线上占多少 · 团队几个人 · 最想解决的一件事</li></ul>
       </li>
-      <li data-k="f26">问完把连麦人<b>闭麦</b>，对全场讲共性干货（"有没有其他店主也这样？"），讲完开麦给他一句结论</li>
+      <li data-k="f26">问完把连麦人<b>闭麦</b>，对全场讲共性干货（"有没有其他老板也这样？"），讲完开麦给他一句结论</li>
       <li data-k="f27">把连麦人当"工具人"：判断标准就一个，<b>他一开口在线是不是在涨</b>；不精准的连麦人也能借来把话题扩大</li>
       <li data-k="f28">每次不超过 15 分钟；连麦会降低效率（口播一小时卖 8 轮，连麦 2 轮），投流直播间要权衡</li>
-      <li data-k="f29">需要时找"连麦演员"，一次 50～100 元；记住连麦人说错话也算你的</li>
+      <li data-k="f29">需要时找"连麦演员"，一次 50～100 元；演员只能当"来提问的观众"，不能冒充学员讲效果、晒结果，否则就是虚假宣传。记住连麦人说错话也算你的。连麦看车只讲思路，不当场报具体价格、不下车况结论 <span class="mine">我的补充</span></li>
     </ul>
   </div>
 
@@ -811,7 +824,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 <!-- ======================= 07 ======================= -->
 <section class="sec" id="s7" data-sec="s7">
   <div class="sec-head">
-    <div class="stamp"><div><small>LOT</small><span>07</span></div></div>
+    <div class="stamp"><div><small>No.</small><span>07</span></div></div>
     <div><h2>私域承接与谈单</h2><p class="lede">公域做获客，私域做利润。私域讲师一年卖一千万，公司只有四个销售</p></div>
     <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
   </div>
@@ -820,44 +833,44 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <h3>承接设置 <span class="src">D3 私域课</span></h3>
     <ul class="tasks">
       <li data-k="g1"><b>承接号用你本人的名字</b>（主 IP，负责开口）。老师团队所有承接号都叫"清华陈晶聊商业"，开口率 80%，别人只有 30%</li>
-      <li data-k="g2">设顾问号（副 IP）：二奢顾问、鉴定师或店铺操盘手人设；顾问要真专业，最好自己也做号开播（私域讲师自己开播后单场卖了 162 单）</li>
+      <li data-k="g2">设顾问号（副 IP）：二手车评估师或车行操盘手人设；顾问要真专业，最好自己也做号开播（私域讲师自己开播后单场卖了 162 单）</li>
       <li data-k="g3">头像、签名、朋友圈去掉销售味：不写"火热报名中"，不写"工作时间 11 点到 6 点"</li>
       <li data-k="g4"><b>公域人设和私域人设强一致</b>，别公域高冷、私域"亲在吗"</li>
       <li data-k="g5">给 IP 录一套表情包、语音素材；朋友圈要评论，不只点赞</li>
-      <li data-k="g6">朋友圈持续晒案例，<b>晒过程不只晒结果</b>；晒交付现场、生活；新销售先看完 IP 近半年朋友圈</li>
-      <li data-k="g7">建一个专门发客户案例的视频号或案例库，按客户类型分层</li>
+      <li data-k="g6">朋友圈持续晒案例，<b>晒过程不只晒结果</b>；晒交付现场、生活；新销售先看完 IP 近半年朋友圈；别把朋友圈刷成车源广告</li>
+      <li data-k="g7">建一个专门发客户案例的视频号或案例库，按客户类型分层（夫妻店、综合车行、多店老板）</li>
     </ul>
   </div>
 
   <div class="blk">
-    <h3>11 步谈单（二奢版） <span class="src">D3 私域课</span></h3>
+    <h3>11 步谈单（二手车版） <span class="src">D3 私域课</span></h3>
     <p class="para">千万别一加微信就拉群、群发广告。按"为什么跟你买 → 为什么需要买 → 为什么买这个 → 为什么现在买"推进。</p>
     <ul class="tasks">
-      <li data-k="g8"><b>1 筛选</b>：不同客户花不同时间；看支付能力、需求强弱、决策链长短；侧面看朋友圈（有没有店、卖什么价位、在哪个城市），不发"查户口模板"</li>
+      <li data-k="g8"><b>1 筛选</b>：不同客户花不同时间；看支付能力、需求强弱、决策链长短；侧面看朋友圈（有没有店、车场多大、主卖什么价位的车、在哪个城市），不发"查户口模板"</li>
       <li data-k="g9"><b>2 破冰</b>：找同乡、同学、同爱好、同经历、同行业；成功标准是关系拉近、多个来回、聊得开心；不回就再问（问三遍才回的照样买单）、用福利钩子、去朋友圈评论、换话题</li>
-      <li data-k="g10"><b>3 给情绪价值</b>：夸到细节、结合业务；<b>绝不反问、质疑客户</b></li>
+      <li data-k="g10"><b>3 给情绪价值</b>：夸到细节、结合业务（老板夸格局和认知，车行老板可以夸他的眼力、能扛事）；<b>绝不反问、质疑客户</b></li>
       <li data-k="g11"><b>4 挖需求（连环三问）</b>：现状和感受 → 为什么现在想做 → 目标；再讲不解决会怎样、解决了会怎样。别问"有问题发给我"，只有两成人会发</li>
-      <li data-k="g12"><b>5 发诊断表</b>（有了信任才发）：表名决定填写率（"学员信息收集表"改"IP 体检诊断表"，30% → 70%）。可叫"二奢店铺体检诊断表"，用面积、商圈、客单区间、流水区间侧面了解支付能力，用"谁拍板"了解决策链</li>
-      <li data-k="g13"><b>6 晒案例</b>：给他思路和启发；晒<b>同城、同规模、能激发胜负欲</b>的案例，分层晒</li>
+      <li data-k="g12"><b>5 发诊断表</b>（有了信任才发）：表名决定填写率（"学员信息收集表"改"IP 体检诊断表"，30% → 70%）。可叫"车行获客体检表"，用车位数、月销台数区间、库存台数、主卖价位区间侧面了解支付能力，用"最想解决的一件事"了解需求，用"是否合伙、谁拍板"了解决策链</li>
+      <li data-k="g13"><b>6 晒案例</b>：给他思路和启发；晒<b>同城、同规模、能激发胜负欲</b>的车行案例，分层晒（夫妻店晒夫妻店的，大车行晒大车行的）</li>
       <li data-k="g14"><b>7 开药方不治病</b>：只给思路不给落地细节，5 元是挂号费；目的是秀专业，一针见血指出问题</li>
       <li data-k="g15"><b>8 种草产品</b>：对产品极度自信；海报配得上万元客单；<b>展示交付细节</b>，打消"怕去了被关门刷卡"的顾虑</li>
-      <li data-k="g16"><b>9 破卡点</b>：先认知卡点（"还没准备好先不来"），再行动卡点（没时间、没钱、要商量、怕没效果）；用三明治沟通法</li>
+      <li data-k="g16"><b>9 破卡点</b>：先认知卡点（"还没想好方向、没准备好，先不来"），再行动卡点（没时间、没钱、要商量、怕没效果）；用三明治沟通法</li>
       <li data-k="g17"><b>10 跟进</b>：打标签；潜在客户一对一个性化跟进，不群发，"每个人都是我的置顶"</li>
       <li data-k="g18"><b>11 收单</b>：最后一步才逼单（第一步就问"要一张还是两张票"一定失败）；没有收钱卡点，收钱才是对他负责</li>
     </ul>
   </div>
 
   <div class="blk">
-    <h3>常见异议，按三明治框架写出来 <span class="mine">我按二奢场景列的</span></h3>
+    <h3>常见异议，按三明治框架写出来 <span class="mine">我按二手车场景列的</span></h3>
     <ul class="tasks">
       <li data-k="g19">把 9 个异议各写一版"共情 → 破卡点 → 给案例"的回答（老板自己写，你最懂客户和案例）
-        <ul class="sub"><li>"太贵了" · "最近没时间" · "回去跟老公 / 合伙人商量" · "怕被割，之前学过没效果" · "我还没开店 / 店太小能学吗" · "年纪大了不会直播" · "行情不好等等再说" · "我先自己试试" · "你们是不是要我拿你们的货"</li></ul>
+        <ul class="sub"><li>"太贵了" · "车场离不开人，没时间" · "回去跟家里 / 合伙人商量" · "怕被割，之前学过没效果" · "我店太小、车太少，能学吗" · "年纪大了，不会拍也不会说" · "行情不好等等再说" · "我先自己试试" · "你们是不是要我拿你们的车源、做你们的金融"</li></ul>
       </li>
     </ul>
     <div class="eg"><span class="eg-tag">示例 · "太贵了"</span>
-      <p><b>共情</b>："特能理解，这两年赚钱真不容易，咱们都想把每一分钱花在刀刃上。"</p>
-      <p><b>破卡点</b>："但你算算，这里买几千、那里买几百，加起来早就不止这个数了，还是落不了地。"</p>
-      <p><b>给案例</b>："你看我们那个和你同城、店差不多大的学员……"</p>
+      <p><b>共情</b>："特能理解，这两年车不好卖，咱们都想把每一分钱花在刀刃上。"</p>
+      <p><b>破卡点</b>："但你算算，平台线索每个月花多少、压一台车每个月掉多少，加起来早就不止这个数了，问题还在。"</p>
+      <p><b>给案例</b>："你看我们那个和你同城、车场差不多大的学员……"</p>
     </div>
   </div>
 
@@ -883,7 +896,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 <!-- ======================= 08 ======================= -->
 <section class="sec" id="s8" data-sec="s8">
   <div class="sec-head">
-    <div class="stamp"><div><small>LOT</small><span>08</span></div></div>
+    <div class="stamp"><div><small>No.</small><span>08</span></div></div>
     <div><h2>交付</h2><p class="lede">交付好 → 学员拿结果 → 案例和转介绍 → 能卖高价 → 案例又变成短视频素材</p></div>
     <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
   </div>
@@ -902,14 +915,14 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
       <div class="wk"><div class="when">BEFORE<b>课前</b></div>
         <ul class="tasks">
           <li data-k="h3">学员填体检诊断表、分组、建群</li>
-          <li data-k="h4">布置课前作业：店铺照片、库存表、账号截图</li>
+          <li data-k="h4">布置课前作业：车场照片、库存表、账号截图</li>
         </ul></div>
       <div class="wk"><div class="when">DURING<b>课中</b></div>
         <ul class="tasks">
           <li data-k="h5">每节课后做作业，抽 1～2 人上台一对一调</li>
-          <li data-k="h6">现场实操：鉴定、定价、陈列、拍短视频、开播、私域话术</li>
+          <li data-k="h6">现场实操：收车评估、定价、整备拍摄、拍短视频、开播、私域话术</li>
           <li data-k="h7">晚上安排开播体验（老师第一晚就让学员开播，目标每人至少 10 单）；拍形象照</li>
-          <li data-k="h8">同组同学互相刷单、互相当助播，把气氛带起来</li>
+          <li data-k="h8">同组同学互相当助播、真实捧场（是目标客户才下单），把气氛带起来。课上讲过同学之间"互相刷一刷"，但刷单属于虚假交易，平台规则和法律都不允许，不要写进你的交付流程 <span class="mine">我的补充</span></li>
         </ul></div>
       <div class="wk"><div class="when">AFTER<b>课后</b></div>
         <ul class="tasks">
@@ -924,8 +937,9 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <ul class="tasks">
       <li data-k="h11">把交付过程拍下来（视频、照片），用于私域种草</li>
       <li data-k="h12">每期挑几位重点扶持，拍合拍视频、客户证言、过程视频，放进朋友圈和案例号</li>
+      <li data-k="hn1"><b>售后兜底要留证据</b>：学员遇到问题你怎么帮他解决的，记下来、拍下来，这就是下一条"售后人设"短视频（于姐模板）<span class="mine">我的补充</span></li>
       <li data-k="h13">不合适的人退费送走，不硬留</li>
-      <li data-k="h14">升单路径：线下课 → 高阶陪跑或供应链合作，中间不加"保一半"的产品</li>
+      <li data-k="h14">升单路径：线下课 → 高阶陪跑或驻店带教，车源、检测、整备按台合作做复购；中间不加"保一半"的产品</li>
     </ul>
   </div>
 </section>
@@ -933,7 +947,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
 <!-- ======================= 09 ======================= -->
 <section class="sec" id="s9" data-sec="s9">
   <div class="sec-head">
-    <div class="stamp"><div><small>LOT</small><span>09</span></div></div>
+    <div class="stamp"><div><small>No.</small><span>09</span></div></div>
     <div><h2>团队、工具与预算</h2><p class="lede">老师团队全职不超过 15 人，能少招一个就少招一个</p></div>
     <div class="meter"><div class="ct">0<small> / 0</small></div><div class="bar"><i></i></div></div>
   </div>
@@ -945,8 +959,8 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
       <tbody>
         <tr><td>IP（你）</td><td>定位、短视频文案、直播主播、核心交付</td><td>一开始</td></tr>
         <tr><td>能拍能剪的人</td><td>拍摄、剪辑、选题素材</td><td>一开始</td></tr>
-        <tr><td>助播 / 场控</td><td>喊单、改库存、盯订单、看评论区</td><td>开播就要</td></tr>
-        <tr><td>私域顾问 / 销售</td><td>承接、谈单；可以先是你或家人，顾问也要专业</td><td>一开始</td></tr>
+        <tr><td>助播 / 场控</td><td>喊单、改库存、盯订单、看评论区（包括把问车价的转走）</td><td>开播就要</td></tr>
+        <tr><td>私域顾问 / 销售</td><td>承接、谈单；可以先是你或家人，顾问也要专业、懂车，最好自己也做号</td><td>一开始</td></tr>
         <tr><td>投手</td><td>建计划、每日复盘</td><td>月投放 10 万以上</td></tr>
         <tr><td>交付与教研</td><td>课程、陪跑、复盘</td><td>第一期线下课之前</td></tr>
         <tr><td>设计</td><td>海报、贴片、直播间搭建</td><td>可以外包</td></tr>
@@ -961,7 +975,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <h3>工具</h3>
     <ul class="tasks">
       <li data-k="i2"><b>内容</b>：Get 笔记（语音转文字、粘贴链接提逐字稿）、元宝（提视频号逐字稿）、GPT / 豆包 / DeepSeek（二创、贴片候选）</li>
-      <li data-k="i3"><b>直播</b>：视频号助手（数据大屏）、加热平台、微信小店助手（改库存）、降噪麦、暖黄灯、传菜铃</li>
+      <li data-k="i3"><b>直播</b>：视频号助手（数据大屏）、加热平台、微信小店助手（改库存）、降噪麦、暖黄灯、传菜铃；讲验车时用的漆膜仪、第二部手机拍特写</li>
       <li data-k="i4"><b>私域</b>：企业微信（承接 + 群）、IP 本人个人微信、飞书（沉淀 SOP 和客户标签）</li>
     </ul>
   </div>
@@ -970,7 +984,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <h3>预算</h3>
     <ul class="tasks">
       <li data-k="i5">投流：先小额测试，跑通算账再加</li>
-      <li data-k="i6">场地设备：背景墙、灯光、麦克风</li>
+      <li data-k="i6">场地设备：车场或展厅里一块固定的直播位、灯光、麦克风</li>
       <li data-k="i7">人员：剪辑、投手、助播</li>
       <li data-k="i8">学习：先跑通再请人（老师 20 万陪跑的门槛是直播超过 10 场、后端能赚钱）</li>
     </ul>
@@ -999,7 +1013,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
   <div class="blk">
     <h3>红线卡片</h3>
     <div class="redline">
-      <div><b>数字</b>月入、学员数、单量、在线人数、回本、"几折拿货"一律不讲</div>
+      <div><b>数字</b>月入、学员数、单量、在线人数、回本，以及"学员一个月多卖几台""一台多赚多少"一律不讲</div>
       <div><b>副业创业</b>"普通人 / 宝爸宝妈 / 副业 / 轻资产创业 + 赚钱"；"轻资产"可以说</div>
       <div><b>引流</b>不说"加微信"，说"扫码领……"；挂车不挂码，挂码不挂车</div>
       <div><b>其他平台</b>平台名 + 变现不能连着讲，用"某音""小某书"</div>
@@ -1016,12 +1030,17 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
   </div>
 
   <div class="blk">
-    <h3>二奢要额外注意的 <span class="mine">我的补充，请自己核实</span></h3>
+    <h3>二手车要额外注意的 <span class="mine">我的补充，课上没有直接讲，请自己核实</span></h3>
     <ul class="tasks">
-      <li data-k="j4">海外货源、代购涉及关税和外汇，直播里不聊"怎么带货过关""怎么避税"（课上讲过香港保险外汇和翻墙软件的法律风险，同理）</li>
-      <li data-k="j5">不展示、不教学"高仿 / A 货"；讲鉴定真假时别变成教人辨认或售卖仿品</li>
-      <li data-k="j6">不承诺"百分之百正品""绝对保真"这类绝对化用语</li>
-      <li data-k="j7">品牌名和 logo 大量出现可能被按品牌或侵权规则审核，先用小号测试</li>
+      <li data-k="jn0"><b>车况承诺</b>：不说"保证无事故、无泡水、无调表""包退包换""公里数保真"这类绝对化用语；讲验车只讲判断方法，不对具体某台车下结论</li>
+      <li data-k="jn1"><b>金融贷款</b>："零首付""征信不好也能贷""低息分期"不进直播间、不上贴片和背景；金融返点这类内容放到私域或线下课讲，先确认合规</li>
+      <li data-k="jn2"><b>过户、外迁、抵押车、手续不全的车</b>：只讲"怎么识别、怎么避坑"，不说"找关系办过户"这类话</li>
+      <li data-k="jn7"><b>二手车出口（含"零公里"出口）</b>：课上讲过香港保险的外汇问题、翻墙软件都有法律风险（D3 违规课）。同理，出口涉及外汇、出口资质和退税，直播里不聊"怎么换汇""怎么套退税"，只讲合规流程</li>
+      <li data-k="jn3"><b>不教可能被认定为虚假宣传的打法</b>：车行冒充个人车主发车、挂超低"钓鱼价"把人引到店里再说卖了，这类在直播里讲等于教人违规</li>
+      <li data-k="jn4"><b>不点名批评平台、车企、同行</b>；平台名用代称（某车帝、某手车）。课上说过：不要举报同行，也别口无遮拦得罪人</li>
+      <li data-k="jn5"><b>卖车号转培训号</b>：评论区会有人问车价、能不能分期。准备一句统一回复，比如"今天不聊车价，只聊车行怎么同城获客，开车行的老板扣 1"；直播间里不报价、不聊具体车况和贷款，真想买车的转给店里销售私聊</li>
+      <li data-k="jn6"><b>资质说法</b>：别说"国家认证评估师"，按证书上的原文说。据我了解，二手车鉴定评估师现在不在国家职业资格目录里，多为职业技能等级证书，以你手里的证书为准</li>
+      <li data-k="jn8"><b>车牌和证件打码</b>：车场实拍、学员案例、连麦拍车时，客户车牌、VIN、行驶证、登记证、合同、身份证都要打码或避开镜头</li>
     </ul>
   </div>
 
@@ -1077,14 +1096,14 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <div class="weeks">
       <div class="wk"><div class="when">WEEK 0–1<b>定位与产品</b></div>
         <ul class="tasks">
-          <li data-k="w1">回答"先确认"的 5 个问题，找出前三类客户和关键事件</li>
+          <li data-k="w1">答完问卷第一轮 40 题（重点是"先确认"那 5 个问题），翻成交记录，找出前三类客户和关键事件</li>
           <li data-k="w2">完成能力圈作业，写出一句话定位和内部量化口号</li>
           <li data-k="w3">定 5 元开口品和万元核心品，写清核心权益和交付物</li>
           <li data-k="w4">在现有私域和朋友圈先卖一轮，验证有没有人付钱</li>
         </ul></div>
       <div class="wk"><div class="when">WEEK 1–2<b>场景与内容</b></div>
         <ul class="tasks">
-          <li data-k="w5">改账号名、简介、头像；搭背景墙和灯光；做贴片</li>
+          <li data-k="w5">改账号名、简介、头像；在车场或展厅搭好直播位和灯光，撤掉金融横幅；做贴片</li>
           <li data-k="w6">建选题库，按 5:3:2 先拍 20 条，开始投"关注"攒预约</li>
           <li data-k="w7">写好自我介绍思维导图并练熟</li>
         </ul></div>
@@ -1109,7 +1128,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
         <ul class="tasks">
           <li data-k="w16">复盘每一环数据，算账跑通再加投放预算</li>
           <li data-k="w17">培养顾问 / 销售，获客和销售分开，你专注卖 5 元和交付</li>
-          <li data-k="w18">推出高阶产品或供应链合作，开始做复购</li>
+          <li data-k="w18">推出高阶产品；车源、检测、整备按台合作，开始做复购</li>
         </ul></div>
     </div>
   </div>
@@ -1136,7 +1155,7 @@ tr.pick td{background:color-mix(in srgb,var(--oxblood-soft) 60%,transparent)}
     <li>公域做获客，私域做利润。</li>
     <li>帮助本该成功的人加速成功。</li>
   </ul>
-  <p class="foot">依据：2026-10-10 至 10-12 课堂录音逐字稿（23 份）。示例话术和选题只是把方法套到二奢上的样子，请换成你自己的真实经历和数据。</p>
+  <p class="foot">依据：2026-10-10 至 10-12 课堂录音逐字稿（23 份）。示例话术和选题只是把方法套到二手车（车商获客 + 收车卖车技能培训）上的样子，请换成你自己的真实经历和数据。</p>
 </section>
 
 </main>
