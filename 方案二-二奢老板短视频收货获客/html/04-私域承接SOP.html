@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04 私域承接 SOP · 方案二</title>
+<style>
+:root{
+  --bg:#faf8f5; --surface:#ffffff; --surface-2:#f3efe9; --text:#1f1b16; --muted:#6b6259;
+  --line:#e4ddd3; --accent:#8a4b1f; --accent-soft:#f5e9dd; --cite:#8f877e;
+  --todo-bg:#fff1c2; --todo-fg:#7a4b00; --pending-bg:#efe4fb; --pending-fg:#5b2d8a;
+  --confirm-bg:#e1eefc; --confirm-fg:#1d4f8f; --draft-bg:#ece9e4; --draft-fg:#5a524a;
+  --tip-bg:#e2f3e6; --tip-fg:#1f6b35; --ph:#b3541e;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161412; --surface:#1f1c19; --surface-2:#2a2622; --text:#ece6de; --muted:#a79d92;
+    --line:#3a342e; --accent:#e0a56e; --accent-soft:#3a2a1c; --cite:#8a8178;
+    --todo-bg:#4a3a10; --todo-fg:#ffd77a; --pending-bg:#3a2a4f; --pending-fg:#d9bdf7;
+    --confirm-bg:#1f3350; --confirm-fg:#a9cbf5; --draft-bg:#33302c; --draft-fg:#cfc7bd;
+    --tip-bg:#1d3a26; --tip-fg:#9ad8aa; --ph:#f0a06a;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161412; --surface:#1f1c19; --surface-2:#2a2622; --text:#ece6de; --muted:#a79d92;
+  --line:#3a342e; --accent:#e0a56e; --accent-soft:#3a2a1c; --cite:#8a8178;
+  --todo-bg:#4a3a10; --todo-fg:#ffd77a; --pending-bg:#3a2a4f; --pending-fg:#d9bdf7;
+  --confirm-bg:#1f3350; --confirm-fg:#a9cbf5; --draft-bg:#33302c; --draft-fg:#cfc7bd;
+  --tip-bg:#1d3a26; --tip-fg:#9ad8aa; --ph:#f0a06a;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",sans-serif;
+  font-size:16px;line-height:1.75;word-break:break-word;overflow-wrap:anywhere}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1200px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.site{font-weight:700;font-size:15px;color:var(--text);white-space:nowrap}
+.pages{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.pages::-webkit-scrollbar{display:none}
+.pages a{white-space:nowrap;font-size:14px;padding:4px 10px;border-radius:999px;color:var(--muted)}
+.pages a:hover{background:var(--surface-2);text-decoration:none;color:var(--text)}
+.pages a.current{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.theme-btn{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;
+  padding:3px 10px;font-size:13px;cursor:pointer;white-space:nowrap}
+.layout{max-width:1200px;margin:0 auto;padding:24px 16px 64px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px}
+.toc{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;font-size:14px}
+.toc summary{cursor:pointer;font-weight:600;color:var(--muted);margin-bottom:6px;list-style:none}
+.toc summary::-webkit-details-marker{display:none}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin:2px 0}
+.toc li.h3{padding-left:14px;font-size:13px}
+.toc a{color:var(--muted);display:block;padding:2px 8px;border-radius:6px;border-left:2px solid transparent}
+.toc a:hover{color:var(--text);background:var(--surface-2);text-decoration:none}
+.toc a.active{color:var(--accent);border-left-color:var(--accent)}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px 32px;box-shadow:var(--shadow)}
+h1{font-size:28px;line-height:1.35;margin:0 0 16px}
+h2{font-size:22px;line-height:1.4;margin:40px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
+h2:first-of-type{border-top:none}
+h3{font-size:18px;margin:28px 0 8px}
+h4{font-size:16px;margin:20px 0 6px}
+h2,h3,h4{scroll-margin-top:72px}
+p{margin:10px 0}
+ul,ol{padding-left:1.4em;margin:8px 0}
+li{margin:4px 0}
+li>ul,li>ol{margin:2px 0}
+strong{font-weight:650}
+hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+pre{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.65}
+pre code{background:none;padding:0;white-space:pre-wrap;word-break:break-word}
+.table-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+blockquote{margin:14px 0;padding:14px 18px 12px;background:var(--accent-soft);border-left:4px solid var(--accent);
+  border-radius:0 10px 10px 0;font-size:16.5px;line-height:1.95;position:relative}
+blockquote::before{content:"示范稿";display:inline-block;font-size:12px;font-weight:600;color:var(--accent);
+  letter-spacing:.05em;margin-bottom:4px}
+blockquote p{margin:6px 0}
+.cite{color:var(--cite);font-size:.78em;white-space:nowrap}
+.badge{display:inline-block;font-size:.8em;font-weight:600;line-height:1.5;padding:0 7px;border-radius:6px;margin:0 2px;white-space:normal}
+.b-todo{background:var(--todo-bg);color:var(--todo-fg)}
+.b-pending{background:var(--pending-bg);color:var(--pending-fg)}
+.b-confirm{background:var(--confirm-bg);color:var(--confirm-fg)}
+.b-draft{background:var(--draft-bg);color:var(--draft-fg)}
+.b-tip{background:var(--tip-bg);color:var(--tip-fg)}
+.ph{color:var(--ph);border-bottom:1px dashed var(--ph)}
+ul.task-list,li.task{list-style:none}
+li.task{margin-left:-1.4em}
+li.task label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+li.task input{margin-top:.45em;width:16px;height:16px;accent-color:var(--accent);flex:none}
+li.task input:checked+span{color:var(--muted);text-decoration:line-through}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--muted);margin:4px 0 20px;align-items:center}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:14px}
+.pager a{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--surface);color:var(--text)}
+.pager a:hover{border-color:var(--accent);text-decoration:none}
+.pager .next{text-align:right}
+.pager small{display:block;color:var(--muted)}
+footer{max-width:1200px;margin:0 auto;padding:0 16px 32px;color:var(--muted);font-size:12.5px}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:16px;padding-top:16px}
+  .toc{position:static;max-height:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .toc summary{margin:0}
+  .toc[open] summary{margin-bottom:6px}
+  article{padding:20px 16px;border-radius:12px}
+  h1{font-size:23px} h2{font-size:19px} h3{font-size:17px}
+  .site{display:none}
+}
+@media print{
+  .topbar,.toc,.pager,.theme-btn,footer{display:none!important}
+  body{background:#fff;color:#000;font-size:11.5pt}
+  .layout{display:block;padding:0;max-width:none}
+  article{border:none;box-shadow:none;padding:0}
+  a{color:#000}
+  .table-wrap{overflow:visible;border:none}
+  table{min-width:0;font-size:10pt}
+  th,td{border:1px solid #bbb}
+  blockquote,table,pre,.table-wrap{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  .cite{color:#777}
+}
+</style>
+</head>
+<body data-page="04-私域承接SOP">
+<header class="topbar"><div class="topbar-inner">
+<span class="site">方案二 · 二奢老板短视频获客</span>
+<nav class="pages"><a href="index.html">总览</a><a href="01-企划总纲.html">01 企划总纲</a><a href="02-老板场直播脚本.html">02 直播脚本</a><a href="03-账号体检表与诊断SOP.html">03 体检表</a><a href="04-私域承接SOP.html" class=current>04 私域 SOP</a><a href="05-老板线短视频选题库.html">05 选题库</a></nav>
+<button class="theme-btn" type="button">深色</button>
+</div></header>
+<div class="layout">
+<details class="toc" open><summary>本页目录</summary><ul><li class="h2"><a href="#0-两个原则">0. 两个原则</a></li><li class="h2"><a href="#1-承接号">1. 承接号</a></li><li class="h3"><a href="#主副-ip私域课-000651000845">主副 IP</a></li><li class="h3"><a href="#承接号检查">承接号检查</a></li><li class="h2"><a href="#2-标签">2. 标签</a></li><li class="h2"><a href="#3-三段式成交私域课-001044001328">3. 三段式成交</a></li><li class="h2"><a href="#4-十步谈单二奢老板版">4. 十步谈单（二奢老板版）</a></li><li class="h3"><a href="#①-筛选">① 筛选</a></li><li class="h3"><a href="#②-破冰">② 破冰</a></li><li class="h3"><a href="#③-给情绪价值">③ 给情绪价值</a></li><li class="h3"><a href="#④-发体检表">④ 发体检表</a></li><li class="h3"><a href="#⑤-挖需20-分钟诊断里完成">⑤ 挖需（20 分钟诊断里完成）</a></li><li class="h3"><a href="#⑥-晒案例">⑥ 晒案例</a></li><li class="h3"><a href="#⑦-开药方">⑦ 开药方</a></li><li class="h3"><a href="#⑧-种草陪跑营">⑧ 种草陪跑营</a></li><li class="h3"><a href="#⑨-破卡点三明治沟通法">⑨ 破卡点（三明治沟通法）</a></li><li class="h3"><a href="#⑩-一对一跟进">⑩ 一对一跟进</a></li><li class="h3"><a href="#⑪-收单">⑪ 收单</a></li><li class="h2"><a href="#5-每周看的数据">5. 每周看的数据</a></li></ul></details>
+<main>
+<article>
+<h1 id="04-私域承接-sop">04 私域承接 SOP</h1><div class="legend"><span>标记：</span><span class="badge b-todo">【待填】</span><span class="badge b-pending">【待定】</span><span class="badge b-confirm">【待你确认】</span><span class="badge b-draft">【初稿】</span><span class="badge b-tip">【建议】</span><span class="ph">【占位】</span><span class="cite">〔出处 时间戳〕</span></div>
+<p>出处简称见 <a href="index.html">README</a>。<span class="cite">〔D1 时间戳〕</span>到<span class="cite">〔D5 时间戳〕</span>指你的《五天密训》逐字稿。本 SOP 按私域课（陈静团队销冠温娜的分享）裁剪成二奢老板版本。私域课的总口径是把 5 元客户"批量的转化成我们后端的一万两千八"，方案二对应的是把体检客户转化成 6980 陪跑营。</p>
+<h2 id="0-两个原则">0. 两个原则</h2>
+<ul>
+<li><strong>练判断力，不背话术</strong>："我们公司我从来不培训任何话术"<span class="cite">〔私域课 00:31:53〕</span>。判断力指两件事：这个人是不是潜在客户；他的转化周期是今天、一周还是一个月<span class="cite">〔私域课 00:32:53〕</span>。</li>
+<li><strong>记框架，不记话术</strong>："你要记住的是什么？是框架，不是话术"<span class="cite">〔私域课 01:14:40〕</span>。下面的话术都是示范，按老板的情况换说法。</li>
+</ul>
+<h2 id="1-承接号">1. 承接号</h2>
+<h3 id="主副-ip私域课-000651000845">主副 IP<span class="cite">〔私域课 00:06:51–00:08:45〕</span></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>号</th>
+<th>人设</th>
+<th>谁在用</th>
+<th>负责什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>主 IP</td>
+<td>你本人（老板人设）</td>
+<td>你 + 助手</td>
+<td>破冰、筛选、开口；一对一诊断由你本人做</td>
+</tr>
+<tr class="even">
+<td>副 IP</td>
+<td>短视频操盘手 / 顾问（助手）</td>
+<td>助手</td>
+<td>服务、答疑、跟进、收单</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>开口率的差距："你的开口率只有百分之三十，而我的开口率能做到百分之八十"<span class="cite">〔私域课 00:06:51〕</span>。所有承接号都用 IP 本人形象。</li>
+<li>副 IP 必须懂业务。助手要先把你的成交三角模型和三大系统学会，至少能看出一个二奢账号缺哪个角。</li>
+<li>新手助手可以和你同时登录一个号（一个用平板，一个用手机），聊不动时你接手<span class="cite">〔私域课 00:42:52〕</span>。</li>
+</ul>
+<h3 id="承接号检查">承接号检查</h3>
+<ul class="task-list">
+<li class="task"><label><input type="checkbox" /><span>头像、昵称和公域一致，公域人设和私域人设"强一致"</span></label></li>
+<li class="task"><label><input type="checkbox" /><span>朋友圈没有"火热报名中"这类销售味很重的内容<span class="cite">〔私域课 00:04:25〕</span></span></label></li>
+<li class="task"><label><input type="checkbox" /><span>没有标注"办公时间"<span class="cite">〔私域课 00:03:30〕</span></span></label></li>
+<li class="task"><label><input type="checkbox" /><span>朋友圈里能看到：收货过程、门店日常、帮同行改号的过程（"不仅晒结果，我还会晒过程"<span class="cite">〔私域课 01:00:25〕</span>）</span></label></li>
+<li class="task"><label><input type="checkbox" /><span>加好友后不第一时间发群二维码和海报，不群发"进群了吗"</span></label></li>
+<li class="task"><label><input type="checkbox" /><span>我们自己的朋友圈也按你课里的"信任存折"来发："你发一条科普了，就是等于在里面存钱……但是你发一条广告就在取钱"<span class="cite">〔D5 01:37:35〕</span>。陪跑营招生广告要少，多发帮老板改号的过程、学员的变化、你自己的日常</span></label></li>
+</ul>
+<h2 id="2-标签">2. 标签</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>标签</th>
+<th>来源</th>
+<th>跟进方式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>小白（方案一）</td>
+<td>方案一钩子 / 体检表显示没有店</td>
+<td>转方案一流程</td>
+</tr>
+<tr class="even">
+<td>老板-门店</td>
+<td>体检表 / 直播"已拍"信息</td>
+<td>本 SOP</td>
+</tr>
+<tr class="odd">
+<td>老板-回收寄卖</td>
+<td>同上</td>
+<td>本 SOP</td>
+</tr>
+<tr class="even">
+<td>老板-线上</td>
+<td>同上</td>
+<td>本 SOP</td>
+</tr>
+<tr class="odd">
+<td>缺的角：流量 / 人设 / 产品</td>
+<td>体检表 + 诊断结论（见 03）</td>
+<td>跟进时发对应这个角的案例和内容</td>
+</tr>
+<tr class="even">
+<td>意向：高 / 中 / 低</td>
+<td>诊断后判断</td>
+<td>高意向一对一置顶跟进</td>
+</tr>
+<tr class="odd">
+<td>已购陪跑营</td>
+<td>成交后</td>
+<td>交付群 + 案例素材收集</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-三段式成交私域课-001044001328">3. 三段式成交<span class="cite">〔私域课 00:10:44–00:13:28〕</span></h2>
+<ol type="1">
+<li><strong>公开课前</strong>：IP 号统一破冰、筛选、打标签，然后走十步谈单。被公域内容"做过功课"的"神仙客户"会在这一步直接下单。</li>
+<li><strong>公开课中</strong>：每期招生前做一场私域公开课（腾讯会议或私域直播），讲收货的底层逻辑和案例，统一成交。</li>
+<li><strong>公开课后</strong>：还犹豫的继续一对一，必要时打电话。私域课说"我们电话成交率至少是百分之八十"，电话放在最后打，不是一上来就挨个打。</li>
+</ol>
+<ul>
+<li>错误示范：加微后第一时间拉群听课，不买就在群里发广告<span class="cite">〔私域课 00:12:31〕</span>。</li>
+</ul>
+<h2 id="4-十步谈单二奢老板版">4. 十步谈单（二奢老板版）</h2>
+<p>私域课称之为"十步谈单法"<span class="cite">〔私域课 00:20:00〕</span>，流程比市面上长，因为 5 元客户需求并不强。完整的十步名称在课件上，逐字稿里没有逐条念出来；下面按讲述顺序整理成 11 个动作，并改成二奢场景。</p>
+<h3 id="①-筛选">① 筛选</h3>
+<ul>
+<li>三个标准：<strong>支付能力</strong>（最重要）、<strong>需求强弱</strong>、<strong>决策链条长短</strong><span class="cite">〔私域课 00:26:42–00:28:07〕</span>。</li>
+<li>侧面了解：看他的朋友圈、账号、店铺位置和规模，不发"查户口式"的模板<span class="cite">〔私域课 00:28:07〕</span>。</li>
+<li>只把时间花在"有需求、有支付能力"的潜在客户身上<span class="cite">〔私域课 00:25:44〕</span>。</li>
+</ul>
+<h3 id="②-破冰">② 破冰</h3>
+<ul>
+<li>标准：关系有没有递进、有没有多个来回、有没有把人聊开心。</li>
+<li>找共同点：同乡、同行、同样的开店经历<span class="cite">〔私域课 00:39:06〕</span>。</li>
+<li>不回复怎么办<span class="cite">〔私域课 00:41:05〕</span>：脸皮厚再问（"问了三遍……三遍人家才回"）；用福利钩子（公开课）；去他朋友圈评论；换个话题。</li>
+<li>语音、表情、文字轮番用，一句一句聊，不发大段文字<span class="cite">〔私域课 00:51:27–00:52:26〕</span>。</li>
+<li>送资料破冰，这也是你在密训里教老板的做法："吃别人嘴软拿别人手软……先破冰，先让他撬开他的嘴"<span class="cite">〔D5 01:28:03〕</span>。给老板送你课里现成的东西，例如《八大爆款元素选题清单》《主页五件套自查表》，送完顺势问他现在最头疼哪一个痛点。</li>
+</ul>
+<blockquote>
+<p><span class="ph">【示范】</span>看你朋友圈，你们店上个月收了一只<span class="ph">【品类】</span>，成色真好。你们一般是老客户拿来的，还是陌生人找上门的？</p>
+</blockquote>
+<h3 id="③-给情绪价值">③ 给情绪价值</h3>
+<ul>
+<li>夸要具体，夸他最在意的点。夸老板：格局大、有眼光；结合业务细节夸<span class="cite">〔私域课 00:48:33–00:50:28〕</span>。</li>
+<li>忌讳多次反问、质疑客户。</li>
+</ul>
+<h3 id="④-发体检表">④ 发体检表</h3>
+<ul>
+<li>发《二奢门店账号体检表》（见 03）。</li>
+</ul>
+<blockquote>
+<p>我们给老板做诊断之前，都会先填一张体检表。你填一下，我看完跟你约二十分钟，帮你把账号过一遍。</p>
+</blockquote>
+<h3 id="⑤-挖需20-分钟诊断里完成">⑤ 挖需（20 分钟诊断里完成）</h3>
+<ul>
+<li>连环三问：现状和感受 → 原因 → 目标<span class="cite">〔私域课 00:54:20〕</span>。</li>
+<li>讲不解决的坏处、解决后的好处。</li>
+</ul>
+<h3 id="⑥-晒案例">⑥ 晒案例</h3>
+<ul>
+<li>选和他相似度最高、"能让他有胜负欲、有攀比心理的案例"<span class="cite">〔私域课 00:57:42〕</span>：门店老板讲门店案例，回收老板讲回收案例，最好同城或同等级城市。</li>
+<li>不要晒和他无关的大案例："动不动就说雷军都下场做 IP 了，雷军关我毛事"<span class="cite">〔私域课 00:57:13〕</span>。</li>
+<li>晒过程，不只晒结果<span class="cite">〔私域课 01:00:25〕</span>。私域里可以讲具体数字，但也只讲事实、不做承诺。</li>
+<li><span class="badge b-todo">【待填：至少准备 3 个案例——门店 1 个、回收寄卖 1 个、线上 1 个。每个写清：之前什么情况、做了什么、过程截图、现在怎样】</span></li>
+</ul>
+<h3 id="⑦-开药方">⑦ 开药方</h3>
+<ul>
+<li>"成交前只开药方，不要去给他治病……你收的五块钱是什么？是挂号费"<span class="cite">〔私域课 01:05:05〕</span>。只给思路、方向和好处。</li>
+</ul>
+<h3 id="⑧-种草陪跑营">⑧ 种草陪跑营</h3>
+<ul>
+<li>自己要对产品极度自信<span class="cite">〔私域课 01:08:59〕</span>。</li>
+<li>海报要配得上高客单的质感<span class="cite">〔私域课 01:07:02〕</span>。</li>
+<li><strong>展示交付细节</strong>：客户怕"关门放狗，刷 POS 机"<span class="cite">〔私域课 01:08:00〕</span>。把第一期的上课截图、批改记录、复盘会议截图整理成一份"交付长什么样"的图集。</li>
+</ul>
+<h3 id="⑨-破卡点三明治沟通法">⑨ 破卡点（三明治沟通法）</h3>
+<p>三层：先共情理解 → 再提出观点破卡点 → 最后塞案例给希望<span class="cite">〔私域课 01:12:48〕</span>。"那什么用户异议十大法则、十大破冰话术，那些东西没有一点用"，要自己按业务写<span class="cite">〔私域课 01:14:40〕</span>。</p>
+<p>卡点分两类<span class="cite">〔私域课 01:10:23–01:12:47〕</span>：<strong>认知卡点</strong>（先解决）和<strong>行动卡点</strong>（没时间、没钱、要商量、担心没效果、担心没交付、担心没人管）。</p>
+<p>下面 9 个是二奢老板版本的初稿，<span class="ph">【待你按真实对话修改】</span>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>卡点</th>
+<th>类型</th>
+<th>共情</th>
+<th>破卡点</th>
+<th>给希望</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>我先自己琢磨琢磨</td>
+<td>认知</td>
+<td>特能理解，做二奢的都是自己摸出来的</td>
+<td>自己琢磨的成本是时间，同城同行不会等你</td>
+<td><span class="ph">【案例：琢磨半年没起色、跟营后改过来的老板】</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>我店开着，客户自然会来</td>
+<td>认知</td>
+<td>开店的都这么想，我也坐过店</td>
+<td>只有产品和人设、没有流量，"就是个老好人，你的东西就卖不出去"<span class="cite">〔D1 00:25:04〕</span>。客户不知道你，就不会来</td>
+<td><span class="ph">【坐店等客、补了内容之后有人找上门的老板】</span></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>我投流就行了</td>
+<td>认知</td>
+<td>投流确实能来人，客资是真的多</td>
+<td>没有人设，来的就是比价的。"你靠这种付费投流的打法来的客户都是比较的客户"<span class="cite">〔D4 01:28:05〕</span>（"比较"即比价）；本地推"一条至少是 200~300……而且还是比价的客户"<span class="cite">〔D5 01:04:44〕</span></td>
+<td><span class="ph">【投过流、补了人设之后客户不再只问价的案例】</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>我随便拍拍就行，我还拍火过</td>
+<td>认知</td>
+<td>能拍火说明你有感觉</td>
+<td>火了不等于有客户。只有流量和人设、没有产品，"那什么就是网红"<span class="cite">〔D1 00:26:01〕</span>；拍段子来的"基本上来的都是一些老头老太"<span class="cite">〔D1 00:53:20〕</span></td>
+<td><span class="ph">【拍火过但没客户、改拍服务之后来咨询的案例】</span></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>有点贵</td>
+<td>行动</td>
+<td>现在钱确实不好赚<span class="cite">〔私域课 01:15:33〕</span></td>
+<td>你这里花几百、那里花几千，加起来不少，但没落地<span class="cite">〔私域课 01:16:30〕</span></td>
+<td><span class="ph">【和他同类型老板的案例】</span></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>最近店里忙，没时间</td>
+<td>行动</td>
+<td>开店的都是连轴转</td>
+<td>越忙越要想清楚最重要的事；让客户主动找上门，就是开店的头等大事<span class="cite">〔私域课 01:13:45〕</span></td>
+<td><span class="ph">【同样很忙、每天抽一小时跟营的老板】</span></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>要跟老公 / 合伙人商量</td>
+<td>行动</td>
+<td>应该商量</td>
+<td>把诊断报告发给他一起看，需要的话我跟你们一起通个电话</td>
+<td><span class="ph">【夫妻店案例】</span></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>担心学了没效果</td>
+<td>行动</td>
+<td>被割怕了，很正常<span class="cite">〔私域课 01:17:27〕</span></td>
+<td>我们不承诺结果，但每一项交付都写清楚了，你可以先看交付长什么样</td>
+<td><span class="ph">【交付图集 + 学员证言】</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>我是做回收的 / 我是线上的，适合吗</td>
+<td>认知</td>
+<td>好问题</td>
+<td>三角模型对门店、回收、线上都适用，区别只在"产品（服务）"怎么拍</td>
+<td><span class="ph">【对应业态的案例】</span></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>第 8 条的说法要和交付清单一致，不能说"保证有效果"。</li>
+</ul>
+<h3 id="⑩-一对一跟进">⑩ 一对一跟进</h3>
+<ul>
+<li>潜在客户不群发<span class="cite">〔私域课 01:18:25〕</span>，个性化跟进。原话是"每一个客户都是我的自顶"<span class="cite">〔私域课 01:19:23〕</span>（"自顶"是"置顶"的转写）。</li>
+<li>周期可能一个月到半年，大量客户是在这一步跟丢的。直播客资的成交周期大约一个月，"上个月的客资，这个月转化"<span class="cite">〔私董会 00:25:57〕</span>。</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>时间点</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>诊断后当天</td>
+<td>发诊断报告（见 03）</td>
+</tr>
+<tr class="even">
+<td>第 2–3 天</td>
+<td>发一个同类型案例的过程</td>
+</tr>
+<tr class="odd">
+<td>第 5–7 天</td>
+<td>邀请他听私域公开课</td>
+</tr>
+<tr class="even">
+<td>公开课后</td>
+<td>未成交的打电话</td>
+</tr>
+<tr class="odd">
+<td>之后每 1–2 周</td>
+<td>朋友圈互动 + 一对一发他关心的内容</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="⑪-收单">⑪ 收单</h3>
+<ul>
+<li>不要有收钱卡点："你收钱才是对他负责"<span class="cite">〔私域课 01:21:17〕</span>。</li>
+<li>逼单放在最后一步。前面都做完了，这一步逼单"是帮客户做出正确的选择"<span class="cite">〔私域课 01:22:15〕</span>。</li>
+<li>可以用真实的稀缺：每期限额、同城限一位（如果采用）。</li>
+</ul>
+<h2 id="5-每周看的数据">5. 每周看的数据</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>数据</th>
+<th>本周</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>新加老板人数（按门店 / 回收 / 线上）</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>体检表回收率</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>诊断完成数</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>诊断后高意向数</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>公开课到场数</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>成交数 / 成交率</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>主要卡点排行（对应上面 9 条）</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+
+</article>
+<div class="pager"><a class="prev" href="03-账号体检表与诊断SOP.html"><small>上一篇</small>03 体检表</a><a class="next" href="05-老板线短视频选题库.html"><small>下一篇</small>05 选题库</a></div>
+</main>
+</div>
+<footer>由仓库中的 Markdown 文档生成，内容与 md 版一致。出处〔D1–D5〕指《五天密训》逐字稿（未提交进仓库），其余简称指陈晶老师课程逐字稿。</footer>
+<script>
+(function(){
+  var root=document.documentElement, KEY='fa2-theme';
+  try{var t=localStorage.getItem(KEY); if(t) root.setAttribute('data-theme',t);}catch(e){}
+  var btn=document.querySelector('.theme-btn');
+  function label(){var d=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');btn.textContent=d==='dark'?'浅色':'深色';}
+  if(btn){label();btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var nxt=cur==='dark'?'light':'dark'; root.setAttribute('data-theme',nxt);
+    try{localStorage.setItem(KEY,nxt);}catch(e){} label();});}
+  var toc=document.querySelector('details.toc');
+  if(toc && matchMedia('(max-width: 900px)').matches) toc.removeAttribute('open');
+  var page=document.body.getAttribute('data-page');
+  document.querySelectorAll('li.task input[type=checkbox]').forEach(function(cb,i){
+    var k='fa2-'+page+'-'+i;
+    try{cb.checked=localStorage.getItem(k)==='1';}catch(e){}
+    cb.addEventListener('change',function(){try{localStorage.setItem(k,cb.checked?'1':'0');}catch(e){}});
+  });
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  if('IntersectionObserver' in window && links.length){
+    var map={}; links.forEach(function(a){map[decodeURIComponent(a.getAttribute('href').slice(1))]=a;});
+    var obs=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){a.classList.remove('active');});var a=map[e.target.id]; if(a) a.classList.add('active');}
+    });},{rootMargin:'-70px 0px -70% 0px'});
+    document.querySelectorAll('article h2[id],article h3[id]').forEach(function(h){obs.observe(h);});
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 老板线短视频选题库 · 方案二</title>
+<style>
+:root{
+  --bg:#faf8f5; --surface:#ffffff; --surface-2:#f3efe9; --text:#1f1b16; --muted:#6b6259;
+  --line:#e4ddd3; --accent:#8a4b1f; --accent-soft:#f5e9dd; --cite:#8f877e;
+  --todo-bg:#fff1c2; --todo-fg:#7a4b00; --pending-bg:#efe4fb; --pending-fg:#5b2d8a;
+  --confirm-bg:#e1eefc; --confirm-fg:#1d4f8f; --draft-bg:#ece9e4; --draft-fg:#5a524a;
+  --tip-bg:#e2f3e6; --tip-fg:#1f6b35; --ph:#b3541e;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161412; --surface:#1f1c19; --surface-2:#2a2622; --text:#ece6de; --muted:#a79d92;
+    --line:#3a342e; --accent:#e0a56e; --accent-soft:#3a2a1c; --cite:#8a8178;
+    --todo-bg:#4a3a10; --todo-fg:#ffd77a; --pending-bg:#3a2a4f; --pending-fg:#d9bdf7;
+    --confirm-bg:#1f3350; --confirm-fg:#a9cbf5; --draft-bg:#33302c; --draft-fg:#cfc7bd;
+    --tip-bg:#1d3a26; --tip-fg:#9ad8aa; --ph:#f0a06a;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161412; --surface:#1f1c19; --surface-2:#2a2622; --text:#ece6de; --muted:#a79d92;
+  --line:#3a342e; --accent:#e0a56e; --accent-soft:#3a2a1c; --cite:#8a8178;
+  --todo-bg:#4a3a10; --todo-fg:#ffd77a; --pending-bg:#3a2a4f; --pending-fg:#d9bdf7;
+  --confirm-bg:#1f3350; --confirm-fg:#a9cbf5; --draft-bg:#33302c; --draft-fg:#cfc7bd;
+  --tip-bg:#1d3a26; --tip-fg:#9ad8aa; --ph:#f0a06a;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",sans-serif;
+  font-size:16px;line-height:1.75;word-break:break-word;overflow-wrap:anywhere}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1200px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.site{font-weight:700;font-size:15px;color:var(--text);white-space:nowrap}
+.pages{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.pages::-webkit-scrollbar{display:none}
+.pages a{white-space:nowrap;font-size:14px;padding:4px 10px;border-radius:999px;color:var(--muted)}
+.pages a:hover{background:var(--surface-2);text-decoration:none;color:var(--text)}
+.pages a.current{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.theme-btn{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;
+  padding:3px 10px;font-size:13px;cursor:pointer;white-space:nowrap}
+.layout{max-width:1200px;margin:0 auto;padding:24px 16px 64px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px}
+.toc{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;font-size:14px}
+.toc summary{cursor:pointer;font-weight:600;color:var(--muted);margin-bottom:6px;list-style:none}
+.toc summary::-webkit-details-marker{display:none}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin:2px 0}
+.toc li.h3{padding-left:14px;font-size:13px}
+.toc a{color:var(--muted);display:block;padding:2px 8px;border-radius:6px;border-left:2px solid transparent}
+.toc a:hover{color:var(--text);background:var(--surface-2);text-decoration:none}
+.toc a.active{color:var(--accent);border-left-color:var(--accent)}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px 32px;box-shadow:var(--shadow)}
+h1{font-size:28px;line-height:1.35;margin:0 0 16px}
+h2{font-size:22px;line-height:1.4;margin:40px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
+h2:first-of-type{border-top:none}
+h3{font-size:18px;margin:28px 0 8px}
+h4{font-size:16px;margin:20px 0 6px}
+h2,h3,h4{scroll-margin-top:72px}
+p{margin:10px 0}
+ul,ol{padding-left:1.4em;margin:8px 0}
+li{margin:4px 0}
+li>ul,li>ol{margin:2px 0}
+strong{font-weight:650}
+hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+pre{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.65}
+pre code{background:none;padding:0;white-space:pre-wrap;word-break:break-word}
+.table-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+blockquote{margin:14px 0;padding:14px 18px 12px;background:var(--accent-soft);border-left:4px solid var(--accent);
+  border-radius:0 10px 10px 0;font-size:16.5px;line-height:1.95;position:relative}
+blockquote::before{content:"示范稿";display:inline-block;font-size:12px;font-weight:600;color:var(--accent);
+  letter-spacing:.05em;margin-bottom:4px}
+blockquote p{margin:6px 0}
+.cite{color:var(--cite);font-size:.78em;white-space:nowrap}
+.badge{display:inline-block;font-size:.8em;font-weight:600;line-height:1.5;padding:0 7px;border-radius:6px;margin:0 2px;white-space:normal}
+.b-todo{background:var(--todo-bg);color:var(--todo-fg)}
+.b-pending{background:var(--pending-bg);color:var(--pending-fg)}
+.b-confirm{background:var(--confirm-bg);color:var(--confirm-fg)}
+.b-draft{background:var(--draft-bg);color:var(--draft-fg)}
+.b-tip{background:var(--tip-bg);color:var(--tip-fg)}
+.ph{color:var(--ph);border-bottom:1px dashed var(--ph)}
+ul.task-list,li.task{list-style:none}
+li.task{margin-left:-1.4em}
+li.task label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+li.task input{margin-top:.45em;width:16px;height:16px;accent-color:var(--accent);flex:none}
+li.task input:checked+span{color:var(--muted);text-decoration:line-through}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--muted);margin:4px 0 20px;align-items:center}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:14px}
+.pager a{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--surface);color:var(--text)}
+.pager a:hover{border-color:var(--accent);text-decoration:none}
+.pager .next{text-align:right}
+.pager small{display:block;color:var(--muted)}
+footer{max-width:1200px;margin:0 auto;padding:0 16px 32px;color:var(--muted);font-size:12.5px}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:16px;padding-top:16px}
+  .toc{position:static;max-height:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .toc summary{margin:0}
+  .toc[open] summary{margin-bottom:6px}
+  article{padding:20px 16px;border-radius:12px}
+  h1{font-size:23px} h2{font-size:19px} h3{font-size:17px}
+  .site{display:none}
+}
+@media print{
+  .topbar,.toc,.pager,.theme-btn,footer{display:none!important}
+  body{background:#fff;color:#000;font-size:11.5pt}
+  .layout{display:block;padding:0;max-width:none}
+  article{border:none;box-shadow:none;padding:0}
+  a{color:#000}
+  .table-wrap{overflow:visible;border:none}
+  table{min-width:0;font-size:10pt}
+  th,td{border:1px solid #bbb}
+  blockquote,table,pre,.table-wrap{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  .cite{color:#777}
+}
+</style>
+</head>
+<body data-page="05-老板线短视频选题库">
+<header class="topbar"><div class="topbar-inner">
+<span class="site">方案二 · 二奢老板短视频获客</span>
+<nav class="pages"><a href="index.html">总览</a><a href="01-企划总纲.html">01 企划总纲</a><a href="02-老板场直播脚本.html">02 直播脚本</a><a href="03-账号体检表与诊断SOP.html">03 体检表</a><a href="04-私域承接SOP.html">04 私域 SOP</a><a href="05-老板线短视频选题库.html" class=current>05 选题库</a></nav>
+<button class="theme-btn" type="button">深色</button>
+</div></header>
+<div class="layout">
+<details class="toc" open><summary>本页目录</summary><ul><li class="h2"><a href="#0-先记住四件事">0. 先记住四件事</a></li><li class="h2"><a href="#1-配比">1. 配比</a></li><li class="h2"><a href="#2-30-个选题初稿">2. 30 个选题【初稿】</a></li><li class="h3"><a href="#出圈15-个干货知识类--观点类">出圈（15 个）：干货知识类 + 观点类</a></li><li class="h3"><a href="#人设9-个故事情绪日常观点">人设（9 个）：故事、情绪、日常、观点</a></li><li class="h3"><a href="#出单6-个案例过程">出单（6 个）：案例、过程</a></li><li class="h2"><a href="#3-你自己的两个脚本结构">3. 你自己的两个脚本结构</a></li><li class="h3"><a href="#个人故事钩子--背景--低谷--转折逆袭--成功d4-005331">个人故事：钩子 → 背景 → 低谷 → 转折逆袭 → 成功</a></li><li class="h3"><a href="#vlog六脉神剑d3-010117">vlog：六脉神剑</a></li><li class="h3"><a href="#观点类七条原则里最常用的两条d4-013728">观点类：七条原则里最常用的两条</a></li><li class="h2"><a href="#4-结尾动作">4. 结尾动作</a></li><li class="h2"><a href="#5-场景">5. 场景</a></li><li class="h2"><a href="#6-创作流程用你自己的单条视频路径d5-020011">6. 创作流程：用你自己的单条视频路径</a></li><li class="h2"><a href="#7-发布前自查">7. 发布前自查</a></li></ul></details>
+<main>
+<article>
+<h1 id="05-老板线短视频选题库">05 老板线短视频选题库</h1><div class="legend"><span>标记：</span><span class="badge b-todo">【待填】</span><span class="badge b-pending">【待定】</span><span class="badge b-confirm">【待你确认】</span><span class="badge b-draft">【初稿】</span><span class="badge b-tip">【建议】</span><span class="ph">【占位】</span><span class="cite">〔出处 时间戳〕</span></div>
+<p>出处简称见 <a href="index.html">README</a>：</p>
+<ul>
+<li><span class="cite">〔D1 时间戳〕</span>到<span class="cite">〔D5 时间戳〕</span>指你的《五天密训》逐字稿；其余简称是陈晶老师课程。</li>
+<li>这份选题库是给<strong>你自己的账号</strong>用的，看的人是二奢老板。你在密训里教老板拍给 C 端客户看的选题，属于陪跑营的交付内容，不放在这里。</li>
+</ul>
+<h2 id="0-先记住四件事">0. 先记住四件事</h2>
+<ol type="1">
+<li><strong>选题要预设看的人是老板</strong>，不是卖家，也不是店员。
+<ul>
+<li>老师的例子："客户嫌贵怎么回"吸引来的是销售，"怎么判断一个人他具备成为销售管理者"吸引来的是老板<span class="cite">〔产品课 00:30:54〕</span>。</li>
+<li>"拍了一堆成交话题，结果呢来的全是销售，都不是老板"<span class="cite">〔短视频阵地课 00:14:20〕</span>。</li>
+<li>用你自己的话说，就是"先有人群，人群之后才有选题"<span class="cite">〔D1 00:09:00〕</span>。</li>
+</ul></li>
+<li><strong>选题决定 80%</strong>："一个选题是决定了流量的 80%，没有之一"<span class="cite">〔D1 00:13:52〕</span>。下面每条都标了用的是哪个爆款元素。</li>
+<li><strong>内容三方面都要有</strong>：行业知识、你的观点、成交类内容（展示你的服务），"也不要单独做某一项"<span class="cite">〔D5 00:00:00〕</span>。</li>
+<li><strong>好视频的标准</strong>："客户看五条短视频就想买单"<span class="cite">〔短视频阵地课 00:05:31〕</span>。</li>
+</ol>
+<h2 id="1-配比">1. 配比</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>阶段</th>
+<th>出圈</th>
+<th>人设</th>
+<th>出单</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>老板线刚起步</td>
+<td>50%</td>
+<td>30%</td>
+<td>20%</td>
+<td><span class="cite">〔短视频阵地课 00:26:10〕</span></td>
+</tr>
+<tr class="even">
+<td>有案例以后</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td><span class="cite">〔短视频阵地课 00:32:02〕</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>和你密训里的四大类视频对应起来：</p>
+<ul>
+<li><strong>出圈</strong>：干货知识类和观点类。干货"非常好涨粉"<span class="cite">〔D2 00:14:56〕</span>，刚开始先拍它，把标签打准。</li>
+<li><strong>人设</strong>：故事、情绪、日常。观点和故事"一个月至少是四条"<span class="cite">〔D5 00:10:32〕</span>。</li>
+<li><strong>出单</strong>：案例和 vlog 过程。过程性视频"转化留资是最好的，但是它的前端体现的播放量都是不高的"<span class="cite">〔短视频阵地课 00:30:04〕</span>，不要因为播放低就不拍。</li>
+</ul>
+<h2 id="2-30-个选题初稿">2. 30 个选题<span class="badge b-draft">【初稿】</span></h2>
+<p>开头要直接给结论或冲突。"你百分之九十的流量都是第一句话带来的"<span class="cite">〔短视频阵地课 00:10:22〕</span>；你的说法是否定句比肯定句、疑问句更强<span class="cite">〔D3 00:41:24〕</span>。下面的开头是示范，按你的口吻改。</p>
+<h3 id="出圈15-个干货知识类--观点类">出圈（15 个）：干货知识类 + 观点类</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>选题</th>
+<th>开头示范</th>
+<th>元素</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>你这样拍短视频，不可能有成交</td>
+<td>你这样拍短视频，100% 不可能有成交。</td>
+<td>否定句</td>
+<td><span class="cite">〔D1 01:28:17〕</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>店开着、货也好，为什么没人上门</td>
+<td>你人好、货好，就是没人知道你——你是个"老好人"。</td>
+<td>人群</td>
+<td><span class="cite">〔D1 00:25:04〕</span></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>投流来的客户，为什么一定是比价的</td>
+<td>你投的钱，可能全在帮比价的人省时间。</td>
+<td>成本 / 观点</td>
+<td><span class="cite">〔D4 01:28:05〕</span><span class="cite">〔D4 01:43:21〕</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>拍火了还是没客户？你可能拍成了网红</td>
+<td>一条视频几十万播放，一个客户都没来。</td>
+<td>反差</td>
+<td><span class="cite">〔D1 00:26:01〕</span></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>你的粉丝里，为什么全是叔叔阿姨</td>
+<td>1000 个粉丝里 800 个是中老年，你的标签就跑偏了。</td>
+<td>人群 / 奇葩</td>
+<td><span class="cite">〔D1 00:41:39〕</span></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>抖加别乱投</td>
+<td>内容不对就投抖加，等于把一个垃圾变成一个大垃圾。</td>
+<td>最差</td>
+<td><span class="cite">〔D5 00:38:23〕</span></td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>24 小时没过一万播放，别投</td>
+<td>你的视频 24 小时没过一万播放？那就先别投。</td>
+<td>成本</td>
+<td><span class="cite">〔D5 00:38:05〕</span></td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>二奢视频标题里，这两个字千万别写</td>
+<td>这两个字一写进标题，你的视频可能就涉嫌违规。</td>
+<td>恐吓 / 揭秘</td>
+<td><span class="cite">〔D5 00:16:22〕</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>这句话一说，你的视频就算引流</td>
+<td>很多二奢老板天天在视频里说这句话，一说就算引流。</td>
+<td>恐吓</td>
+<td><span class="cite">〔D5 01:17:17〕</span>。视频里不要把"帮你估价"那句话原样念出来</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>二奢老板的主页五件套，你缺了哪件</td>
+<td>你的主页就是你的广告位，可你连自己干什么都没写。</td>
+<td>人群</td>
+<td><span class="cite">〔D1 02:07:05〕</span><span class="cite">〔D1 02:21:13〕</span></td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>二奢老板卖的不是包，是服务</td>
+<td>你的产品跟房产中介是一样的。</td>
+<td>反差 / 观点</td>
+<td><span class="cite">〔D1 00:21:40〕</span></td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>拍什么，比怎么拍重要得多</td>
+<td>一个选题，决定了一条视频 80% 的流量。</td>
+<td>揭秘</td>
+<td><span class="cite">〔D1 00:13:52〕</span></td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>二奢的客户，只有一种人</td>
+<td>别再把客户写成"某个年龄段的一线城市女性"了，二奢只有一种人。</td>
+<td>否定句</td>
+<td><span class="cite">〔D1 00:44:34〕</span></td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>代运营能帮你什么，不能帮你什么</td>
+<td>代运营除了帮你剪辑，其他的事情都帮不了你。</td>
+<td>观点</td>
+<td><span class="cite">〔D5 02:06:33〕</span></td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>视频爆了，可能是危险的开始</td>
+<td>视频爆了、客资爆了，那可能就是你封号的时候。</td>
+<td>恐吓</td>
+<td><span class="cite">〔D5 01:25:07〕</span></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="人设9-个故事情绪日常观点">人设（9 个）：故事、情绪、日常、观点</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>选题</th>
+<th>拍法</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>16</td>
+<td>我第一条视频，拖了整整两个月才发</td>
+<td>个人故事：怕亲戚朋友看到、怕数据不好 → 发出去之后"也没啥"</td>
+<td><span class="cite">〔D1 00:03:40〕</span></td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td>一个 i 人，是怎么把自己逼上镜头的</td>
+<td>个人故事：读稿"满脸通红，手指抖" → 现在每天早上对着手机录一段</td>
+<td><span class="cite">〔D4 00:30:16〕</span><span class="cite">〔D1 01:48:52〕</span></td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td>同一个选题，我拍了五遍才爆</td>
+<td>故事 + 干货：换了几种呈现形式，最后偷窥视角那版爆了</td>
+<td><span class="cite">〔D1 00:09:59〕</span><span class="cite">〔D5 02:08:31〕</span></td>
+</tr>
+<tr class="even">
+<td>19</td>
+<td>做了这么多年鉴定讲师，我为什么开始教老板拍视频</td>
+<td>个人故事：转型的那个节点和你的感悟</td>
+<td><span class="cite">〔D2 00:10:35〕</span><span class="cite">〔D4 00:34:36〕</span></td>
+</tr>
+<tr class="odd">
+<td>20</td>
+<td><span class="badge b-confirm">【待你确认】</span>我以前是跑船的</td>
+<td>个人故事：前后对比</td>
+<td><span class="cite">〔D4 02:03:22〕</span></td>
+</tr>
+<tr class="even">
+<td>21</td>
+<td>二手这个行业，拼到最后不是价格</td>
+<td>观点：拼的是你这个人值不值得信任</td>
+<td><span class="cite">〔D4 01:49:19〕</span></td>
+</tr>
+<tr class="odd">
+<td>22</td>
+<td>我为什么不建议老板一上来就拍段子</td>
+<td>观点："人设没出现出来之前，你拍那些段子，大概率是没人看的。这样子火了话，你的账号标签也会乱"</td>
+<td><span class="cite">〔D3 00:49:13〕</span></td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td>没有完美的人设，只有完整的人设</td>
+<td>观点 + 你自己的一个小缺点</td>
+<td><span class="cite">〔D4 00:35:34〕</span></td>
+</tr>
+<tr class="odd">
+<td>24</td>
+<td>带学员改号的一天</td>
+<td>日常 vlog：早上录视频 → 批改作业 → 晚上复盘</td>
+<td><span class="ph">【你的真实一天】</span></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="出单6-个案例过程">出单（6 个）：案例、过程</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>选题</th>
+<th>拍法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>25</td>
+<td>学员案例：坐店等客的老板，补了内容以后</td>
+<td>倒叙：先放结果，再讲之前怎样、改了什么<span class="cite">〔短视频阵地课 00:29:06〕</span></td>
+</tr>
+<tr class="even">
+<td>26</td>
+<td>学员案例：投流全是比价的老板，补了人设以后</td>
+<td>同上</td>
+</tr>
+<tr class="odd">
+<td>27</td>
+<td>学员案例：拍火过但没客户的老板，改拍服务以后</td>
+<td>同上</td>
+</tr>
+<tr class="even">
+<td>28</td>
+<td>直播连麦切片：当场看出一个老板缺哪个角</td>
+<td>剪连麦里诊断的那一段，结尾引导预约下一场</td>
+</tr>
+<tr class="odd">
+<td>29</td>
+<td>现场演示：用八大爆款元素改一个选题</td>
+<td>"这个包断货了"改出几个版本，前后对比<span class="cite">〔D2 01:02:41〕</span></td>
+</tr>
+<tr class="even">
+<td>30</td>
+<td>陪跑营交付现场</td>
+<td>飞书批改、每周复盘的画面。不要在视频里频繁讲开课时间地点，会被当成营销号限流<span class="cite">〔违规课 00:18:26–00:30:06〕</span></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>你的老视频里数据好的，优先二创。"与其抄别人的爆款，不如抄自己的爆款"<span class="cite">〔短视频阵地课 00:57:31〕</span>；你的说法是"爆过的视频一定会再爆，爆过的选题"<span class="cite">〔D1 00:07:32〕</span>。</li>
+<li>学员案例只讲变化和过程，不报收益、客资、成交数字。</li>
+</ul>
+<h2 id="3-你自己的两个脚本结构">3. 你自己的两个脚本结构</h2>
+<p>原来借用的"于姐改稿"是二手车案例，现在换成你密训里讲的结构。</p>
+<h3 id="个人故事钩子--背景--低谷--转折逆袭--成功d4-005331">个人故事：钩子 → 背景 → 低谷 → 转折逆袭 → 成功<span class="cite">〔D4 00:53:31〕</span></h3>
+<ul>
+<li><strong>核心是"感悟"</strong>："如果一个事情，对你没有任何触动……它不是一个好故事"<span class="cite">〔D4 00:41:32〕</span>。</li>
+<li><strong>拍法</strong>：一小段一小段拍，不需要一气呵成。</li>
+<li><strong>红线</strong>："可以渲染，但是不能说假话"<span class="cite">〔D4 00:37:04〕</span>。</li>
+</ul>
+<p><strong>示范骨架</strong>：以选题 16、17 为例。<span class="ph">【细节必须换成你的真实经历】</span></p>
+<blockquote>
+<p><strong>钩子</strong>：我第一条短视频，从想拍到发出来，整整拖了两个月。</p>
+<p><strong>背景</strong>：我做鉴定讲师很多年，讲课、看货都不怕，可一对着镜头就不会说话。</p>
+<p><strong>低谷</strong>：<span class="badge b-todo">【待填：那两个月里具体的一件事——比如录了几十遍删掉、怕被亲戚看到】</span></p>
+<p><strong>转折</strong>：<span class="badge b-todo">【待填：是什么让你终于点了发布——比如一抄二改、先做先发】</span></p>
+<p><strong>成功</strong>：后来我自己把号做起来了，现在还带着一批二奢老板一起拍。</p>
+<p><strong>感悟</strong>：【待填：一句你自己的话，比如"想多了都是问题，做多了都答案"<span class="cite">〔D5 02:06:33〕</span>】</p>
+</blockquote>
+<h3 id="vlog六脉神剑d3-010117">vlog：六脉神剑<span class="cite">〔D3 01:01:17〕</span></h3>
+<ul>
+<li><strong>结构</strong>：起因 / 钩子 → 关键步骤 1 → 2 → 3 → 4 → 展示成果。</li>
+<li><strong>最重要的是第一步</strong>："六脉神剑的第一个第一个最重要点就是引发大家的好奇，也就是好的开篇"<span class="cite">〔D4 00:09:04〕</span>。</li>
+</ul>
+<p><strong>示范骨架</strong>：给自己的号拍"帮一个老板改号"的 vlog。<span class="badge b-draft">【初稿】</span></p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>步骤</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>钩子</td>
+<td>一个老板拍了三个月，粉丝里八成是中老年</td>
+</tr>
+<tr class="even">
+<td>步骤 1</td>
+<td>打开他的主页，看五件套</td>
+</tr>
+<tr class="odd">
+<td>步骤 2</td>
+<td>看最近 9 条：全是段子和上新</td>
+</tr>
+<tr class="even">
+<td>步骤 3</td>
+<td>在白板上画三角，圈出他缺的角</td>
+</tr>
+<tr class="odd">
+<td>步骤 4</td>
+<td>当场改一个选题和一个开头</td>
+</tr>
+<tr class="even">
+<td>成果</td>
+<td>他第二天按新选题拍的那条视频</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="观点类七条原则里最常用的两条d4-013728">观点类：七条原则里最常用的两条<span class="cite">〔D4 01:37:28〕</span></h3>
+<ul>
+<li><strong>一个视频只站一方</strong>。你的号站在"想把店做好的二奢老板"这一方。</li>
+<li><strong>永远不站品牌方或商家那一边</strong>。对你的号来说，就是不站平台、不站代运营公司。</li>
+</ul>
+<h2 id="4-结尾动作">4. 结尾动作</h2>
+<ul>
+<li><strong>可以用</strong>：
+<ul>
+<li>"预约我的直播间"</li>
+<li>"评论区告诉我你是做门店还是回收的"</li>
+<li>"评论区打 1、2、3，告诉我你缺哪个角"</li>
+</ul></li>
+<li><strong>不要用</strong>："领资料"<span class="cite">〔短视频阵地课 01:05:43〕</span>，以及"加微信""私信我""到主页来找我"<span class="cite">〔D5 00:30:29〕</span>。</li>
+</ul>
+<h2 id="5-场景">5. 场景</h2>
+<ul>
+<li><strong>在店里拍</strong>，让人一看画面就知道你是做二奢的，不要用"大白墙"<span class="cite">〔短视频阵地课 00:11:21〕</span>。</li>
+<li><strong>构图</strong>：眼睛和眉毛放在画面上三分之一处<span class="cite">〔D1 01:54:21〕</span>。</li>
+<li><strong>少用炸裂音乐、频繁推拉摇移</strong>。老师点评过实体老板爱用这些手段增加停留，但"没有让出任何让你想买单的冲动"<span class="cite">〔短视频阵地课 00:57:31〕</span>。</li>
+</ul>
+<h2 id="6-创作流程用你自己的单条视频路径d5-020011">6. 创作流程：用你自己的单条视频路径<span class="cite">〔D5 02:00:11〕</span></h2>
+<ol type="1">
+<li><strong>先找人群</strong>：这里是二奢老板。</li>
+<li><strong>定选题</strong>：从素材库来——备忘录、语音笔记、抖音收藏夹<span class="cite">〔D4 00:00:02〕</span>。</li>
+<li><strong>用八大爆款元素优化选题</strong>：成本、人群、奇葩、最差、反差、怀旧、荷尔蒙、头牌。</li>
+<li><strong>定呈现形式和结构</strong>：口播、内心 OS、偷窥视角、打枪、一人分饰两角、vlog。</li>
+<li><strong>填内容</strong>：AI 写前 80%，最后两步你自己改，去掉 AI 味<span class="cite">〔D5 00:04:48〕</span>。</li>
+<li><strong>优化开篇</strong>：五类句式，否定句更强。</li>
+<li><strong>拍摄、剪辑、发布</strong>。</li>
+<li><strong>用成交三角模型验证</strong>：有没有流量、人设、产品，人群准不准。</li>
+</ol>
+<h2 id="7-发布前自查">7. 发布前自查</h2>
+<ul class="task-list">
+<li class="task"><label><input type="checkbox" /><span>没有学员收益、客资数、成交额</span></label></li>
+<li class="task"><label><input type="checkbox" /><span>没有"最""永久""保证"</span></label></li>
+<li class="task"><label><input type="checkbox" /><span>标题和话题里没有"回收"二字<span class="cite">〔D5 00:16:22〕</span></span></label></li>
+<li class="task"><label><input type="checkbox" /><span>没有"我帮你估多少钱"这类说法<span class="cite">〔D5 01:17:17〕</span></span></label></li>
+<li class="task"><label><input type="checkbox" /><span>没有"领资料""加微信""到主页来找我"<span class="cite">〔D5 00:30:29〕</span></span></label></li>
+<li class="task"><label><input type="checkbox" /><span>没有"小白创业"<span class="cite">〔逼单课 01:23:46〕</span></span></label></li>
+<li class="task"><label><input type="checkbox" /><span>标题和字幕里没有敏感词。"所有文字性的东西就叫……人赃并获"<span class="cite">〔违规课 00:18:26–00:30:06〕</span></span></label></li>
+</ul>
+
+</article>
+<div class="pager"><a class="prev" href="04-私域承接SOP.html"><small>上一篇</small>04 私域 SOP</a></div>
+</main>
+</div>
+<footer>由仓库中的 Markdown 文档生成，内容与 md 版一致。出处〔D1–D5〕指《五天密训》逐字稿（未提交进仓库），其余简称指陈晶老师课程逐字稿。</footer>
+<script>
+(function(){
+  var root=document.documentElement, KEY='fa2-theme';
+  try{var t=localStorage.getItem(KEY); if(t) root.setAttribute('data-theme',t);}catch(e){}
+  var btn=document.querySelector('.theme-btn');
+  function label(){var d=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');btn.textContent=d==='dark'?'浅色':'深色';}
+  if(btn){label();btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var nxt=cur==='dark'?'light':'dark'; root.setAttribute('data-theme',nxt);
+    try{localStorage.setItem(KEY,nxt);}catch(e){} label();});}
+  var toc=document.querySelector('details.toc');
+  if(toc && matchMedia('(max-width: 900px)').matches) toc.removeAttribute('open');
+  var page=document.body.getAttribute('data-page');
+  document.querySelectorAll('li.task input[type=checkbox]').forEach(function(cb,i){
+    var k='fa2-'+page+'-'+i;
+    try{cb.checked=localStorage.getItem(k)==='1';}catch(e){}
+    cb.addEventListener('change',function(){try{localStorage.setItem(k,cb.checked?'1':'0');}catch(e){}});
+  });
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  if('IntersectionObserver' in window && links.length){
+    var map={}; links.forEach(function(a){map[decodeURIComponent(a.getAttribute('href').slice(1))]=a;});
+    var obs=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){a.classList.remove('active');});var a=map[e.target.id]; if(a) a.classList.add('active');}
+    });},{rootMargin:'-70px 0px -70% 0px'});
+    document.querySelectorAll('article h2[id],article h3[id]').forEach(function(h){obs.observe(h);});
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 企划总纲：二奢老板「短视频收货获客」 · 方案二</title>
+<style>
+:root{
+  --bg:#faf8f5; --surface:#ffffff; --surface-2:#f3efe9; --text:#1f1b16; --muted:#6b6259;
+  --line:#e4ddd3; --accent:#8a4b1f; --accent-soft:#f5e9dd; --cite:#8f877e;
+  --todo-bg:#fff1c2; --todo-fg:#7a4b00; --pending-bg:#efe4fb; --pending-fg:#5b2d8a;
+  --confirm-bg:#e1eefc; --confirm-fg:#1d4f8f; --draft-bg:#ece9e4; --draft-fg:#5a524a;
+  --tip-bg:#e2f3e6; --tip-fg:#1f6b35; --ph:#b3541e;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161412; --surface:#1f1c19; --surface-2:#2a2622; --text:#ece6de; --muted:#a79d92;
+    --line:#3a342e; --accent:#e0a56e; --accent-soft:#3a2a1c; --cite:#8a8178;
+    --todo-bg:#4a3a10; --todo-fg:#ffd77a; --pending-bg:#3a2a4f; --pending-fg:#d9bdf7;
+    --confirm-bg:#1f3350; --confirm-fg:#a9cbf5; --draft-bg:#33302c; --draft-fg:#cfc7bd;
+    --tip-bg:#1d3a26; --tip-fg:#9ad8aa; --ph:#f0a06a;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161412; --surface:#1f1c19; --surface-2:#2a2622; --text:#ece6de; --muted:#a79d92;
+  --line:#3a342e; --accent:#e0a56e; --accent-soft:#3a2a1c; --cite:#8a8178;
+  --todo-bg:#4a3a10; --todo-fg:#ffd77a; --pending-bg:#3a2a4f; --pending-fg:#d9bdf7;
+  --confirm-bg:#1f3350; --confirm-fg:#a9cbf5; --draft-bg:#33302c; --draft-fg:#cfc7bd;
+  --tip-bg:#1d3a26; --tip-fg:#9ad8aa; --ph:#f0a06a;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",sans-serif;
+  font-size:16px;line-height:1.75;word-break:break-word;overflow-wrap:anywhere}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1200px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.site{font-weight:700;font-size:15px;color:var(--text);white-space:nowrap}
+.pages{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.pages::-webkit-scrollbar{display:none}
+.pages a{white-space:nowrap;font-size:14px;padding:4px 10px;border-radius:999px;color:var(--muted)}
+.pages a:hover{background:var(--surface-2);text-decoration:none;color:var(--text)}
+.pages a.current{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.theme-btn{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;
+  padding:3px 10px;font-size:13px;cursor:pointer;white-space:nowrap}
+.layout{max-width:1200px;margin:0 auto;padding:24px 16px 64px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px}
+.toc{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;font-size:14px}
+.toc summary{cursor:pointer;font-weight:600;color:var(--muted);margin-bottom:6px;list-style:none}
+.toc summary::-webkit-details-marker{display:none}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin:2px 0}
+.toc li.h3{padding-left:14px;font-size:13px}
+.toc a{color:var(--muted);display:block;padding:2px 8px;border-radius:6px;border-left:2px solid transparent}
+.toc a:hover{color:var(--text);background:var(--surface-2);text-decoration:none}
+.toc a.active{color:var(--accent);border-left-color:var(--accent)}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px 32px;box-shadow:var(--shadow)}
+h1{font-size:28px;line-height:1.35;margin:0 0 16px}
+h2{font-size:22px;line-height:1.4;margin:40px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
+h2:first-of-type{border-top:none}
+h3{font-size:18px;margin:28px 0 8px}
+h4{font-size:16px;margin:20px 0 6px}
+h2,h3,h4{scroll-margin-top:72px}
+p{margin:10px 0}
+ul,ol{padding-left:1.4em;margin:8px 0}
+li{margin:4px 0}
+li>ul,li>ol{margin:2px 0}
+strong{font-weight:650}
+hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+pre{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.65}
+pre code{background:none;padding:0;white-space:pre-wrap;word-break:break-word}
+.table-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+blockquote{margin:14px 0;padding:14px 18px 12px;background:var(--accent-soft);border-left:4px solid var(--accent);
+  border-radius:0 10px 10px 0;font-size:16.5px;line-height:1.95;position:relative}
+blockquote::before{content:"示范稿";display:inline-block;font-size:12px;font-weight:600;color:var(--accent);
+  letter-spacing:.05em;margin-bottom:4px}
+blockquote p{margin:6px 0}
+.cite{color:var(--cite);font-size:.78em;white-space:nowrap}
+.badge{display:inline-block;font-size:.8em;font-weight:600;line-height:1.5;padding:0 7px;border-radius:6px;margin:0 2px;white-space:normal}
+.b-todo{background:var(--todo-bg);color:var(--todo-fg)}
+.b-pending{background:var(--pending-bg);color:var(--pending-fg)}
+.b-confirm{background:var(--confirm-bg);color:var(--confirm-fg)}
+.b-draft{background:var(--draft-bg);color:var(--draft-fg)}
+.b-tip{background:var(--tip-bg);color:var(--tip-fg)}
+.ph{color:var(--ph);border-bottom:1px dashed var(--ph)}
+ul.task-list,li.task{list-style:none}
+li.task{margin-left:-1.4em}
+li.task label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+li.task input{margin-top:.45em;width:16px;height:16px;accent-color:var(--accent);flex:none}
+li.task input:checked+span{color:var(--muted);text-decoration:line-through}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--muted);margin:4px 0 20px;align-items:center}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:14px}
+.pager a{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--surface);color:var(--text)}
+.pager a:hover{border-color:var(--accent);text-decoration:none}
+.pager .next{text-align:right}
+.pager small{display:block;color:var(--muted)}
+footer{max-width:1200px;margin:0 auto;padding:0 16px 32px;color:var(--muted);font-size:12.5px}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:16px;padding-top:16px}
+  .toc{position:static;max-height:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .toc summary{margin:0}
+  .toc[open] summary{margin-bottom:6px}
+  article{padding:20px 16px;border-radius:12px}
+  h1{font-size:23px} h2{font-size:19px} h3{font-size:17px}
+  .site{display:none}
+}
+@media print{
+  .topbar,.toc,.pager,.theme-btn,footer{display:none!important}
+  body{background:#fff;color:#000;font-size:11.5pt}
+  .layout{display:block;padding:0;max-width:none}
+  article{border:none;box-shadow:none;padding:0}
+  a{color:#000}
+  .table-wrap{overflow:visible;border:none}
+  table{min-width:0;font-size:10pt}
+  th,td{border:1px solid #bbb}
+  blockquote,table,pre,.table-wrap{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  .cite{color:#777}
+}
+</style>
+</head>
+<body data-page="01-企划总纲">
+<header class="topbar"><div class="topbar-inner">
+<span class="site">方案二 · 二奢老板短视频获客</span>
+<nav class="pages"><a href="index.html">总览</a><a href="01-企划总纲.html" class=current>01 企划总纲</a><a href="02-老板场直播脚本.html">02 直播脚本</a><a href="03-账号体检表与诊断SOP.html">03 体检表</a><a href="04-私域承接SOP.html">04 私域 SOP</a><a href="05-老板线短视频选题库.html">05 选题库</a></nav>
+<button class="theme-btn" type="button">深色</button>
+</div></header>
+<div class="layout">
+<details class="toc" open><summary>本页目录</summary><ul><li class="h2"><a href="#0-已定的前提">0. 已定的前提</a></li><li class="h2"><a href="#1-定位让客户主动找上门以收货为主打">1. 定位：让客户主动找上门，以收货为主打</a></li><li class="h3"><a href="#为什么这样定">为什么这样定</a></li><li class="h3"><a href="#定位句">定位句</a></li><li class="h3"><a href="#人群已经在拍拍了没客户的老板">人群：已经在拍、拍了没客户的老板</a></li><li class="h3"><a href="#三个真实痛点">三个真实痛点</a></li><li class="h3"><a href="#找病因用你自己的成交三角模型诊断">找病因：用你自己的「成交三角模型」诊断</a></li><li class="h3"><a href="#我有药三大系统d1-002657">我有药：三大系统</a></li><li class="h3"><a href="#人设三个证据">人设：三个证据</a></li><li class="h2"><a href="#2-产品阶梯">2. 产品阶梯</a></li><li class="h3"><a href="#原则">原则</a></li><li class="h3"><a href="#阶梯表">阶梯表</a></li><li class="h3"><a href="#6980-为什么定在这">6980 为什么定在这</a></li><li class="h3"><a href="#和方案一的价格关系">和方案一的价格关系</a></li><li class="h3"><a href="#6980-陪跑营的交付清单按你的四周落地">6980 陪跑营的交付清单：按你的&quot;四周落地&quot;</a></li><li class="h3"><a href="#产能">产能</a></li><li class="h2"><a href="#3-平台链路短视频--直播--私域">3. 平台链路：短视频 → 直播 → 私域</a></li><li class="h3"><a href="#抖音主阵地已有基础">抖音（主阵地，已有基础）</a></li><li class="h3"><a href="#视频号第二阶段开第-5-周起">视频号（第二阶段开，第 5 周起）</a></li><li class="h3"><a href="#私域详见-04">私域（详见 04）</a></li><li class="h2"><a href="#4-算账">4. 算账</a></li><li class="h3"><a href="#参照数据来自课程">参照数据（来自课程）</a></li><li class="h3"><a href="#6980-的账">6980 的账</a></li><li class="h2"><a href="#5-90-天节奏">5. 90 天节奏</a></li><li class="h2"><a href="#6-检查指标">6. 检查指标</a></li><li class="h2"><a href="#7-合规底线所有内容通用">7. 合规底线（所有内容通用）</a></li><li class="h2"><a href="#8-还需要你补的">8. 还需要你补的</a></li></ul></details>
+<main>
+<article>
+<h1 id="01-企划总纲二奢老板短视频收货获客">01 企划总纲：二奢老板「短视频收货获客」</h1><div class="legend"><span>标记：</span><span class="badge b-todo">【待填】</span><span class="badge b-pending">【待定】</span><span class="badge b-confirm">【待你确认】</span><span class="badge b-draft">【初稿】</span><span class="badge b-tip">【建议】</span><span class="ph">【占位】</span><span class="cite">〔出处 时间戳〕</span></div>
+<p>出处简称见 <a href="index.html">README</a>：</p>
+<ul>
+<li><span class="cite">〔D1–D5 时间戳〕</span>指你自己的《五天密训》逐字稿。</li>
+<li>其余简称指陈晶老师课程逐字稿。</li>
+</ul>
+<h2 id="0-已定的前提">0. 已定的前提</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>项</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>人群</td>
+<td>二奢老板：实体门店、回收寄卖、线上朋友圈卖货</td>
+</tr>
+<tr class="even">
+<td>出镜 IP</td>
+<td>你本人，也就是五天密训的主讲</td>
+</tr>
+<tr class="odd">
+<td>你的结果证明</td>
+<td>自家门店的成交 + 帮同行老板做出的结果；最硬的是"收货——卖家主动找上门"</td>
+</tr>
+<tr class="even">
+<td>你的方法</td>
+<td>五天密训：成交三角模型 + 三大系统，已经在线上卖，学员以二奢老板为主</td>
+</tr>
+<tr class="odd">
+<td>现有课程漏斗</td>
+<td>三天公开课 → 五天密训（6 千–1 万，含四周落地）→ 年课（每周三上课）</td>
+</tr>
+<tr class="even">
+<td>方案二高客单</td>
+<td>新做 6980 陪跑营：教会老板自己做，不做代运营，不保结果，卖确定的交付</td>
+</tr>
+<tr class="odd">
+<td>账号</td>
+<td>和方案一同一个 IP、同一个账号；基础在抖音</td>
+</tr>
+<tr class="even">
+<td>交付人手</td>
+<td>你 + 1–3 个助手</td>
+</tr>
+<tr class="odd">
+<td>方案一</td>
+<td>已在跑，有低价品和 1 万以上的高价品</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="1-定位让客户主动找上门以收货为主打">1. 定位：让客户主动找上门，以收货为主打</h2>
+<h3 id="为什么这样定">为什么这样定</h3>
+<ul>
+<li>老师要求说结果、不说手段："我要的是那个孔，我要的不是那个钻"<span class="cite">〔商业模式课 00:41:58〕</span>。"短视频获客"是手段，"客户主动找上门"是结果。</li>
+<li>一句话要让外行听懂："拿回去问一下你妈，你妈听得懂，这个定位就没有问题"<span class="cite">〔商业模式课 00:50:43〕</span>。</li>
+<li>用"客户"而不只说"卖家"，有两个原因：
+<ul>
+<li>老板们的痛点里说的就是"客户"；</li>
+<li>你在课上定义的人群是"想买二手奢侈品的人，或者是手里面有闲置想出手的奢侈品的人"<span class="cite">〔D1 00:44:34〕</span>，买家和卖家都包括。</li>
+</ul></li>
+<li>主打案例仍然是收货。你的原话："只要是在做二手获客类型的，基本上都是在拍围绕着回收内容"<span class="cite">〔D4 00:06:39〕</span>。货源也是门店、回收、线上三类老板共同的命门。</li>
+</ul>
+<h3 id="定位句">定位句</h3>
+<ul>
+<li><strong>对外</strong>：帮二奢老板用短视频，让客户主动找上门。</li>
+<li><strong>对内</strong>：帮二奢老板每月多收<span class="badge b-todo">【待填：X】</span>件货。
+<ul>
+<li>这个数字只放在心里，或者在私域里讲，公域不讲。</li>
+<li>老师的原则是"所有数字一概不讲"<span class="cite">〔私董会 00:26:42〕</span>，喊在短视频里"首先违反广告法"<span class="cite">〔商业模式课 00:45:54〕</span>。</li>
+</ul></li>
+</ul>
+<h3 id="人群已经在拍拍了没客户的老板">人群：已经在拍、拍了没客户的老板</h3>
+<ul>
+<li>老师原话："最痛的客户是什么？是自己拍了短视频，已经付出了大量的成本，而且尝试直播播的不好"<span class="cite">〔商业模式课 00:15:01〕</span>。</li>
+<li>"你永远不能教育一个没有做过外贸的人去做外贸"<span class="cite">〔商业模式课 00:18:44〕</span>。同理，不去教育还没开店的人，那是方案一的人。</li>
+<li><strong>准入门槛</strong>：必须已经有店，或者已经在做回收寄卖。这条门槛同时用作直播间的劝退话术（见 02）。</li>
+</ul>
+<h3 id="三个真实痛点">三个真实痛点</h3>
+<p>老师说"想要成交快，要找事件"<span class="cite">〔商业模式课 00:12:40〕</span>。下面三个痛点是你从老板身上看到的：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>痛点</th>
+<th>老板以为</th>
+<th>实际发生的</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>①</td>
+<td>坐店等客</td>
+<td>店开着，客户自然会来</td>
+<td>一天坐到晚，没人上门</td>
+</tr>
+<tr class="even">
+<td>②</td>
+<td>投流全是比价的</td>
+<td>投放能带来大量客资</td>
+<td>客资确实来了，但大多是比价的，转化很低</td>
+</tr>
+<tr class="odd">
+<td>③</td>
+<td>拍火了没客户</td>
+<td>随便拍拍就有客资</td>
+<td>视频拍火了，还是拿不到客户</td>
+</tr>
+</tbody>
+</table></div>
+<p><span class="badge b-todo">【待填：每个痛点补一个你见过的真实老板（城市、业态、具体经过），用在 02 的"你有病"段】</span></p>
+<h3 id="找病因用你自己的成交三角模型诊断">找病因：用你自己的「成交三角模型」诊断</h3>
+<p>老师的方法叫认知破碎："你想改变他的行为，你要植入一个新的认知"<span class="cite">〔成交课 00:25:20〕</span>。你的成交三角模型就是那个新认知：流量、人设、产品三个角缺一不可，这三个痛点各缺一个角。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>痛点</th>
+<th>缺哪个角</th>
+<th>你的原话</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>① 坐店等客</td>
+<td>缺<strong>流量</strong></td>
+<td>"如果没有流量的话，只有产品和人设，那就是个老好人，你的东西就卖不出去"<span class="cite">〔D1 00:25:04〕</span></td>
+</tr>
+<tr class="even">
+<td>② 投流全是比价的</td>
+<td>缺<strong>人设</strong></td>
+<td>"如果没有人设，只有产品和流量的话，那什么就是投了投来的人"<span class="cite">〔D1 00:25:04〕</span>；"你靠这种付费投流的打法来的客户都是比较的客户，这是我的观点"<span class="cite">〔D4 01:28:05〕</span>（"比较"即比价）</td>
+</tr>
+<tr class="odd">
+<td>③ 拍火了没客户</td>
+<td>缺<strong>产品（服务）</strong>，人群也不准</td>
+<td>"如果只有流量和人设的话，那没有产品的话，那什么就是网红"<span class="cite">〔D1 00:26:01〕</span>；"单一的去火，他只能做个网红，他卖不了东西了"<span class="cite">〔D1 00:10:58〕</span></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>痛点②为什么会比价：用户"想要的就是信任以及这个情绪"<span class="cite">〔D1 00:20:10〕</span>。没有人设，"我感觉几家都差不多"，客户自然拿价格比。</li>
+<li>痛点③为什么没客户：
+<ul>
+<li>拍搞笑剧情，"基本上来的都是一些老头老太"<span class="cite">〔D1 00:53:20〕</span>；</li>
+<li>粉丝里如果"1000 粉丝里面有 800 个……都是老头老太，那你的标签就是一些老年人的一些产业"<span class="cite">〔D1 00:41:39〕</span>。</li>
+</ul></li>
+<li>二奢老板的"产品"是什么："你的产品和房产中介的产品是一样的，是什么？就是你的服务"<span class="cite">〔D1 00:21:40〕</span>，例如"秒到账是你的服务属性"<span class="cite">〔D1 00:24:05〕</span>。</li>
+</ul>
+<h3 id="我有药三大系统d1-002657">我有药：三大系统<span class="cite">〔D1 00:26:57〕</span></h3>
+<p>"三个点做好，我们对应的会有三大系统。第一个就是内容系统。第二个就是人设系统啊，叫信任系统。第三个叫转化系统。"三个系统各补一个角：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>步骤</th>
+<th>系统</th>
+<th>补哪个角</th>
+<th>核心动作</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>第一步</td>
+<td>内容系统</td>
+<td>流量</td>
+<td>人群 → 选题 → 八大爆款元素 → 呈现形式和结构 → 开篇。"一个选题是决定了流量的 80%"<span class="cite">〔D1 00:13:52〕</span>。开头必须先做干货知识类，"把自己的粉丝标签给他打精准"<span class="cite">〔D2 00:17:21〕</span></td>
+</tr>
+<tr class="even">
+<td>第二步</td>
+<td>信任系统</td>
+<td>人设</td>
+<td>主页五件套（头像、昵称、背景图、简介、置顶视频）<span class="cite">〔D1 02:07:05〕</span>；置顶三件套<span class="cite">〔D1 02:13:53〕</span>；人设四象限<span class="cite">〔D4 00:10:59〕</span>；故事、观点、情绪类视频</td>
+</tr>
+<tr class="odd">
+<td>第三步</td>
+<td>转化系统</td>
+<td>产品（服务）</td>
+<td>交易 vlog 展示服务，用"六脉神剑"结构<span class="cite">〔D3 01:01:17〕</span>；合规留资进微信；私域破冰、打标签<span class="cite">〔D5 01:58:44〕</span>；朋友圈"信任存折"<span class="cite">〔D5 01:37:35〕</span></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>三个系统都转起来，就是你说的飞轮：基本上是客户推着你走<span class="cite">〔D1 00:29:49〕</span>。</li>
+<li>收尾的一句话（你在课上演示智能体时生成、你认可的）："二手这个行业拼到最后不是价格，是你这个人值不值得信任"<span class="cite">〔D4 01:49:19〕</span>。</li>
+</ul>
+<h3 id="人设三个证据">人设：三个证据</h3>
+<p>老师说自我介绍要罗列证据，想象旁边站着一群同行："你别选他，选我。以下有三个证据"<span class="cite">〔成交课 00:37:09〕</span>。你的三个证据来自五天密训里讲过的经历：</p>
+<ol type="1">
+<li><strong>懂货的人</strong>
+<ul>
+<li>做了多年鉴定讲师，现在"一个月至少是一次的课堂……也在看货，也在做司法鉴定"<span class="cite">〔D2 00:10:35〕</span>；</li>
+<li>和强哥一起从鉴定课程做起，白皮书前后迭代了七八年<span class="cite">〔D1 00:04:38–00:05:37〕</span>；</li>
+<li>线下有实体店<span class="cite">〔D1 00:55:16〕</span>。</li>
+</ul></li>
+<li><strong>自己从零做出来的人</strong>
+<ul>
+<li>2022 年开始做短视频，第一条"整整中间隔了两个月，一直都碍于面子"<span class="cite">〔D1 00:03:40〕</span>；</li>
+<li>自称"一个 i 人不敢去拍摄"<span class="cite">〔D2 00:06:42〕</span>，"读得满脸通红，手指抖"<span class="cite">〔D4 00:30:16〕</span>；</li>
+<li>后来新号靠干货知识类涨起来<span class="cite">〔D2 00:13:58〕</span>，一个选题拍了五六遍，终于爆了<span class="cite">〔D5 02:08:31〕</span>。</li>
+</ul></li>
+<li><strong>带别人做出来的人</strong>
+<ul>
+<li>"我帮过很多人去去磨过这个个人人设视频"<span class="cite">〔D1 02:14:51〕</span>；</li>
+<li>目标是"我要在短视频火。另外我还要带着一群人在短视频火起来"<span class="cite">〔D4 00:34:36〕</span>。</li>
+</ul></li>
+</ol>
+<ul>
+<li>粉丝数、播放量、成交额这类数字，公域不讲，留到私域讲。</li>
+<li><span class="badge b-confirm">【待你确认】</span>"以前是跑船的"<span class="cite">〔D4 02:03:22〕</span>要不要放进故事。这段在课上是作为"对比法"的例子讲的。</li>
+</ul>
+<h2 id="2-产品阶梯">2. 产品阶梯</h2>
+<h3 id="原则">原则</h3>
+<ul>
+<li><strong>链路越短越好</strong>："多增加一个销售环节就意味着多一层转化的漏斗……链条越多越不可控，链条越短越可控"<span class="cite">〔产品课 00:21:42〕</span>。老师自己是 5 元直接升 12800，中间没有产品。</li>
+<li><strong>开口品做诊断，不做资料包</strong>：模型是"体检 → 报告解读 → 方案"，"任何的主动成交都很难成交，但是被动成交都很成"<span class="cite">〔产品课 00:34:18〕</span>。</li>
+<li><strong>开口品最要用心</strong>："五块钱决定了你能不能收两千，两千决定了你能不能收两万"<span class="cite">〔产品课 00:47:27〕</span>。</li>
+<li><strong>用选题筛人，不用价格筛人</strong>：把引流品涨价，"你成功的实现了筛选。你把自己给筛出去了"<span class="cite">〔产品课 00:31:51〕</span>。</li>
+</ul>
+<h3 id="阶梯表">阶梯表</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>层级</th>
+<th>产品</th>
+<th>价格</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开口品·抖音</td>
+<td>账号体检：按三角模型看你缺哪个角</td>
+<td>免费 / 9.9 两种都测</td>
+<td>拿到老板的联系方式和真实数据</td>
+</tr>
+<tr class="even">
+<td>开口品·视频号</td>
+<td>《二奢老板短视频体检课》含自测表 + 20 分钟诊断资格</td>
+<td>5 元</td>
+<td>同上，课程原生打法</td>
+</tr>
+<tr class="odd">
+<td>已有引流</td>
+<td>你的三天公开课</td>
+<td><span class="badge b-todo">【待填】</span></td>
+<td>继续用，体检和公开课互相导</td>
+</tr>
+<tr class="even">
+<td>利润品</td>
+<td>收货获客陪跑营（暂定名）</td>
+<td>6980 元，每期限 10–15 人</td>
+<td>主要利润</td>
+</tr>
+<tr class="odd">
+<td>品牌型</td>
+<td>不单独卖；第一期做"共创期"，学员允许拍过程、做案例</td>
+<td>—</td>
+<td>积累"做了谁"的案例</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>免费还是 9.9</strong>：老师更倾向象征性收费，"免费的没有人珍惜，所以我们象征性的拿九块九来交个朋友"<span class="cite">〔卖课复盘 01:09:34〕</span>。两种在抖音上各测两周，看到场率和诊断后成交率再定。</li>
+<li><strong>品牌型</strong>：老师说"品牌型的产品才是我们有资格去卖利润型产品的关键。就是你的资格从哪来"<span class="cite">〔产品课 00:23:07〕</span>，"案例型视频是一个人最能招生的短视频"<span class="cite">〔产品课 00:26:02〕</span>。</li>
+<li><strong><span class="badge b-pending">【待定】</span>陪跑营和五天密训（6 千–1 万）的边界</strong>：两个产品都卖给二奢老板，价格接近。建议的分法：
+<ul>
+<li>五天密训卖"学会方法"；</li>
+<li>陪跑营卖"带你一条一条做出来"，即一对一批改、每周复盘、私域搭建。</li>
+<li>密训学员升陪跑营给老学员价。</li>
+<li>具体怎么定由你来判断。</li>
+</ul></li>
+</ul>
+<h3 id="6980-为什么定在这">6980 为什么定在这</h3>
+<ul>
+<li>实体老板："很多实体老板的价格区间他就定在五千左右，因为再往上他真的痛"<span class="cite">〔产品课 00:54:56〕</span>。</li>
+<li>千元档上限 3000 元，"三千块钱是给一个陌生人情绪性消费的上限"<span class="cite">〔产品课 00:53:59〕</span>。6980 已经超过冲动消费线，需要私域谈单（见 04）。</li>
+<li>价格最好不超过用户一个月的收入<span class="cite">〔产品课 00:58:46〕</span>。</li>
+<li>试价：每次加 1000 测；卖不动就快速调回，可以换名字、多送服务<span class="cite">〔产品课 00:55:55–01:01:13〕</span>。</li>
+</ul>
+<h3 id="和方案一的价格关系">和方案一的价格关系</h3>
+<ul>
+<li>方案一的高价品（1 万以上）在这个号里自然成为价格锚："在一个店里面有一个一百万的包，你忽然觉得旁边那个三万的包显得亲切"<span class="cite">〔产品课 00:23:07〕</span>。</li>
+<li>两条线解决不同的问题：方案一是"怎么入行"，方案二是"开了店怎么让客户找上门"。直播场次、钩子、私域标签都分开（见第 3 节）。</li>
+<li>方案一学员开店以后，用老学员价升到方案二。老师说"成年人就两条赛道，要么升单，要么复购"<span class="cite">〔产品课 00:51:11〕</span>。</li>
+<li>防止小白买方案二：方案二有准入门槛（已有店或已在收货），在直播和私域都讲清楚。</li>
+</ul>
+<h3 id="6980-陪跑营的交付清单按你的四周落地">6980 陪跑营的交付清单：按你的"四周落地"</h3>
+<p>老师的警告："你要么就保结果，你要么就……完全不保结果。其实很忌讳……又卖结果又卖方法"<span class="cite">〔产品课 01:03:10〕</span>。你选的是不保结果，所以清单只写确定能交付的动作，不写客资数和成交数。</p>
+<p>节奏照你五天密训课后的落地安排："第一周我们完成啊，比如这个知识型的脚本写作以及拍摄"，之后依次是 vlog、故事、私域<span class="cite">〔D4 00:32:40〕</span>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>周</th>
+<th>补哪个角</th>
+<th>交付内容</th>
+<th>谁来做</th>
+<th>数量<span class="badge b-todo">【待填】</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>开营</td>
+<td>全部</td>
+<td>账号体检 + 一对一定位：人设报告、主页五件套、置顶三件套方案</td>
+<td>你</td>
+<td>1 次</td>
+</tr>
+<tr class="even">
+<td>第 1 周</td>
+<td>流量</td>
+<td>干货知识类：选题库、八大爆款元素优化、呈现形式；先打准奢侈品标签</td>
+<td>你 + 助手批改</td>
+<td>N 条脚本</td>
+</tr>
+<tr class="odd">
+<td>第 2 周</td>
+<td>产品（服务）</td>
+<td>vlog：交易记录、盲盒、挑战，用"六脉神剑"结构</td>
+<td>你 + 助手批改</td>
+<td>N 条脚本</td>
+</tr>
+<tr class="even">
+<td>第 3 周</td>
+<td>人设</td>
+<td>故事、观点、情绪类，个人故事一对一帮改</td>
+<td>你</td>
+<td>1 条个人故事 + N 条</td>
+</tr>
+<tr class="odd">
+<td>第 4 周</td>
+<td>转化</td>
+<td>私域：合规留资、破冰、打标签分级、朋友圈"信任存折"、私聊触发</td>
+<td>你 + 助手</td>
+<td>一套私域 SOP</td>
+</tr>
+<tr class="even">
+<td>全程</td>
+<td>—</td>
+<td>智能体（选题优化、脚本、开篇优化）、飞书作业逐条批注、每周 1 次数据复盘</td>
+<td>你 + 助手</td>
+<td>每周 1 次，共 4 次</td>
+</tr>
+<tr class="odd">
+<td>结营</td>
+<td>—</td>
+<td>结营账号诊断报告：哪个角补上了、下一步补哪个</td>
+<td>你 + AI 整理</td>
+<td>1 份</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>老板带一个能拍能剪的人一起学</strong>：参照陪跑说明会的要求，"带两个角色，一个就是能拍能剪的人，第二个就是能投流的人"<span class="cite">〔陪跑说明会 00:19:08〕</span>。脚本必须老板自己写，你的原话是："代运营这一块肯定是除了帮你剪辑，其他的事情都帮不了你"<span class="cite">〔D5 02:06:33〕</span>。</li>
+<li><strong>单品单权益</strong>："一个核心产品只需要一个核心权益"<span class="cite">〔产品课 00:04:46〕</span>，对外卖点只讲一个。<span class="badge b-tip">【建议】</span>核心权益讲"你缺的那个角，我带你一条一条补上"，其余写在交付清单里，不在直播间堆。</li>
+<li><strong>限额理由<span class="badge b-confirm">【待你确认】</span></strong>：同城每期只收一位老板。这是真实的稀缺，也打消老板"同城同行也学了我的方法"的顾虑。限额只要"跟库存保持一致"就不违规<span class="cite">〔逼单课 00:35:14〕</span>。</li>
+</ul>
+<h3 id="产能">产能</h3>
+<ul>
+<li>每期 15 人 × 批改 N 条 = 每期总批改量。按你 + 1–3 个助手每天能认真改的条数倒推 N 和每期人数。<span class="badge b-todo">【待填：每人每天能改多少条】</span></li>
+<li>陪跑说明会的标准是"一个月只做两个项目"，为的是"保持项目的手感"<span class="cite">〔陪跑说明会 00:04:20〕</span>。宁可少接，保住口碑。</li>
+</ul>
+<h2 id="3-平台链路短视频--直播--私域">3. 平台链路：短视频 → 直播 → 私域</h2>
+<h3 id="抖音主阵地已有基础">抖音（主阵地，已有基础）</h3>
+<ul>
+<li><strong>两条线分开</strong>：老板线短视频单独做栏目，老板场直播固定每周 2–3 场，和方案一的场次分开。私域打不同标签。</li>
+<li><strong>老板线短视频</strong>：配比 5:3:2，"百分之五十出圈，百分之三十人设，百分之二十出单"<span class="cite">〔短视频阵地课 00:26:10〕</span>。具体选题见 05。</li>
+<li><strong>结尾动作</strong>：引导预约直播，或评论区留言。不用"领资料"，"现在领资料很危险的，所以你就指令他去预约就好了"<span class="cite">〔短视频阵地课 01:05:43〕</span>。</li>
+</ul>
+<p><strong>留资：按你课里的做法</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>位置</th>
+<th>做法</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>主页简介</td>
+<td>个人号可以放微信号，"这是合规的"；企业号用自带的联系方式</td>
+<td><span class="cite">〔D1 02:11:00〕</span><span class="cite">〔D5 01:18:15〕</span></td>
+</tr>
+<tr class="even">
+<td>私信</td>
+<td>只留联系方式，不在私信里聊别的；<strong>千万不要自己主动留联系方式</strong>；蓝V 用一键留资组件，个人号让对方用半拼音半汉字留电话</td>
+<td><span class="cite">〔D5 01:20:11–01:22:41〕</span><span class="cite">〔D5 01:21:41〕</span></td>
+</tr>
+<tr class="odd">
+<td>直播间</td>
+<td>先拉进抖音粉丝群，再转到微信</td>
+<td><span class="cite">〔D5 01:11:32〕</span></td>
+</tr>
+<tr class="even">
+<td>加微信</td>
+<td>每天不超过 30 人，新号控制在 10 几个以内</td>
+<td><span class="cite">〔D5 01:24:08〕</span></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>风控不做好的后果，你的原话："什么时候你视频爆了，客资爆了，那就是你封号的时候"<span class="cite">〔D5 01:25:07〕</span>。</li>
+<li>抖音直播间不能挂二维码<span class="cite">〔短视频阵地课 01:24:24〕</span>，口播不说"加微信"<span class="cite">〔逼单课 01:28:41〕</span>。</li>
+</ul>
+<p><strong>抖加：按你的规则投</strong><span class="cite">〔D5 00:38:05–00:44:45〕</span></p>
+<ul>
+<li>24 小时播放过万再投，"要不然就别投"<span class="cite">〔D5 00:38:05〕</span>。内容不精准就投，"就等于把一个垃圾变成一个大垃圾"<span class="cite">〔D5 00:38:23〕</span>。</li>
+<li>设置：
+<ul>
+<li>选内容加热，目标只选"点赞评论"；</li>
+<li>投放时长 24 小时，金额 100 元左右，小金额多次；</li>
+<li>投放策略选"保证播放量"，人群选智能投放。</li>
+</ul></li>
+<li>抖加被拒不等于视频违规："抖家的违规和自然流是两码事"<span class="cite">〔D5 00:47:41〕</span>。</li>
+</ul>
+<p><strong>搜索流</strong></p>
+<ul>
+<li>标题和话题带城市、事件、品牌，可以拿到搜索流。搜索流"转化率就会偏高很多，正常是 5~15%"<span class="cite">〔D5 00:19:18〕</span>。</li>
+<li>标题和话题里不写"回收"两个字<span class="cite">〔D5 00:16:22〕</span>。</li>
+</ul>
+<p><strong>其他</strong></p>
+<ul>
+<li>抖音"把所有的用户都标好价格了"，不能指望"花小钱办大事儿"<span class="cite">〔产品课 00:27:59〕</span>。投本地同城比视频号好投<span class="cite">〔话术调教 00:30:00〕</span>，适合门店老板做同城。</li>
+</ul>
+<h3 id="视频号第二阶段开第-5-周起">视频号（第二阶段开，第 5 周起）</h3>
+<ul>
+<li><strong>零存整取</strong>："在短视频里面零存，在直播里整取"<span class="cite">〔视频号直播课 00:03:29〕</span>。视频号开播时优先推给看过你短视频的人<span class="cite">〔视频号直播课 00:05:30〕</span>，所以先把同一批短视频同步发到视频号，攒粉。</li>
+<li><strong>为什么值得做</strong>：视频号"老板粉特别多"，30 岁以上、实名、高净值<span class="cite">〔视频号直播课 00:42:24〕</span>。你担心"圈子小"，但方案二要的本来就是窄而准的人群："你要是一年收他个十万块钱，你都不需要两三百个客户"<span class="cite">〔商业模式课 00:19:44〕</span>。</li>
+<li><strong>挂车和挂码二选一</strong>："有马就不能有车，有车就不能有马"<span class="cite">〔话术调教 00:30:59〕</span>。卖 5 元课就挂车，下单后再加企微。</li>
+<li><strong>加热</strong>：
+<ul>
+<li>短视频加热目标选"关注"，先投 500 豆，5 条一组测<span class="cite">〔投流实操 00:02:16〕</span>；</li>
+<li>直播加热只用"控成本加热"，不用"放量加热"<span class="cite">〔投流实操 00:25:09〕</span>。</li>
+</ul></li>
+</ul>
+<h3 id="私域详见-04">私域（详见 04）</h3>
+<ul>
+<li>承接号用 IP 本人形象："你的开口率只有百分之三十，而我的开口率能做到百分之八十"<span class="cite">〔私域课 00:06:51〕</span>。</li>
+<li>体检表改名：从"学员信息收集表"改成"IP 体检诊断表"后，填表率从 30% 提到 70%<span class="cite">〔私域课 00:29:59〕</span>。方案二用《二奢门店账号体检表》。</li>
+<li>十步谈单 + 三段式成交（公开课前一对一 → 私域公开课 → 课后电话）<span class="cite">〔私域课 00:10:44〕</span>。</li>
+<li>量化案例只在私域讲<span class="cite">〔私董会 00:30:33〕</span>。</li>
+<li>你的原话："私域才是你真正的财富"<span class="cite">〔D5 01:00:56〕</span>。</li>
+</ul>
+<h2 id="4-算账">4. 算账</h2>
+<h3 id="参照数据来自课程">参照数据（来自课程）</h3>
+<ul>
+<li>获客成本："平均就是从五十到一百五十块钱，差一点的一百五，好一点的五十块钱"<span class="cite">〔视频号直播课 00:19:02〕</span>。</li>
+<li>正价品获客成本："后端升了是一万块钱，可能你的正价品的获客成本是到两千块钱"<span class="cite">〔产品课 00:07:41〕</span>。</li>
+<li>客单 1 万时，转化率低于 1% 亏钱，2% 勉强打平，3% 才开始有利润<span class="cite">〔视频号直播课 00:20:58〕</span>。</li>
+<li>你课里的对照：本地推"一条至少是 200~300"，"而且还是比价的客户"<span class="cite">〔D5 01:04:44〕</span>。所以方案二的线索主要靠自然流和搜索流，不靠本地推。</li>
+</ul>
+<h3 id="6980-的账">6980 的账</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>每条线索成本</th>
+<th>诊断后成交 3%</th>
+<th>诊断后成交 5%</th>
+<th>诊断后成交 8%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>50 元</td>
+<td>约 1670 元/单</td>
+<td>1000 元/单</td>
+<td>约 630 元/单</td>
+</tr>
+<tr class="even">
+<td>100 元</td>
+<td>约 3330 元/单</td>
+<td>2000 元/单</td>
+<td>1250 元/单</td>
+</tr>
+<tr class="odd">
+<td>150 元</td>
+<td>5000 元/单</td>
+<td>3000 元/单</td>
+<td>约 1880 元/单</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>目标</strong>：每单获客成本不超过 2000 元，所以诊断后成交率至少 5%。</li>
+<li><strong>先跑自然流</strong>：抖音已有的自然流可以拉低线索成本。投流前先用自然流跑出转化率，再决定花多少钱。</li>
+<li><strong>单期营收</strong>：15 人 × 6980 ≈ 10.5 万元。</li>
+<li><strong>投流预算<span class="badge b-todo">【待填：每月多少】</span></strong>：课程的参照是"至少准备个三五万块钱一个月"<span class="cite">〔投流讲座 00:06:13〕</span>，那是老师团队的量级。你可以先用小预算测出转化率再放大。</li>
+</ul>
+<h2 id="5-90-天节奏">5. 90 天节奏</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>阶段</th>
+<th>时间</th>
+<th>要做的事</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>准备</td>
+<td>第 0–2 周</td>
+<td>定位句、贴片；必问清单；体检表；20 分钟诊断 SOP；产品名和交付清单；9 个异议应对；承接号人设；直播间搭建（满墙包、暖黄光）</td>
+<td>02–05 的<span class="badge b-todo">【待填】</span>全部补完</td>
+</tr>
+<tr class="even">
+<td>种子</td>
+<td>第 0–2 周</td>
+<td>找已经帮过的同行老板和密训学员拿证言和过程素材；一对一先卖 3–5 个内测名额</td>
+<td>第一批案例素材、第一笔钱</td>
+</tr>
+<tr class="odd">
+<td>抖音起量</td>
+<td>第 1–4 周</td>
+<td>老板线短视频按 5:3:2 发；老板场直播每周 2–3 场；每场"一小时直播，两小时复盘，三小时迭代"<span class="cite">〔视频号直播课 00:01:28〕</span></td>
+<td>体检订单、诊断数据</td>
+</tr>
+<tr class="even">
+<td>第一期</td>
+<td>第 3–6 周</td>
+<td>6980 陪跑营开营（共创期）</td>
+<td>过程视频、学员证言</td>
+</tr>
+<tr class="odd">
+<td>视频号</td>
+<td>第 5 周起</td>
+<td>同步发短视频攒粉；5 元课直播；开始加热</td>
+<td>第二条线索来源</td>
+</tr>
+<tr class="even">
+<td>第二期</td>
+<td>第 8–12 周</td>
+<td>用第一期案例拍案例型短视频；开第二期；试价 +1000</td>
+<td>价格是否上调的结论</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>种子期的依据：老师说"先收钱再干活，不是先干活再收钱"<span class="cite">〔商业模式课 01:07:46〕</span>。老师的第一单高价陪跑也是先在朋友圈卖出来的<span class="cite">〔商业模式课 01:08:43〕</span>。</li>
+</ul>
+<h2 id="6-检查指标">6. 检查指标</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>指标</th>
+<th>目标</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>预约到播率</td>
+<td>30% 以上，好的做到 40%</td>
+<td><span class="cite">〔投流讲座 00:39:08〕</span><span class="cite">〔投流实操 00:45:31〕</span></td>
+</tr>
+<tr class="even">
+<td>预约进直播间的人里买体检的比例</td>
+<td>10%–15%</td>
+<td><span class="cite">〔投流实操 00:45:31〕</span></td>
+</tr>
+<tr class="odd">
+<td>看短视频直接点进直播间的比例</td>
+<td>1% 以上</td>
+<td><span class="cite">〔投流讲座 00:40:40〕</span></td>
+</tr>
+<tr class="even">
+<td>体检后诊断到场率</td>
+<td><span class="badge b-todo">【待填：跑两周后定】</span></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>诊断后成交 6980</td>
+<td>5% 以上</td>
+<td>本文第 4 节</td>
+</tr>
+<tr class="even">
+<td>老板精准度</td>
+<td>连麦者和体检表里老板的占比，第 4 周看一次</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>第 4 周如果老板精准度明显偏低（大量小白混进老板线），再讨论要不要为方案二单独开矩阵号。</li>
+</ul>
+<h2 id="7-合规底线所有内容通用">7. 合规底线（所有内容通用）</h2>
+<p><strong>说什么</strong></p>
+<ul>
+<li>公域不讲任何学员的收益、收货量、成交额<span class="cite">〔私董会 00:26:42〕</span>。可以讲服务过多少家店、做了多少年<span class="cite">〔短视频阵地课 00:52:43〕</span>。</li>
+<li>不用"最""永久""终身"，不承诺效果<span class="cite">〔违规课 00:18:26–00:30:06〕</span>。</li>
+<li>"小白创业"四个字违规<span class="cite">〔逼单课 01:23:46〕</span>。方案一的内容也要注意。</li>
+<li>不喊其他平台的名字，各平台价格不一致就不讲价格<span class="cite">〔逼单课 01:07:06〕</span>。</li>
+</ul>
+<p><strong>引流和联系方式</strong></p>
+<ul>
+<li>口播、字幕、私信里都不说"加微信"<span class="cite">〔逼单课 01:28:41〕</span>，也不说"到主页来找我"<span class="cite">〔D5 00:30:29〕</span>。</li>
+<li>简介按平台区分：
+<ul>
+<li>抖音个人号可以留微信号<span class="cite">〔D1 02:11:00〕</span>；</li>
+<li>视频号简介不放<span class="cite">〔违规课 00:19:24〕</span>。</li>
+</ul></li>
+<li>不在视频里说"来找我，我帮你估多少钱"，"就属于违规，属于引流"<span class="cite">〔D5 01:17:17〕</span>。</li>
+<li>私信里不主动发联系方式<span class="cite">〔D5 01:22:41〕</span>。</li>
+</ul>
+<p><strong>标题和投流</strong></p>
+<ul>
+<li>标题、话题里不写"回收"二字<span class="cite">〔D5 00:16:22〕</span>。</li>
+<li>视频号短视频违规会影响直播间流量，且"至少影响三天内的流量"<span class="cite">〔贴片课 00:00:32〕</span>。有违规风险的内容不要投流。</li>
+</ul>
+<h2 id="8-还需要你补的">8. 还需要你补的</h2>
+<ol type="1">
+<li>三个痛点各配一个真实老板案例（02 的"你有病"段）</li>
+<li>"以前跑船"要不要放进个人故事</li>
+<li>你课里"我有药"三步，在直播间分别演示什么（02 已给了建议）</li>
+<li>三天公开课的价格，以及它和体检怎么互导</li>
+<li>陪跑营和五天密训的边界与老学员价</li>
+<li>每月投流预算</li>
+<li>每期人数、每人批改条数的产能上限</li>
+<li>是否采用"同城每期限一位"</li>
+</ol>
+
+</article>
+<div class="pager"><a class="prev" href="index.html"><small>上一篇</small>总览</a><a class="next" href="02-老板场直播脚本.html"><small>下一篇</small>02 直播脚本</a></div>
+</main>
+</div>
+<footer>由仓库中的 Markdown 文档生成，内容与 md 版一致。出处〔D1–D5〕指《五天密训》逐字稿（未提交进仓库），其余简称指陈晶老师课程逐字稿。</footer>
+<script>
+(function(){
+  var root=document.documentElement, KEY='fa2-theme';
+  try{var t=localStorage.getItem(KEY); if(t) root.setAttribute('data-theme',t);}catch(e){}
+  var btn=document.querySelector('.theme-btn');
+  function label(){var d=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');btn.textContent=d==='dark'?'浅色':'深色';}
+  if(btn){label();btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var nxt=cur==='dark'?'light':'dark'; root.setAttribute('data-theme',nxt);
+    try{localStorage.setItem(KEY,nxt);}catch(e){} label();});}
+  var toc=document.querySelector('details.toc');
+  if(toc && matchMedia('(max-width: 900px)').matches) toc.removeAttribute('open');
+  var page=document.body.getAttribute('data-page');
+  document.querySelectorAll('li.task input[type=checkbox]').forEach(function(cb,i){
+    var k='fa2-'+page+'-'+i;
+    try{cb.checked=localStorage.getItem(k)==='1';}catch(e){}
+    cb.addEventListener('change',function(){try{localStorage.setItem(k,cb.checked?'1':'0');}catch(e){}});
+  });
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  if('IntersectionObserver' in window && links.length){
+    var map={}; links.forEach(function(a){map[decodeURIComponent(a.getAttribute('href').slice(1))]=a;});
+    var obs=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){a.classList.remove('active');});var a=map[e.target.id]; if(a) a.classList.add('active');}
+    });},{rootMargin:'-70px 0px -70% 0px'});
+    document.querySelectorAll('article h2[id],article h3[id]').forEach(function(h){obs.observe(h);});
+  }
+})();
+</script>
+</body>
+</html>

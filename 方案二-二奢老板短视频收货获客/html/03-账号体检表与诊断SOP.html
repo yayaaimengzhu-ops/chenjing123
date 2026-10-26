@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 账号体检表与诊断 SOP · 方案二</title>
+<style>
+:root{
+  --bg:#faf8f5; --surface:#ffffff; --surface-2:#f3efe9; --text:#1f1b16; --muted:#6b6259;
+  --line:#e4ddd3; --accent:#8a4b1f; --accent-soft:#f5e9dd; --cite:#8f877e;
+  --todo-bg:#fff1c2; --todo-fg:#7a4b00; --pending-bg:#efe4fb; --pending-fg:#5b2d8a;
+  --confirm-bg:#e1eefc; --confirm-fg:#1d4f8f; --draft-bg:#ece9e4; --draft-fg:#5a524a;
+  --tip-bg:#e2f3e6; --tip-fg:#1f6b35; --ph:#b3541e;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161412; --surface:#1f1c19; --surface-2:#2a2622; --text:#ece6de; --muted:#a79d92;
+    --line:#3a342e; --accent:#e0a56e; --accent-soft:#3a2a1c; --cite:#8a8178;
+    --todo-bg:#4a3a10; --todo-fg:#ffd77a; --pending-bg:#3a2a4f; --pending-fg:#d9bdf7;
+    --confirm-bg:#1f3350; --confirm-fg:#a9cbf5; --draft-bg:#33302c; --draft-fg:#cfc7bd;
+    --tip-bg:#1d3a26; --tip-fg:#9ad8aa; --ph:#f0a06a;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161412; --surface:#1f1c19; --surface-2:#2a2622; --text:#ece6de; --muted:#a79d92;
+  --line:#3a342e; --accent:#e0a56e; --accent-soft:#3a2a1c; --cite:#8a8178;
+  --todo-bg:#4a3a10; --todo-fg:#ffd77a; --pending-bg:#3a2a4f; --pending-fg:#d9bdf7;
+  --confirm-bg:#1f3350; --confirm-fg:#a9cbf5; --draft-bg:#33302c; --draft-fg:#cfc7bd;
+  --tip-bg:#1d3a26; --tip-fg:#9ad8aa; --ph:#f0a06a;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",sans-serif;
+  font-size:16px;line-height:1.75;word-break:break-word;overflow-wrap:anywhere}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.topbar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1200px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.site{font-weight:700;font-size:15px;color:var(--text);white-space:nowrap}
+.pages{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.pages::-webkit-scrollbar{display:none}
+.pages a{white-space:nowrap;font-size:14px;padding:4px 10px;border-radius:999px;color:var(--muted)}
+.pages a:hover{background:var(--surface-2);text-decoration:none;color:var(--text)}
+.pages a.current{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.theme-btn{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;
+  padding:3px 10px;font-size:13px;cursor:pointer;white-space:nowrap}
+.layout{max-width:1200px;margin:0 auto;padding:24px 16px 64px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px}
+.toc{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;font-size:14px}
+.toc summary{cursor:pointer;font-weight:600;color:var(--muted);margin-bottom:6px;list-style:none}
+.toc summary::-webkit-details-marker{display:none}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li{margin:2px 0}
+.toc li.h3{padding-left:14px;font-size:13px}
+.toc a{color:var(--muted);display:block;padding:2px 8px;border-radius:6px;border-left:2px solid transparent}
+.toc a:hover{color:var(--text);background:var(--surface-2);text-decoration:none}
+.toc a.active{color:var(--accent);border-left-color:var(--accent)}
+main{min-width:0}
+article{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px 32px;box-shadow:var(--shadow)}
+h1{font-size:28px;line-height:1.35;margin:0 0 16px}
+h2{font-size:22px;line-height:1.4;margin:40px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
+h2:first-of-type{border-top:none}
+h3{font-size:18px;margin:28px 0 8px}
+h4{font-size:16px;margin:20px 0 6px}
+h2,h3,h4{scroll-margin-top:72px}
+p{margin:10px 0}
+ul,ol{padding-left:1.4em;margin:8px 0}
+li{margin:4px 0}
+li>ul,li>ol{margin:2px 0}
+strong{font-weight:650}
+hr{border:none;border-top:1px solid var(--line);margin:28px 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+pre{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.65}
+pre code{background:none;padding:0;white-space:pre-wrap;word-break:break-word}
+.table-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+blockquote{margin:14px 0;padding:14px 18px 12px;background:var(--accent-soft);border-left:4px solid var(--accent);
+  border-radius:0 10px 10px 0;font-size:16.5px;line-height:1.95;position:relative}
+blockquote::before{content:"示范稿";display:inline-block;font-size:12px;font-weight:600;color:var(--accent);
+  letter-spacing:.05em;margin-bottom:4px}
+blockquote p{margin:6px 0}
+.cite{color:var(--cite);font-size:.78em;white-space:nowrap}
+.badge{display:inline-block;font-size:.8em;font-weight:600;line-height:1.5;padding:0 7px;border-radius:6px;margin:0 2px;white-space:normal}
+.b-todo{background:var(--todo-bg);color:var(--todo-fg)}
+.b-pending{background:var(--pending-bg);color:var(--pending-fg)}
+.b-confirm{background:var(--confirm-bg);color:var(--confirm-fg)}
+.b-draft{background:var(--draft-bg);color:var(--draft-fg)}
+.b-tip{background:var(--tip-bg);color:var(--tip-fg)}
+.ph{color:var(--ph);border-bottom:1px dashed var(--ph)}
+ul.task-list,li.task{list-style:none}
+li.task{margin-left:-1.4em}
+li.task label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+li.task input{margin-top:.45em;width:16px;height:16px;accent-color:var(--accent);flex:none}
+li.task input:checked+span{color:var(--muted);text-decoration:line-through}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--muted);margin:4px 0 20px;align-items:center}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:24px;font-size:14px}
+.pager a{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--surface);color:var(--text)}
+.pager a:hover{border-color:var(--accent);text-decoration:none}
+.pager .next{text-align:right}
+.pager small{display:block;color:var(--muted)}
+footer{max-width:1200px;margin:0 auto;padding:0 16px 32px;color:var(--muted);font-size:12.5px}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:16px;padding-top:16px}
+  .toc{position:static;max-height:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+  .toc summary{margin:0}
+  .toc[open] summary{margin-bottom:6px}
+  article{padding:20px 16px;border-radius:12px}
+  h1{font-size:23px} h2{font-size:19px} h3{font-size:17px}
+  .site{display:none}
+}
+@media print{
+  .topbar,.toc,.pager,.theme-btn,footer{display:none!important}
+  body{background:#fff;color:#000;font-size:11.5pt}
+  .layout{display:block;padding:0;max-width:none}
+  article{border:none;box-shadow:none;padding:0}
+  a{color:#000}
+  .table-wrap{overflow:visible;border:none}
+  table{min-width:0;font-size:10pt}
+  th,td{border:1px solid #bbb}
+  blockquote,table,pre,.table-wrap{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  .cite{color:#777}
+}
+</style>
+</head>
+<body data-page="03-账号体检表与诊断SOP">
+<header class="topbar"><div class="topbar-inner">
+<span class="site">方案二 · 二奢老板短视频获客</span>
+<nav class="pages"><a href="index.html">总览</a><a href="01-企划总纲.html">01 企划总纲</a><a href="02-老板场直播脚本.html">02 直播脚本</a><a href="03-账号体检表与诊断SOP.html" class=current>03 体检表</a><a href="04-私域承接SOP.html">04 私域 SOP</a><a href="05-老板线短视频选题库.html">05 选题库</a></nav>
+<button class="theme-btn" type="button">深色</button>
+</div></header>
+<div class="layout">
+<details class="toc" open><summary>本页目录</summary><ul><li class="h2"><a href="#0-为什么用体检做开口品">0. 为什么用&quot;体检&quot;做开口品</a></li><li class="h2"><a href="#1-二奢门店账号体检表">1. 《二奢门店账号体检表》</a></li><li class="h3"><a href="#a-基本情况">A. 基本情况</a></li><li class="h3"><a href="#b-流量内容系统">B. 流量（内容系统）</a></li><li class="h3"><a href="#c-人设信任系统">C. 人设（信任系统）</a></li><li class="h3"><a href="#d-产品转化系统">D. 产品（转化系统）</a></li><li class="h3"><a href="#e-你的目标">E. 你的目标</a></li><li class="h2"><a href="#2-20-分钟一对一诊断流程">2. 20 分钟一对一诊断流程</a></li><li class="h2"><a href="#3-ai-生成诊断报告">3. AI 生成诊断报告</a></li><li class="h3"><a href="#步骤">步骤</a></li><li class="h3"><a href="#提示词模板">提示词模板</a></li><li class="h2"><a href="#4-体检环节的数据记录">4. 体检环节的数据记录</a></li></ul></details>
+<main>
+<article>
+<h1 id="03-账号体检表与诊断-sop">03 账号体检表与诊断 SOP</h1><div class="legend"><span>标记：</span><span class="badge b-todo">【待填】</span><span class="badge b-pending">【待定】</span><span class="badge b-confirm">【待你确认】</span><span class="badge b-draft">【初稿】</span><span class="badge b-tip">【建议】</span><span class="ph">【占位】</span><span class="cite">〔出处 时间戳〕</span></div>
+<p>出处简称见 <a href="index.html">README</a>。<span class="cite">〔D1 时间戳〕</span>到<span class="cite">〔D5 时间戳〕</span>指你的《五天密训》逐字稿，其余简称是陈晶老师课程。</p>
+<h2 id="0-为什么用体检做开口品">0. 为什么用"体检"做开口品</h2>
+<ul>
+<li><strong>模型</strong>：
+<ul>
+<li>体检 → 报告解读 → 方案<span class="cite">〔产品课 00:33:48–00:38:36〕</span>。老师举的例子有美容院面诊仪、洗牙后被告知要换牙冠、健身房体重秤。</li>
+<li>原话："任何的主动成交都很难成交，但是被动成交都很成"<span class="cite">〔产品课 00:34:18〕</span>。</li>
+</ul></li>
+<li><strong>两个必要条件</strong><span class="cite">〔产品课 00:37:39〕</span>：
+<ol type="1">
+<li>跟客户聊的人必须是专家身份。"你给他的身份应该是专家，是医生"，不能是销售、班主任或助理。<strong>一对一诊断由你本人做。</strong></li>
+<li>要有"让他自己主动发现问题"的机制，也就是这张体检表。</li>
+</ol></li>
+<li><strong>名字很关键</strong>：从"学员信息收集表"改成"IP 体检诊断表"后，填表率从 30% 提到 70%<span class="cite">〔私域课 00:29:59〕</span>。</li>
+<li><strong>只开药方，不治病</strong>：诊断时"只开药方，不要去给他治病……你收的五块钱是什么？是挂号费"<span class="cite">〔私域课 01:05:05〕</span>。</li>
+<li><strong>诊断用什么尺子</strong>：用你自己的成交三角模型<span class="cite">〔D1 00:25:04〕</span>。体检表的三段就是三个角：流量、人设、产品。诊断的结论统一成一句话："你缺的是哪个角。"</li>
+</ul>
+<h2 id="1-二奢门店账号体检表">1. 《二奢门店账号体检表》</h2>
+<p>发给老板时说："先把这张体检表填一下，我看完再跟你约二十分钟。"</p>
+<h3 id="a-基本情况">A. 基本情况</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>项</th>
+<th>填写</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>城市</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>业态</td>
+<td>□ 实体门店 □ 回收寄卖为主 □ 线上 / 朋友圈卖货 □ 其他</td>
+</tr>
+<tr class="odd">
+<td>开店 / 入行多久</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>主营品类</td>
+<td>□ 包 □ 表 □ 首饰 □ 服饰 □ 其他</td>
+</tr>
+<tr class="odd">
+<td>团队</td>
+<td>几个人？谁负责拍、谁负责剪？</td>
+</tr>
+<tr class="even">
+<td>现在最头疼的是哪一个？</td>
+<td>□ 坐在店里等，没人上门 □ 投流来的都是比价的 □ 拍火过，但还是没客户 □ 其他</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="b-流量内容系统">B. 流量（内容系统）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>项</th>
+<th>填写</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>账号主页链接（抖音 / 视频号）</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>粉丝数、做了多久</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>近 30 天发了几条？平均播放多少？</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>近 30 天的内容大概是什么比例？</td>
+<td>干货知识 __% vlog 记录 __% 故事 / 观点 / 情绪 __% 段子剧情 __% 纯上新报价 __%</td>
+</tr>
+<tr class="odd">
+<td>打开后台粉丝画像：中老年粉多吗？</td>
+<td>□ 多 □ 一般 □ 不多 □ 没看过</td>
+</tr>
+<tr class="even">
+<td>选题怎么来的？</td>
+<td>□ 想到什么拍什么 □ 抄同行 □ 有自己的素材库 / 选题库</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="c-人设信任系统">C. 人设（信任系统）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>项</th>
+<th>填写</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>主页五件套，已经做好的打勾<span class="cite">〔D1 02:07:05〕</span></td>
+<td>□ 真人头像 □ 昵称不带公司味 □ 背景图 □ 简介写了你的服务 □ 置顶视频</td>
+</tr>
+<tr class="even">
+<td>置顶三条，已经有的打勾<span class="cite">〔D1 02:13:53–02:22:12〕</span></td>
+<td>□ 你是谁（个人故事） □ 你怎么对客户好（信任视频） □ 看完觉得"我可以找你"（产品视频）</td>
+</tr>
+<tr class="odd">
+<td>你自己出镜吗？</td>
+<td>□ 出镜 □ 不出镜 □ 偶尔</td>
+</tr>
+<tr class="even">
+<td>拍过你自己的故事或观点吗？</td>
+<td>□ 拍过 □ 没拍过</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="d-产品转化系统">D. 产品（转化系统）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>项</th>
+<th>填写</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>拍过你的服务过程吗？</td>
+<td>□ 上门 / 到店交易 vlog □ 盲盒开箱 □ 挑战 □ 都没拍过</td>
+</tr>
+<tr class="even">
+<td>客户怎么联系到你？</td>
+<td>□ 简介留了微信 □ 私信 □ 抖音群 □ 到店 □ 不知道</td>
+</tr>
+<tr class="odd">
+<td>微信里大概有多少客户？分过级吗？</td>
+<td>人数 ____ □ 分过 □ 没分过</td>
+</tr>
+<tr class="even">
+<td>朋友圈怎么发？</td>
+<td>□ 基本都是产品 □ 产品、科普、日常都有 □ 很少发</td>
+</tr>
+<tr class="odd">
+<td>投过流吗？大概花了多少？来的是什么人？</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="e-你的目标">E. 你的目标</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>项</th>
+<th>填写</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>接下来三个月，你最想解决的一件事是什么？</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>如果这件事解决了，对你的店意味着什么？</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>控制长度</strong>：表格不要超过一屏半，填写太长会掉人。</li>
+<li><strong>以选择题为主</strong>："只有百分之二十的客户会发给你"自己的问题，因为大部分客户找不到自己的根本问题<span class="cite">〔私域课 00:53:24〕</span>，所以让他勾就行。</li>
+</ul>
+<h2 id="2-20-分钟一对一诊断流程">2. 20 分钟一对一诊断流程</h2>
+<p><strong>事前（助手做）</strong>：拿到体检表后，先把老板的主页、最近 9 条作品、粉丝画像截图整理好，和体检表一起发给你。助手按 B、C、D 三段先给每个角打个初分（好 / 一般 / 缺）。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>时间</th>
+<th>环节</th>
+<th>做什么</th>
+<th>示范说法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–2 分钟</td>
+<td>破冰</td>
+<td>找共同点：同城、同品类、同样的开店经历<span class="cite">〔私域课 00:39:06〕</span></td>
+<td>"你也是做包为主的？我刚开店那两年也是……"</td>
+</tr>
+<tr class="even">
+<td>2–9 分钟</td>
+<td>望闻问切</td>
+<td>对着体检表和主页确认情况，用"连环三问"：现状和感受 → 原因 → 目标<span class="cite">〔私域课 00:54:20〕</span></td>
+<td>"你现在一个月大概有多少客户是从短视频来的？你觉得卡在哪？为什么？你希望三个月后变成什么样？"</td>
+</tr>
+<tr class="odd">
+<td>9–14 分钟</td>
+<td>找病因：三角判断</td>
+<td>打开他的主页，对照三个角，让他自己说出缺哪个</td>
+<td>"你看，你最近 9 条里，几条是干货、几条是你自己出镜讲故事、几条拍了你的服务？……你觉得你缺的是哪个角？"</td>
+</tr>
+<tr class="even">
+<td>14–18 分钟</td>
+<td>开药方</td>
+<td>只给方向和好处，不讲实操细节<span class="cite">〔私域课 01:05:05〕</span>；讲不解决的坏处、解决后的好处</td>
+<td>"你先补的是人设这个角。补上了，客户就不只跟你比价格。具体怎么补，要一条一条对着你的号来……"</td>
+</tr>
+<tr class="odd">
+<td>18–20 分钟</td>
+<td>引出陪跑营</td>
+<td>讲同类案例（门店讲门店的，回收讲回收的）<span class="cite">〔私域课 00:57:42〕</span>，问他想不想要人带着补</td>
+<td>"我们有一个陪跑营，就是带你把缺的那个角一条一条补上。要不要我把详细介绍发你看看？"</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>三角判断的参考标准</strong>（来自你的密训）：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>角</th>
+<th>缺这个角的信号</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>流量</td>
+<td>播放长期在几百；没有干货知识类；选题想到什么拍什么</td>
+<td>选题决定 80% 的流量<span class="cite">〔D1 00:13:52〕</span>；开头必须先做干货知识类打标签<span class="cite">〔D2 00:17:21〕</span></td>
+</tr>
+<tr class="even">
+<td>人设</td>
+<td>五件套缺项、没有置顶三条；不出镜；来的客户一上来就比价</td>
+<td>没有人设，"就是投了投来的人"<span class="cite">〔D1 00:25:04〕</span></td>
+</tr>
+<tr class="odd">
+<td>产品</td>
+<td>有播放没咨询；粉丝里中老年多；没拍过服务；客户联系不上你</td>
+<td>没有产品"就是网红"<span class="cite">〔D1 00:26:01〕</span>；搞笑剧情来的"都是一些老头老太"<span class="cite">〔D1 00:53:20〕</span></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>诊断报告</strong>：诊断后当天发一份（见第 3 节），这是"秀肌肉"的机会。</li>
+<li><strong>不合适的老板</strong>（还没开店、只想白嫖、明显不会执行的）："我们顾问老师时间安排满了，这边把钱退给你"<span class="cite">〔产品课 00:44:00〕</span>。老师说"这世界上没有退费解决不了的问题"。</li>
+</ul>
+<h2 id="3-ai-生成诊断报告">3. AI 生成诊断报告</h2>
+<p>老师的做法有两种：</p>
+<ul>
+<li>咨询录音丢给 AI，生成"定制化报告"再发给客户<span class="cite">〔产品课 00:44:59〕</span>；</li>
+<li>B 端可以做"商业诊断报告"<span class="cite">〔产品课 00:43:04〕</span>。</li>
+</ul>
+<h3 id="步骤">步骤</h3>
+<ol type="1">
+<li>诊断时开录音（提前告知对方）。</li>
+<li>用语音转文字工具拿到逐字稿。</li>
+<li>把逐字稿、体检表、主页截图描述一起交给 AI，用下面的提示词。也可以做进你的智能体里。</li>
+<li>你本人过一遍再发。<strong>报告里不出现任何效果承诺和收益数字。</strong></li>
+</ol>
+<h3 id="提示词模板">提示词模板</h3>
+<pre><code>你是一位二奢行业的短视频操盘手，用&quot;成交三角模型&quot;做诊断：流量、人设、产品三个角缺一不可。
+- 只有产品和人设、没有流量：是&quot;老好人&quot;，没人知道你，坐店等客。
+- 只有产品和流量、没有人设：来的是&quot;投来的人&quot;，客户只能跟你比价格。
+- 只有流量和人设、没有产品（服务）：是&quot;网红&quot;，视频火了也没人知道找你能干什么。
+二奢老板的&quot;产品&quot;指他的服务：懂货、出价公道、打款快、能上门。
+
+下面是我和一位二奢老板的 20 分钟诊断录音逐字稿、他填写的《二奢门店账号体检表》，以及他主页最近 9 条作品的标题和播放数据。
+
+请帮我写一份《账号体检报告》，要求：
+1. 开头一段话，概括他现在的情况（城市、业态、品类、账号阶段），语气专业、平等、真诚，像朋友之间说话，不要居高临下。
+2. &quot;三角体检&quot;：流量、人设、产品三个角各给一个判断（好 / 一般 / 缺），每个判断都引用他主页里的具体作品或他在通话里的原话做证据。
+3. &quot;病因&quot;：用一段话说明他最缺的是哪个角，以及这跟他现在最头疼的问题（坐店等客 / 投流全是比价 / 拍火了没客户）是什么关系。
+4. &quot;先补哪个&quot;：给出先补哪个角，对应哪个系统（内容系统 / 信任系统 / 转化系统），只讲方向和补完的好处，不写具体操作步骤。
+5. 结尾一句话：如果需要有人带着一条一条补上，可以了解我们的陪跑营。
+6. 全文不出现任何收益、收货量、成交额的承诺或数字，不出现&quot;最&quot;&quot;保证&quot;&quot;一定能&quot;等绝对化用语，不出现&quot;回收&quot;二字。
+7. 全文控制在 800 字以内，用短句。
+
+【逐字稿】
+……
+【体检表】
+……
+【作品数据】
+……</code></pre>
+<h2 id="4-体检环节的数据记录">4. 体检环节的数据记录</h2>
+<p>每个诊断完的老板在私域里记一行，给 04 的标签和跟进用：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr class="header">
+<th>日期</th>
+<th>昵称</th>
+<th>城市</th>
+<th>业态</th>
+<th>粉丝</th>
+<th>缺的角（流量/人设/产品）</th>
+<th>支付能力（高/中/低）</th>
+<th>紧迫度（高/中/低）</th>
+<th>决策人是否本人</th>
+<th>诊断后意向</th>
+<th>下次跟进日期</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>筛选的三个维度来自私域课：支付能力、需求强弱、决策链条长短<span class="cite">〔私域课 00:26:42〕</span>。</li>
+</ul>
+
+</article>
+<div class="pager"><a class="prev" href="02-老板场直播脚本.html"><small>上一篇</small>02 直播脚本</a><a class="next" href="04-私域承接SOP.html"><small>下一篇</small>04 私域 SOP</a></div>
+</main>
+</div>
+<footer>由仓库中的 Markdown 文档生成，内容与 md 版一致。出处〔D1–D5〕指《五天密训》逐字稿（未提交进仓库），其余简称指陈晶老师课程逐字稿。</footer>
+<script>
+(function(){
+  var root=document.documentElement, KEY='fa2-theme';
+  try{var t=localStorage.getItem(KEY); if(t) root.setAttribute('data-theme',t);}catch(e){}
+  var btn=document.querySelector('.theme-btn');
+  function label(){var d=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');btn.textContent=d==='dark'?'浅色':'深色';}
+  if(btn){label();btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var nxt=cur==='dark'?'light':'dark'; root.setAttribute('data-theme',nxt);
+    try{localStorage.setItem(KEY,nxt);}catch(e){} label();});}
+  var toc=document.querySelector('details.toc');
+  if(toc && matchMedia('(max-width: 900px)').matches) toc.removeAttribute('open');
+  var page=document.body.getAttribute('data-page');
+  document.querySelectorAll('li.task input[type=checkbox]').forEach(function(cb,i){
+    var k='fa2-'+page+'-'+i;
+    try{cb.checked=localStorage.getItem(k)==='1';}catch(e){}
+    cb.addEventListener('change',function(){try{localStorage.setItem(k,cb.checked?'1':'0');}catch(e){}});
+  });
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  if('IntersectionObserver' in window && links.length){
+    var map={}; links.forEach(function(a){map[decodeURIComponent(a.getAttribute('href').slice(1))]=a;});
+    var obs=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){a.classList.remove('active');});var a=map[e.target.id]; if(a) a.classList.add('active');}
+    });},{rootMargin:'-70px 0px -70% 0px'});
+    document.querySelectorAll('article h2[id],article h3[id]').forEach(function(h){obs.observe(h);});
+  }
+})();
+</script>
+</body>
+</html>
